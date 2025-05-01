@@ -127,6 +127,7 @@ public class Jugador extends Empleado {
                 "| Apellido: " + apellidos + 
                 "| Demarcacion: " + demarcacion +
                 "| Edad: " + edad + 
-                "| Valor de mercado: " + valor + "M€";
+                "| Valor de mercado: " + valor + "M€" + 
+                "| Estado: " + (estado ? "Disponible" : "No disponible");
     }
 }
