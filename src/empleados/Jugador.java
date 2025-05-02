@@ -124,10 +124,10 @@ public class Jugador extends Empleado {
     @Override
     public String toString() {
         return "Jugador -> " + super.toString() +
-                "| Apellido: " + apellidos + 
-                "| Demarcacion: " + demarcacion +
-                "| Edad: " + edad + 
-                "| Valor de mercado: " + valor + "M€" + 
-                "| Estado: " + (estado ? "Disponible" : "No disponible");
+                " | Apellido: " + apellidos + 
+                " | Demarcacion: " + demarcacion +
+                " | Edad: " + edad + 
+                " | Valor de mercado: " + valor + "M€" + 
+                " | Estado: " + (estado ? "Disponible" : "No disponible");
     }
 }

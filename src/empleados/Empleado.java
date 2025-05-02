@@ -132,9 +132,9 @@ public class Empleado {
 
     @Override
     public String toString(){
-        return "DNI: " + dni + "| nombre: " + nombre + "| Telefono: " +
-                telf + (eliminado ? "| Eliminado el " + 
-                fechaEliminacion + "|" : "");
+        return "DNI: " + dni + " | nombre: " + nombre + " | Telefono: " +
+                telf + (eliminado ? " | Eliminado el " + 
+                fechaEliminacion + " |" : "");
     }
     
     

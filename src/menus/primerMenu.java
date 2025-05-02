@@ -15,9 +15,7 @@ import javax.swing.JPanel;
  * @author Isabel Shuang Piñana Alonso
  **/
 
-public class primerMenu extends JFrame implements ActionListener {
-    public static int index;
-    
+public class primerMenu extends JFrame implements ActionListener {    
     private final JPanel mainPanel, buttonsPanel, marginPanel1, marginPanel2;
     private final JLabel title, marginLabel1, marginLabel2, marginLabel3;
     private final JButton botonEmpleados, botonPartidos, botonFacturas, botonImprimir, botonSalir;
@@ -76,8 +74,7 @@ public class primerMenu extends JFrame implements ActionListener {
      * @return JPanel
      **/
     private JPanel getMainPanel() {
-        title
-        .setFont(new Font("Arial", Font.PLAIN, 50));
+        title.setFont(new Font("Arial", Font.PLAIN, 50));
         mainPanel.add(title, BorderLayout.PAGE_START);
         
         mainPanel.add(getButtonsPanel(), BorderLayout.CENTER);
@@ -142,14 +139,29 @@ public class primerMenu extends JFrame implements ActionListener {
      **/
     @Override
     public void actionPerformed(ActionEvent ae) {
+        int index = 0;
+        
         if(ae.getSource() == botonEmpleados){
             index = 0;
-            
+        }
+        else if(ae.getSource() == botonPartidos){
+            index = 1;
+        }
+        else if(ae.getSource() == botonFacturas) {
+            index = 2;
+        }
+        else if(ae.getSource() == botonImprimir) {
+            index = 3;
         }
         else if(ae.getSource() == botonSalir){
             System.exit(0);
         }
         
+        MenuPrincipal menuPrincipal = new MenuPrincipal();
+        // System.out.println(index);
+
+        menuPrincipal.setSelectedIndex(index);
+
         setVisible(false);
         dispose();
     }
@@ -159,6 +171,8 @@ public class primerMenu extends JFrame implements ActionListener {
     * y el constructor de este primer menu
      **/
     public static void main(String[] args) {
+        MenuEmpleados.inicializarListas();
+        MenuPartidos.inicializarLista();
         new primerMenu();
     }
 }

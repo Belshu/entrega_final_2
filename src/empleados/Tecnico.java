@@ -65,6 +65,6 @@ public class Tecnico extends Empleado {
     @Override
     public String toString(){
         return "Tecnico -> " + super.toString() + "| Puesto: " + puesto +
-                "| Especialidad: " + especialidad;
+                " | Especialidad: " + especialidad;
     }
 }

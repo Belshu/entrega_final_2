@@ -140,9 +140,9 @@ public class Partido {
         }
         
         return "Partido -> Rival: " + rival +
-           ", Fecha: " + fecha +
-           ", Resultado: " + (esLocal ? "Local" : "Visitante") +
+           " | Fecha: " + fecha +
+           " | Resultado: " + (esLocal ? "Local" : "Visitante") +
            " " + goles + "-" + golRival +
-           ", Jugadores Participantes: [" + participantes + "]";
+           " | Jugadores Participantes: [" + participantes + "]";
     }
 }

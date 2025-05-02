@@ -8,9 +8,9 @@ import javax.swing.JFrame;
  *
  * @author mint
  */
-public class menuFacturas extends JFrame implements ActionListener{
+public class MenuFacturas extends JFrame implements ActionListener{
 
-    public menuFacturas(){
+    public MenuFacturas(){
         
     }
     

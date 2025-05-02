@@ -45,7 +45,7 @@ public class Directivo extends Empleado{
      **/
     @Override
     public String toString(){
-        return "Directivo -> " + super.toString() + "| Cargo: " 
+        return "Directivo -> " + super.toString() + " | Cargo: " 
                 + cargo;
     }
 }
