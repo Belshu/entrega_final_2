@@ -1,4 +1,4 @@
-package menus;
+package Menus;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import partido.Partido;
+import Partido.Partido;
 
 /**
  * Menu inicial del programa que hereda de JFrame e implementa la interfaz 
@@ -23,7 +23,7 @@ public class MenuPartidos extends JFrame implements ActionListener {
     private static ArrayList <Partido> listaPartidos;
     
     private final JPanel mainPanel, buttonsPanel;
-    private final JButton botonAnadir, botonModificar, botonEliminar;
+    private final JButton botonAnadir, botonModificar, botonImprimir;
     private JList <Partido> listaPartidos2;
     
     private DefaultListModel <Partido> partidosListModel;
@@ -50,7 +50,7 @@ public class MenuPartidos extends JFrame implements ActionListener {
         
         botonAnadir = new JButton("Anadir");
         botonModificar = new JButton("Modificar");
-        botonEliminar = new JButton("Eliminar");
+        botonImprimir = new JButton("Imprimir");
     }
     
     /**
@@ -74,11 +74,11 @@ public class MenuPartidos extends JFrame implements ActionListener {
     private JPanel getButtonsPanel() {
         botonAnadir.addActionListener(this);
         botonModificar.addActionListener(this);
-        botonEliminar.addActionListener(this);
+        botonImprimir.addActionListener(this);
 
         buttonsPanel.add(botonAnadir);
         buttonsPanel.add(botonModificar);
-        buttonsPanel.add(botonEliminar);
+        buttonsPanel.add(botonImprimir);
 
         return buttonsPanel;
     }
@@ -114,7 +114,7 @@ public class MenuPartidos extends JFrame implements ActionListener {
         else if(ae.getSource() == botonModificar) {
             
         }
-        else if(ae.getSource() == botonEliminar) {
+        else if(ae.getSource() == botonImprimir) {
             
         }
     }

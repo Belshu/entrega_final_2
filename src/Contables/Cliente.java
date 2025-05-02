@@ -1,4 +1,4 @@
-package contables;
+package Contables;
 
 /**
  * Utilizada para el registro y gestión de los clientes

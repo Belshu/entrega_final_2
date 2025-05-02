@@ -1,8 +1,11 @@
 
-package menus;
+package Menus;
 
-import empleados.*;
-import contables.Factura;
+import Empleados.Directivo;
+import Empleados.Tecnico;
+import Empleados.Empleado;
+import Empleados.Jugador;
+import Contables.Factura;
 import java.util.ArrayList;
 
 public interface Listas {

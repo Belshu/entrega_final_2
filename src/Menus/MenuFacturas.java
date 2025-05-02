@@ -1,8 +1,9 @@
-package menus;
+package Menus;
 
-import contables.Cliente;
-import contables.Factura;
-import empleados.Empleado;
+import Contables.Nomina;
+import Contables.Cliente;
+import Contables.Factura;
+import Empleados.Empleado;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -10,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -23,11 +25,13 @@ import javax.swing.JTabbedPane;
 public class MenuFacturas extends JFrame implements ActionListener{
     private static ArrayList <Factura> listaFacturas;
     
-    private final JPanel mainPanel, subPanel1, subPanel2, buttonsPanel;
+    private final JPanel mainPanel, facturasPanel, nominasPanel, buttonsPanel;
     private final JTabbedPane ventanas;
     
-    private JList listaFacturas2, listaEmpleados;
-    private DefaultListModel facturasListModel, empleadosListModel;
+    private JList listaFacturas2, listaNominas2;
+    private DefaultListModel facturasListModel, nominasListModel;
+    
+    private final JButton botonAnadir, botonImprimir;
     
     public static void inicializarListas() {
         listaFacturas = new ArrayList<>();
@@ -37,15 +41,24 @@ public class MenuFacturas extends JFrame implements ActionListener{
         listaFacturas.add(new Factura("111113", 300.00, LocalDate.now(), new Cliente("222223", "cliente 3")));
         listaFacturas.add(new Factura("111114", 400.00, LocalDate.now(), new Cliente("222224", "cliente 4")));
         listaFacturas.add(new Factura("111115", 500.00, LocalDate.now(), new Cliente("222225", "cliente 5")));
+        
+        for(int i = 0; i < MenuEmpleados.getListaEmpleados().size(); i++){
+            Empleado empleado = MenuEmpleados.getListaEmpleados().get(i);
+            Nomina n = new Nomina(empleado.getDni(), 1, (2000 + i));
+            empleado.agregarNomina(n);
+        }
     }
 
     public MenuFacturas(){
         mainPanel = new JPanel(new BorderLayout());
         
-        subPanel1 = new JPanel();
-        subPanel2 = new JPanel();
+        facturasPanel = new JPanel(new BorderLayout());
+        nominasPanel = new JPanel(new BorderLayout());
         
         buttonsPanel = new JPanel(new FlowLayout());
+        
+        botonAnadir = new JButton("Anadir");
+        botonImprimir = new JButton("Imprimir");
         
         ventanas = new JTabbedPane(JTabbedPane.NORTH);
     }
@@ -57,16 +70,16 @@ public class MenuFacturas extends JFrame implements ActionListener{
     }
     
     private JTabbedPane getVentanas() {
-        ventanas.add("Facturas", getSubPanel1());
-        ventanas.add("Nóminas", getSubPanel2());
+        ventanas.add("Facturas", getFacturasPanel());
+        ventanas.add("Nóminas", getNominasPanel());
         
         return ventanas;
     }
     
-    private JPanel getSubPanel1() {
-        subPanel1.add(new JScrollPane(getListaFacturas2()), BorderLayout.CENTER);
+    private JPanel getFacturasPanel() {
+        facturasPanel.add(new JScrollPane(getListaFacturas2()), BorderLayout.CENTER);
         
-        return subPanel1;
+        return facturasPanel;
     }
     
     private JList getListaFacturas2() {
@@ -83,31 +96,43 @@ public class MenuFacturas extends JFrame implements ActionListener{
         return facturasListModel;
     }
     
-    private JPanel getSubPanel2() {
-        // subPanel.add(new JScrollPane(getListaEmpleados(), BorderLayout.CENTER);
+    private JPanel getNominasPanel() {
+        nominasPanel.add(getButtonsPanel(), BorderLayout.PAGE_START);
+        nominasPanel.add(new JScrollPane(getListaNominas2()), BorderLayout.CENTER);
         
-        return subPanel2;
+        return nominasPanel;
     }
     
-    private JList getListaEmpleados() {
-        listaEmpleados = new JList<>(getEmpleadosListModel());
+    private JPanel getButtonsPanel() {
+        botonAnadir.addActionListener(this);
+        buttonsPanel.add(botonAnadir);
+        buttonsPanel.add(botonImprimir);
         
-        return listaEmpleados;
+        return buttonsPanel;
     }
     
-    private DefaultListModel getEmpleadosListModel() {
-        empleadosListModel = new DefaultListModel<>();
+    private JList getListaNominas2() {
+        listaNominas2 = new JList<>(getNominasListModel());
+        
+        return listaNominas2;
+    }
+    
+    private DefaultListModel getNominasListModel() {
+        nominasListModel = new DefaultListModel<>();
         
         for(Empleado e : MenuEmpleados.getListaEmpleados()) {
-            
+           if(!e.isEliminado()) {
+               for(Nomina n : e.getNominas()) {
+                   nominasListModel.addElement(n);
+               }
+           }
         }
         
-        return empleadosListModel;
+        return nominasListModel;
     }
     
     @Override
     public void actionPerformed(ActionEvent ae) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        
     }
-    
 }

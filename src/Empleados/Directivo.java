@@ -1,5 +1,5 @@
 
-package empleados;
+package Empleados;
 
 /**
  * Utilizada para la creación y gestión de los empleados con la clase

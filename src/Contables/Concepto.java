@@ -1,4 +1,4 @@
-package contables;
+package Contables;
 
 /**
  * Utilizado para el registro y gestión de los conecptos de las 

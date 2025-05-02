@@ -1,4 +1,4 @@
-package menus;
+package Menus;
 
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
@@ -31,6 +31,7 @@ public class MenuPrincipal extends JFrame {
      * diversas propiedades
      **/
     private void initialize(){
+        setTitle("Gestor de equipo de futbol");
         setContentPane(getMainPanel());
         setSize(1200, 600);
         setLocationRelativeTo(null);
@@ -56,9 +57,11 @@ public class MenuPrincipal extends JFrame {
     private JTabbedPane getVentanas(){
         MenuEmpleados menuEmpleados = new MenuEmpleados();
         MenuPartidos menuPartidos = new MenuPartidos();
+        MenuFacturas menuFacturas = new MenuFacturas();
         
         ventanas.add("Empleados", menuEmpleados.getMainPanel());
         ventanas.add("Partidos", menuPartidos.getMainPanel());
+        ventanas.add("Facturas", menuFacturas.getMainPanel());
                 
         return ventanas;
     }

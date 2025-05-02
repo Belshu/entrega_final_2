@@ -1,6 +1,9 @@
-package menus;
+package Menus;
 
-import empleados.*;
+import Empleados.Directivo;
+import Empleados.Tecnico;
+import Empleados.Empleado;
+import Empleados.Jugador;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -25,7 +28,7 @@ public class MenuEmpleados extends JFrame implements ActionListener {
     private static ArrayList <Directivo> listaDirectivos;
     
     private final JPanel mainPanel, buttonsPanel;
-    private final JButton botonAnadir, botonAnadirNomina, botonModificar, botonEliminar;
+    private final JButton botonAnadir, botonAnadirNomina, botonModificar, botonImprimir, botonImprimirEliminados, botonEliminar;
     private JList <Empleado> listaEmpleados2;
     
     private DefaultListModel <Empleado> empleadoListModel;
@@ -66,6 +69,8 @@ public class MenuEmpleados extends JFrame implements ActionListener {
         botonAnadir = new JButton("Anadir");
         botonAnadirNomina = new JButton("Anadir nomina");
         botonModificar = new JButton("Modificar");
+        botonImprimir = new JButton("Imprimir");
+        botonImprimirEliminados = new JButton("Imprimir empleados eliminados");
         botonEliminar = new JButton("Eliminar");
     }
    
@@ -91,11 +96,15 @@ public class MenuEmpleados extends JFrame implements ActionListener {
         botonAnadir.addActionListener(this);
         botonAnadirNomina.addActionListener(this);
         botonModificar.addActionListener(this);
+        botonImprimir.addActionListener(this);
+        botonImprimirEliminados.addActionListener(this);
         botonEliminar.addActionListener(this);
         
         buttonsPanel.add(botonAnadir);
         buttonsPanel.add(botonAnadirNomina);
         buttonsPanel.add(botonModificar);
+        buttonsPanel.add(botonImprimir);
+        buttonsPanel.add(botonImprimirEliminados);
         buttonsPanel.add(botonEliminar);
         
         return buttonsPanel;
@@ -132,6 +141,12 @@ public class MenuEmpleados extends JFrame implements ActionListener {
             
         }
         else if(ae.getSource() == botonModificar) {
+            
+        }
+        else if(ae.getSource() == botonImprimir) {
+            
+        }
+        else if(ae.getSource() == botonImprimirEliminados) {
             
         }
         else if(ae.getSource() == botonEliminar) {

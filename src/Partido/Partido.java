@@ -1,6 +1,6 @@
-package partido;
+package Partido;
 
-import empleados.Jugador;
+import Empleados.Jugador;
 import java.util.ArrayList;
 import java.util.Date;
 

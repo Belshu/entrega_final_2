@@ -1,4 +1,4 @@
-package menus;
+package Menus;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 public class primerMenu extends JFrame implements ActionListener {    
     private final JPanel mainPanel, buttonsPanel, marginPanel1, marginPanel2;
     private final JLabel title, marginLabel1, marginLabel2, marginLabel3;
-    private final JButton botonEmpleados, botonPartidos, botonFacturas, botonImprimir, botonSalir;
+    private final JButton botonEmpleados, botonPartidos, botonFacturas, botonSalir;
     
     /**
      * CONSTRUCTOR: Inicialización de los atributos finales y puesta del título de la pestaña
@@ -30,7 +30,7 @@ public class primerMenu extends JFrame implements ActionListener {
         
         // Paneles
         mainPanel = new JPanel(new BorderLayout());
-        buttonsPanel = new JPanel(new GridLayout(0, 1, 20, 15));
+        buttonsPanel = new JPanel(new GridLayout(0, 1, 300, 15));
         marginPanel1 = new JPanel(new BorderLayout());
         marginPanel2 = new JPanel(new BorderLayout());
         
@@ -46,7 +46,6 @@ public class primerMenu extends JFrame implements ActionListener {
         botonEmpleados = new JButton("Gestionar empleados");
         botonPartidos = new JButton("Gestionar partidos");
         botonFacturas = new JButton("Gestionar facturas");
-        botonImprimir = new JButton("Imprimir datos");
         botonSalir = new JButton("Cerrar programa");
         
         initialize();
@@ -94,19 +93,16 @@ public class primerMenu extends JFrame implements ActionListener {
         botonEmpleados.setFont(new Font("Arial", Font.PLAIN, 23));
         botonPartidos.setFont(new Font("Arial", Font.PLAIN, 23));
         botonFacturas.setFont(new Font("Arial", Font.PLAIN, 23));
-        botonImprimir.setFont(new Font("Arial", Font.PLAIN, 23));
         botonSalir.setFont(new Font("Arial", Font.PLAIN, 23));
         
         botonEmpleados.addActionListener(this);
         botonPartidos.addActionListener(this);
         botonFacturas.addActionListener(this);
-        botonImprimir.addActionListener(this);
         botonSalir.addActionListener(this);
         
         buttonsPanel.add(botonEmpleados);
         buttonsPanel.add(botonPartidos);
         buttonsPanel.add(botonFacturas);
-        buttonsPanel.add(botonImprimir);
         buttonsPanel.add(botonSalir);
         
         return buttonsPanel;
@@ -150,9 +146,6 @@ public class primerMenu extends JFrame implements ActionListener {
         else if(ae.getSource() == botonFacturas) {
             index = 2;
         }
-        else if(ae.getSource() == botonImprimir) {
-            index = 3;
-        }
         else if(ae.getSource() == botonSalir){
             System.exit(0);
         }
@@ -173,6 +166,8 @@ public class primerMenu extends JFrame implements ActionListener {
     public static void main(String[] args) {
         MenuEmpleados.inicializarListas();
         MenuPartidos.inicializarLista();
+        MenuFacturas.inicializarListas();
+        
         new primerMenu();
     }
 }

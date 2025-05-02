@@ -1,4 +1,4 @@
-package contables;
+package Contables;
 
 import java.util.ArrayList;
 
@@ -95,8 +95,9 @@ public class Nomina {
     String conceptosStr = conceptos.stream()
                                    .map(concepto -> "  - " + concepto)
                                    .reduce("", (a, b) -> a + b + "\n");
-    return String.format("Nómina del mes: %s del año %d\n Conceptos:\n %s Total: %.2f €",
-                         mes, anio, conceptosStr, calcularTotal());
+    return String.format("DNI Empleado: " + dniEmpleado + " | Nómina del mes: %s del año %d\n "
+            + "Conceptos:\n "
+            + "%s Total: %.2f €", mes, anio, conceptosStr, calcularTotal());
 
     }
 }

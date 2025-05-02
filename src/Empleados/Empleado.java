@@ -1,4 +1,4 @@
-package empleados;
+package Empleados;
 
 import java.util.Date;
 import Contables.Nomina;
@@ -57,6 +57,10 @@ public class Empleado {
      **/
     public void eliminarNomina(Nomina n){
         this.nominas.remove(n);
+    }
+    
+    public String getDni() {
+        return dni;
     }
     
     /**
