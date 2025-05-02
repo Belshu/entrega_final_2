@@ -8,6 +8,7 @@ import java.util.ArrayList;
  */
 
 public class Nomina {
+   private final String dniEmpleado;
    private int mes, anio;
    private ArrayList <Concepto> conceptos;
    
@@ -16,10 +17,19 @@ public class Nomina {
      * @param mes int que recoge el mes de la creacion de la nomina
      * @param anio int que recoge el anio de la creacion de la nomina
      **/
-    public Nomina(int mes, int anio) {
+    public Nomina(String dniEmpleado, int mes, int anio) {
+        this.dniEmpleado = dniEmpleado;
         this.mes = mes;
         this.anio = anio;
         this.conceptos = new ArrayList<>();
+    }
+
+    /**
+     * Devuelve el String dniEmpleado
+     * @return String
+     **/
+    public String getDniEmpleado() {
+        return dniEmpleado;
     }
 
     /**

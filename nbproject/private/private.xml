@@ -3,15 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/mint/NetBeansProjects/entrega_final/src/menus/MenuPartidos.java</file>
+            <file>file:/home/mint/NetBeansProjects/entrega_final/src/menus/MenuFacturas.java</file>
             <file>file:/home/mint/NetBeansProjects/entrega_final/src/menus/MenuEmpleados.java</file>
             <file>file:/home/mint/NetBeansProjects/entrega_final/src/menus/MenuPrincipal.java</file>
-            <file>file:/home/mint/NetBeansProjects/entrega_final/src/menus/primerMenu.java</file>
-            <file>file:/home/mint/NetBeansProjects/entrega_final/test/Test.java</file>
-            <file>file:/home/mint/NetBeansProjects/entrega_final/src/partido/Partido.java</file>
             <file>file:/home/mint/NetBeansProjects/entrega_final/src/empleados/Empleado.java</file>
-            <file>file:/home/mint/NetBeansProjects/entrega_final/src/empleados/Jugador.java</file>
-            <file>file:/home/mint/NetBeansProjects/entrega_final/src/empleados/Tecnico.java</file>
         </group>
     </open-files>
 </project-private>

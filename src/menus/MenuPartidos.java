@@ -15,10 +15,11 @@ import javax.swing.JScrollPane;
 import partido.Partido;
 
 /**
- *
- * @author mint
+ * Menu inicial del programa que hereda de JFrame e implementa la interfaz 
+ * ActionListener
+ * @author Isabel Shuang Piñana Alonso
  */
-public class MenuPartidos extends JFrame implements ActionListener{
+public class MenuPartidos extends JFrame implements ActionListener {
     private static ArrayList <Partido> listaPartidos;
     
     private final JPanel mainPanel, buttonsPanel;
@@ -27,6 +28,9 @@ public class MenuPartidos extends JFrame implements ActionListener{
     
     private DefaultListModel <Partido> partidosListModel;
     
+    /**
+     * Método que nicializa las listas de prueba
+     **/
     public static void inicializarLista() {
         listaPartidos = new ArrayList<>();
         
@@ -37,6 +41,9 @@ public class MenuPartidos extends JFrame implements ActionListener{
         listaPartidos.add(new Partido("Equipo rival 5",new Date(), 1, 0, true, MenuEmpleados.getListaJugadores()));
     }
     
+    /**
+    * CONSTRUCTOR: inicialización de los atributos finales 
+    **/
     public MenuPartidos(){
         mainPanel = new JPanel(new BorderLayout());
         buttonsPanel = new JPanel(new FlowLayout());
@@ -46,6 +53,11 @@ public class MenuPartidos extends JFrame implements ActionListener{
         botonEliminar = new JButton("Eliminar");
     }
     
+    /**
+     * Método que devuelve el panel principal
+     * Será público para pasarlo a las ventanas del menú principal
+     * @return JPanel
+     **/
     public JPanel getMainPanel() {
         mainPanel.add(getButtonsPanel(), BorderLayout.PAGE_START);
         mainPanel.add(new JScrollPane(getListaPartidos2()), BorderLayout.CENTER);
@@ -53,7 +65,12 @@ public class MenuPartidos extends JFrame implements ActionListener{
 
         return mainPanel;
     }
-
+    
+    /**
+     * Método que devuelve el panel de botones, donde se añaden en él y asignan
+     * un ActionListener
+     * @return buttonsPanel
+     **/
     private JPanel getButtonsPanel() {
         botonAnadir.addActionListener(this);
         botonModificar.addActionListener(this);
@@ -65,13 +82,22 @@ public class MenuPartidos extends JFrame implements ActionListener{
 
         return buttonsPanel;
     }
-    
+
+    /**
+     * Método que devuelve el JList inicializado contenido en él el ListModel
+     * @return JList
+     **/    
     private JList getListaPartidos2() {
         listaPartidos2 = new JList<>(getPartidosListModel());
         
         return listaPartidos2;
     }
     
+    /**
+     * Método que devuelve el ListModel inicializado y añadido todos los elementos de
+     * las listas
+     * @return DefaultListModel
+     **/    
     private DefaultListModel getPartidosListModel() {
         partidosListModel = new DefaultListModel<>();
         

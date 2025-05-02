@@ -66,9 +66,9 @@ public class Factura {
     @Override
     public String toString(){
         return "Factura " + codigo + " -> " + "Cantidad: " +
-                String.format("%.2f", cantidad) + "€" + "| Fecha"
+                String.format("%.2f", cantidad) + "€" + " | Fecha"
                 + "de pago: " + fechaPago.getDayOfMonth() + "/" + 
                 fechaPago.getMonth() + "/" + fechaPago.getYear() +
-                "| Cliente: " + cliente;
+                " | Cliente: " + cliente;
     }
 }
