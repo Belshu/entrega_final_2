@@ -12,18 +12,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 /**
- *
+ * Menu inicial del programa que hereda de JFrame e implementa la interfaz 
+ * ActionListener
  * @author Isabel Shuang Piñana Alonso
  */
 
 public class ModificarEmpleado extends JFrame implements ActionListener {
-    private Empleado empleado;
-    private Jugador jugador;
-    private Tecnico tecnico;
-    private Directivo directivo;
     private JPanel formularioPanel;
     private final JPanel mainPanel, buttonsPanel;
     
@@ -37,6 +35,7 @@ public class ModificarEmpleado extends JFrame implements ActionListener {
             cargoTextField;
     
     private final JButton botonAplicar, botonCancelar;
+    private final JRadioButton disponible, noDisponible;
     
     private int index;
     
@@ -45,8 +44,12 @@ public class ModificarEmpleado extends JFrame implements ActionListener {
     private double valor;
     private boolean estado;
     
+    /**
+     * CONSTRUCTOR: recoge un empleado y se comprueba el tipo de empleado en base a
+     * un entero index. Los String tomarán el valor del empleado
+     * @param empleado Empleado
+     **/
     public ModificarEmpleado (Empleado empleado) {
-        this.empleado = empleado;
         
         nombre = empleado.getNombre();
         telf = empleado.getTelf();
@@ -99,12 +102,19 @@ public class ModificarEmpleado extends JFrame implements ActionListener {
         especialidadTextField = new JTextField();
         cargoTextField = new JTextField();
         
+        disponible = new JRadioButton();
+        noDisponible = new JRadioButton();
+        
         botonAplicar = new JButton("Aplicar cambios");
         botonCancelar = new JButton("Cancelar");
         
         initialize();
     }
     
+    /**
+     * Método que asigna algunas características de la interfaz y dependienddo del
+     * tipo de Empleado se pondrá un título distinto
+     **/
     private void initialize() {
         String title = "Modificar empleado";
         
@@ -136,15 +146,12 @@ public class ModificarEmpleado extends JFrame implements ActionListener {
         setVisible(true);
     }
     
+    /**
+     * Método que asigna la fuente y lo importante: el tamaño de la letra del
+     * label que sirve para margen en la parte superior y lo devolverá
+     * @return JPanel
+     **/
     private JPanel getMainPanel() {
-                
-        int tamano = switch (index) {
-            case 0 -> 30;
-            case 1 -> 20;
-            case 2 -> 10;
-            default -> 10;
-        };
-        
         margenLabel3.setFont(new Font("Arial", Font.PLAIN, 10));
                 
         mainPanel.add(margenLabel1, BorderLayout.LINE_START);
@@ -156,6 +163,12 @@ public class ModificarEmpleado extends JFrame implements ActionListener {
         return mainPanel;
     }
     
+    /**
+     * Método que, dependiendo del tipo de empleado, cambiará el número de columnas
+     * que tendrá el panel a la vez que se le asignará en orden los 
+     * labeles y los textfield y devolverá el panel
+     * @return JPanel
+     **/
     private JPanel getFormularioPanel() {
         
         formularioPanel = switch (index) {
@@ -212,6 +225,10 @@ public class ModificarEmpleado extends JFrame implements ActionListener {
         return formularioPanel;
     }
     
+    /**
+     * Método que contiene los botones y lo devolverá
+     * @return JPanel
+     **/
     private JPanel getButtonsPanel() {
         botonAplicar.addActionListener(this);
         botonCancelar.addActionListener(this);
@@ -258,38 +275,74 @@ public class ModificarEmpleado extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Método que devuelve el String nombre
+     * @return String
+     **/
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     * Método que devuelve el String apellido
+     * @return String
+     **/
     public String getApellido() {
         return apellido;
     }
 
+    /**
+     * Método que devuelve el String puesto
+     * @return String
+     **/    
     public String getPuesto() {
         return puesto;
     }
 
+    /**
+     * Método que devuelve el String especialidad
+     * @return String
+     **/
     public String getEspecialidad() {
         return especialidad;
     }
 
+    /**
+     * Método que devuelve el String cargo
+     * @return String
+     **/    
     public String getCargo() {
         return cargo;
     }
 
+    /**
+     * Método que devuelve el int telf
+     * @return int
+     **/    
     public int getTelf() {
         return telf;
     }
-
+    
+    /**
+     * Método que devuelve el int demarcacion
+     * @return int
+     **/
     public int getDemarcacion() {
         return demarcacion;
     }
 
+    /**
+     * Método que devuelve el int edad
+     * @return int
+     **/    
     public int getEdad() {
         return edad;
     }
 
+    /**
+     * Método que devuelve el double valor
+     * @return double
+     **/    
     public double getValor() {
         return valor;
     }

@@ -9,7 +9,6 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -141,7 +140,7 @@ public class MenuEmpleados extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         if(ae.getSource() == botonAnadir) {
-            
+            anadirEmpleado();
         }
         else if(ae.getSource() == botonModificar) {
             modificarEmpleado();
@@ -165,12 +164,15 @@ public class MenuEmpleados extends JFrame implements ActionListener {
         }
     }
     
+    /**
+     * Método que modifica un dato seleccionado por la lista generando una nueva interfaz y 
+     * actualizando las listas estáticas
+     **/
     private void modificarEmpleado() {
         Empleado elegido = listaEmpleados2.getSelectedValue();
-        
-        try {
-            ModificarEmpleado modificarEmpleado = new ModificarEmpleado(elegido);
+        ModificarEmpleado modificarEmpleado = new ModificarEmpleado(elegido);
 
+        try {
             modificarEmpleado.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosed(java.awt.event.WindowEvent windowEvent) {
@@ -178,25 +180,59 @@ public class MenuEmpleados extends JFrame implements ActionListener {
                     elegido.setNombre(modificarEmpleado.getNombre());
                     elegido.setTelf(modificarEmpleado.getTelf());
 
-                    if (elegido instanceof Jugador) {
-                        ((Jugador) elegido).setApellidos(modificarEmpleado.getApellido());
-                        ((Jugador) elegido).setDemarcacion(modificarEmpleado.getDemarcacion());
-                        ((Jugador) elegido).setEdad(modificarEmpleado.getEdad());
-                        ((Jugador) elegido).setValor(modificarEmpleado.getValor());
+                    if (elegido instanceof Jugador jugador) {
+                        jugador.setApellidos(modificarEmpleado.getApellido());
+                        jugador.setDemarcacion(modificarEmpleado.getDemarcacion());
+                        jugador.setEdad(modificarEmpleado.getEdad());
+                        jugador.setValor(modificarEmpleado.getValor());
+                        
+                        for(Jugador j : listaJugadores) {
+                            if(j.getDni().equals(jugador.getDni())) {
+                                j.setNombre(jugador.getNombre());
+                                j.setTelf(jugador.getTelf());
+                                j.setApellidos(jugador.getApellidos());
+                                j.setDemarcacion(jugador.getDemarcacion());
+                                j.setEdad(jugador.getEdad());
+                                j.setValor(jugador.getValor());
+                            }
+                        }
+                        System.out.println("Jugador");
                     }
-                    else if(elegido instanceof Tecnico) {
-                        ((Tecnico) elegido).setPuesto(modificarEmpleado.getPuesto());
-                        ((Tecnico) elegido).setEspecialidad(modificarEmpleado.getEspecialidad());
+                    else if(elegido instanceof Tecnico tecnico) {
+                        tecnico.setPuesto(modificarEmpleado.getPuesto());
+                        tecnico.setEspecialidad(modificarEmpleado.getEspecialidad());
+                        
+                        for(Tecnico t : listaTecnicos) {
+                            if(t.getDni().equals(tecnico.getDni())) {
+                                t.setNombre(tecnico.getNombre());
+                                t.setTelf(tecnico.getTelf());
+                                t.setPuesto(tecnico.getPuesto());
+                                t.setEspecialidad(tecnico.getEspecialidad());
+                            }
+                        }
+                        System.out.println("Tecnico");
                     }
-                    else if(elegido instanceof Directivo) {
-                        ((Directivo) elegido).setCargo(modificarEmpleado.getCargo());
+                    else if(elegido instanceof Directivo directivo) {
+                        directivo.setCargo(modificarEmpleado.getCargo());
+                        
+                        for(Directivo d : listaDirectivos) {
+                            if(d.getDni().equals(directivo.getDni())) {
+                                d.setNombre(directivo.getNombre());
+                                d.setTelf(directivo.getTelf());
+                                d.setCargo(directivo.getCargo());
+                            }
+                        }
+                        System.out.println("Directivo");
                     }
-
-                    listaEmpleados2.repaint();
                 }
             });
 
             listaEmpleados2.repaint();
+            
+            for (Empleado e : listaEmpleados) {
+                e.setNombre(elegido.getNombre());
+                e.setTelf(elegido.getTelf());
+            }
         }
         catch(NullPointerException ex) {
             JOptionPane.showMessageDialog(this, "Seleccione un empleado para modificar.", "Advertencia", JOptionPane.WARNING_MESSAGE);            
@@ -205,12 +241,6 @@ public class MenuEmpleados extends JFrame implements ActionListener {
     
     private void eliminarEmpleado() {
         
-    }
-    
-    private Empleado buscarEmpleado(String dni) {
-        for(Empleado e : listaEmpleados) if(e.getDni().equals(dni)) return e;
-        
-        return null;
     }
     
     public static ArrayList<Empleado> getListaEmpleados() {
