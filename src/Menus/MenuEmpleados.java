@@ -4,15 +4,18 @@ import Empleados.Directivo;
 import Empleados.Tecnico;
 import Empleados.Empleado;
 import Empleados.Jugador;
+import Menus.Submenus.ModificarEmpleado;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -141,7 +144,7 @@ public class MenuEmpleados extends JFrame implements ActionListener {
             
         }
         else if(ae.getSource() == botonModificar) {
-            
+            modificarEmpleado();
         }
         else if(ae.getSource() == botonImprimir) {
             
@@ -154,16 +157,60 @@ public class MenuEmpleados extends JFrame implements ActionListener {
         }
     }
     
-    private void anadirEmpleado(){
-        
+    private void anadirEmpleado(){        
+        try {
+                        
+        } catch(NullPointerException ex) {
+            JOptionPane.showMessageDialog(this, "Seleccione un empleado para modificar.", "Advertencia", JOptionPane.WARNING_MESSAGE);            
+        }
     }
     
     private void modificarEmpleado() {
+        Empleado elegido = listaEmpleados2.getSelectedValue();
         
+        try {
+            ModificarEmpleado modificarEmpleado = new ModificarEmpleado(elegido);
+
+            modificarEmpleado.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                    
+                    elegido.setNombre(modificarEmpleado.getNombre());
+                    elegido.setTelf(modificarEmpleado.getTelf());
+
+                    if (elegido instanceof Jugador) {
+                        ((Jugador) elegido).setApellidos(modificarEmpleado.getApellido());
+                        ((Jugador) elegido).setDemarcacion(modificarEmpleado.getDemarcacion());
+                        ((Jugador) elegido).setEdad(modificarEmpleado.getEdad());
+                        ((Jugador) elegido).setValor(modificarEmpleado.getValor());
+                    }
+                    else if(elegido instanceof Tecnico) {
+                        ((Tecnico) elegido).setPuesto(modificarEmpleado.getPuesto());
+                        ((Tecnico) elegido).setEspecialidad(modificarEmpleado.getEspecialidad());
+                    }
+                    else if(elegido instanceof Directivo) {
+                        ((Directivo) elegido).setCargo(modificarEmpleado.getCargo());
+                    }
+
+                    listaEmpleados2.repaint();
+                }
+            });
+
+            listaEmpleados2.repaint();
+        }
+        catch(NullPointerException ex) {
+            JOptionPane.showMessageDialog(this, "Seleccione un empleado para modificar.", "Advertencia", JOptionPane.WARNING_MESSAGE);            
+        }
     }
     
     private void eliminarEmpleado() {
         
+    }
+    
+    private Empleado buscarEmpleado(String dni) {
+        for(Empleado e : listaEmpleados) if(e.getDni().equals(dni)) return e;
+        
+        return null;
     }
     
     public static ArrayList<Empleado> getListaEmpleados() {

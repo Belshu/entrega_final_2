@@ -19,7 +19,11 @@ import javax.swing.JTextField;
  * @author Isabel Shuang Piñana Alonso
  */
 
-public class NuevoEmpleado extends JFrame implements ActionListener {    
+public class ModificarEmpleado extends JFrame implements ActionListener {
+    private Empleado empleado;
+    private Jugador jugador;
+    private Tecnico tecnico;
+    private Directivo directivo;
     private JPanel formularioPanel;
     private final JPanel mainPanel, buttonsPanel;
     
@@ -32,16 +36,41 @@ public class NuevoEmpleado extends JFrame implements ActionListener {
             puestoTextField, especialidadTextField,
             cargoTextField;
     
-    private final JButton botonAnadir, botonCancelar;
+    private final JButton botonAplicar, botonCancelar;
     
     private int index;
     
     private String nombre, apellido, puesto, especialidad, cargo;
     private int telf, demarcacion, edad;
     private double valor;
-    private boolean estado = true;
+    private boolean estado;
     
-    public NuevoEmpleado () {
+    public ModificarEmpleado (Empleado empleado) {
+        this.empleado = empleado;
+        
+        nombre = empleado.getNombre();
+        telf = empleado.getTelf();
+        
+        if(empleado instanceof Jugador j) {
+            index = 0;
+            
+            apellido = j.getApellidos();
+            demarcacion = j.getDemarcacion();
+            edad = j.getEdad();
+            valor = j.getValor();
+            estado = j.isEstado();
+        }
+        else if(empleado instanceof Tecnico t) {
+            index = 1;
+            
+            puesto = t.getPuesto();
+            especialidad = t.getEspecialidad();
+        }
+        else if(empleado instanceof Directivo d){
+            index = 2;
+            
+            cargo = d.getCargo();
+        }
         
         mainPanel = new JPanel(new BorderLayout());
         buttonsPanel = new JPanel(new FlowLayout());
@@ -70,14 +99,14 @@ public class NuevoEmpleado extends JFrame implements ActionListener {
         especialidadTextField = new JTextField();
         cargoTextField = new JTextField();
         
-        botonAnadir = new JButton("Anadir");
+        botonAplicar = new JButton("Aplicar cambios");
         botonCancelar = new JButton("Cancelar");
         
         initialize();
     }
     
     private void initialize() {
-        String title = "Nuevo empleado";
+        String title = "Modificar empleado";
         
         int altura = 600;
         
@@ -137,31 +166,45 @@ public class NuevoEmpleado extends JFrame implements ActionListener {
         };
         
         formularioPanel.add(nombreLabel);
+        nombreTextField.setText(nombre);
         formularioPanel.add(nombreTextField);
+        
         formularioPanel.add(telfLabel);
+        telfTextField.setText(String.valueOf(telf));
         formularioPanel.add(telfTextField);
         
         switch(index){
             case 0 -> {
                 formularioPanel.add(apellidoLabel);
+                apellidoTextField.setText(apellido);
                 formularioPanel.add(apellidoTextField);
+                
                 formularioPanel.add(demarcacionLabel);
+                demarcacionTextField.setText(String.valueOf(demarcacion));
                 formularioPanel.add(demarcacionTextField);
+                
                 formularioPanel.add(edadLabel);
+                edadTextField.setText(String.valueOf(edad));
                 formularioPanel.add(edadTextField);
+                
                 formularioPanel.add(valorLabel);
+                valorTextField.setText(String.valueOf(valor));
                 formularioPanel.add(valorTextField);
             }
             
             case 1 -> {
                 formularioPanel.add(puestoLabel);
+                puestoTextField.setText(puesto);
                 formularioPanel.add(puestoTextField);
+                
                 formularioPanel.add(especialidadLabel);
+                especialidadTextField.setText(especialidad);
                 formularioPanel.add(especialidadTextField);
             }
             
             case 2 -> {
                 formularioPanel.add(cargoLabel);
+                cargoTextField.setText(cargo);
                 formularioPanel.add(cargoTextField);
             }
         }
@@ -170,10 +213,10 @@ public class NuevoEmpleado extends JFrame implements ActionListener {
     }
     
     private JPanel getButtonsPanel() {
-        botonAnadir.addActionListener(this);
+        botonAplicar.addActionListener(this);
         botonCancelar.addActionListener(this);
         
-        buttonsPanel.add(botonAnadir);
+        buttonsPanel.add(botonAplicar);
         buttonsPanel.add(botonCancelar);
         
         return buttonsPanel;
@@ -181,10 +224,11 @@ public class NuevoEmpleado extends JFrame implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if(ae.getSource() == botonAnadir) {
+        if(ae.getSource() == botonAplicar) {
+            
             try {
                 nombre = nombreTextField.getText();
-                telf = Integer.parseInt(nombreTextField.getText());
+                telf = Integer.parseInt(telfTextField.getText());
                 
                 switch(index) {
                     case 0 -> {
@@ -203,6 +247,8 @@ public class NuevoEmpleado extends JFrame implements ActionListener {
                         cargo = cargoTextField.getText();
                     }
                 }
+                
+                dispose();
             } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Error en la entrada de datos. Por favor, revise los campos.", "Error", JOptionPane.ERROR_MESSAGE);                
             }
@@ -247,8 +293,4 @@ public class NuevoEmpleado extends JFrame implements ActionListener {
     public double getValor() {
         return valor;
     }
-
-    public boolean isEstado() {
-        return estado;
-    }    
 }
