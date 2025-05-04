@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -36,6 +37,7 @@ public class ModificarEmpleado extends JFrame implements ActionListener {
     
     private final JButton botonAplicar, botonCancelar;
     private final JRadioButton disponible, noDisponible;
+    private final ButtonGroup grupoBotones;
     
     private int index;
     
@@ -51,30 +53,7 @@ public class ModificarEmpleado extends JFrame implements ActionListener {
      **/
     public ModificarEmpleado (Empleado empleado) {
         
-        nombre = empleado.getNombre();
-        telf = empleado.getTelf();
-        
-        if(empleado instanceof Jugador j) {
-            index = 0;
-            
-            apellido = j.getApellidos();
-            demarcacion = j.getDemarcacion();
-            edad = j.getEdad();
-            valor = j.getValor();
-            estado = j.isEstado();
-        }
-        else if(empleado instanceof Tecnico t) {
-            index = 1;
-            
-            puesto = t.getPuesto();
-            especialidad = t.getEspecialidad();
-        }
-        else if(empleado instanceof Directivo d){
-            index = 2;
-            
-            cargo = d.getCargo();
-        }
-        
+        // INTERFAZ
         mainPanel = new JPanel(new BorderLayout());
         buttonsPanel = new JPanel(new FlowLayout());
         
@@ -102,11 +81,41 @@ public class ModificarEmpleado extends JFrame implements ActionListener {
         especialidadTextField = new JTextField();
         cargoTextField = new JTextField();
         
-        disponible = new JRadioButton();
-        noDisponible = new JRadioButton();
+        disponible = new JRadioButton("Disponible");
+        noDisponible = new JRadioButton("No disponible");
+        grupoBotones = new ButtonGroup();
         
         botonAplicar = new JButton("Aplicar cambios");
         botonCancelar = new JButton("Cancelar");
+        
+        
+        // DATOS DEL EMPLEADO
+        nombre = empleado.getNombre();
+        telf = empleado.getTelf();
+        
+        if(empleado instanceof Jugador j) {
+            index = 0;
+            
+            apellido = j.getApellidos();
+            demarcacion = j.getDemarcacion();
+            edad = j.getEdad();
+            valor = j.getValor();
+            estado = j.isEstado();
+            
+            disponible.setSelected(estado);
+            noDisponible.setSelected(!estado);
+        }
+        else if(empleado instanceof Tecnico t) {
+            index = 1;
+            
+            puesto = t.getPuesto();
+            especialidad = t.getEspecialidad();
+        }
+        else if(empleado instanceof Directivo d){
+            index = 2;
+            
+            cargo = d.getCargo();
+        }
         
         initialize();
     }
@@ -203,6 +212,12 @@ public class ModificarEmpleado extends JFrame implements ActionListener {
                 formularioPanel.add(valorLabel);
                 valorTextField.setText(String.valueOf(valor));
                 formularioPanel.add(valorTextField);
+                
+                grupoBotones.add(disponible);
+                grupoBotones.add(noDisponible);
+                
+                formularioPanel.add(disponible);
+                formularioPanel.add(noDisponible);
             }
             
             case 1 -> {
@@ -253,6 +268,9 @@ public class ModificarEmpleado extends JFrame implements ActionListener {
                         demarcacion = Integer.parseInt(demarcacionTextField.getText());
                         edad = Integer.parseInt(edadTextField.getText());
                         valor = Double.parseDouble(valorTextField.getText());
+                        
+                        if(disponible.isSelected()) { estado = true; } 
+                        else{ estado = false; }
                     }
                     
                     case 1 -> {
@@ -345,5 +363,9 @@ public class ModificarEmpleado extends JFrame implements ActionListener {
      **/    
     public double getValor() {
         return valor;
+    }
+
+    public boolean isEstado() {
+        return estado;
     }
 }

@@ -19,7 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
 /**
- *
+ * Menu del programa que hereda de JFrame e implementa la interfaz
+ * ActionListener
  * @author Isabel Shuang Piñana Alonso
  */
 public class MenuFacturas extends JFrame implements ActionListener{
@@ -38,9 +39,6 @@ public class MenuFacturas extends JFrame implements ActionListener{
         
         listaFacturas.add(new Factura("111111", 100.00, LocalDate.now(), new Cliente("222221", "cliente 1")));
         listaFacturas.add(new Factura("111112", 200.00, LocalDate.now(), new Cliente("222222", "cliente 2")));
-        listaFacturas.add(new Factura("111113", 300.00, LocalDate.now(), new Cliente("222223", "cliente 3")));
-        listaFacturas.add(new Factura("111114", 400.00, LocalDate.now(), new Cliente("222224", "cliente 4")));
-        listaFacturas.add(new Factura("111115", 500.00, LocalDate.now(), new Cliente("222225", "cliente 5")));
         
         for(int i = 0; i < MenuEmpleados.getListaEmpleados().size(); i++){
             Empleado empleado = MenuEmpleados.getListaEmpleados().get(i);

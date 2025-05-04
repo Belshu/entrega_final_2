@@ -151,7 +151,6 @@ public class primerMenu extends JFrame implements ActionListener {
         }
         
         MenuPrincipal menuPrincipal = new MenuPrincipal();
-        // System.out.println(index);
 
         menuPrincipal.setSelectedIndex(index);
 
