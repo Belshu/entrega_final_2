@@ -16,7 +16,8 @@ public class Test {
     public static void main(String[] args) {
         // new NuevoEmpleado(new Directivo("A","12345", "AAa", 12345));
         // new NuevoEmpleado(new Tecnico("AA","AA","123","AAA", 1234));
-        new ModificarEmpleado(new Jugador("AA","AA",123,"AAA",0,0,0, true));
+        // new ModificarEmpleado(new Jugador("AA","AA",123,"AAA",0,0,0, true));
+        new ImprimirEmpleados();
     }
 }
 

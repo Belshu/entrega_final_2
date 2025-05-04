@@ -102,6 +102,14 @@ public class Empleado {
     public boolean isEliminado() {
         return eliminado;
     }
+
+    /**
+     * Método que asigna un valor al boolean eliminado
+     * @param eliminado que recoge el valor para asignar
+     **/
+    public void setEliminado(boolean eliminado) {
+        this.eliminado = eliminado;
+    }
     
     /**
      * Método que devuelve el Date fechaEliminacion
