@@ -1,20 +1,20 @@
-package Partido;
+package Partidos;
 
 import Empleados.Jugador;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Partido {
-    private String rival;
+    private String nombreRival;
     private Date fecha;
     private int goles, golRival;
     private boolean esLocal;
     private ArrayList <Jugador> listaJugadores;
 
     /**
-     * Recoge el rival, la fecha, los goles marcados por nosotros, los del rival, si somos locales y 
-     * una lista de jugadores
-     * @param rival String que recoge el nombre del equipo rival
+     * Recoge el nombreRival, la fecha, los goles marcados por nosotros, los del nombreRival, si somos locales y 
+ una lista de jugadores
+     * @param rival String que recoge el nombre del equipo nombreRival
      * @param fecha Date que recoge la fecha de celebracion del partido
      * @param goles int que recoge el numero de goles nuestros
      * @param golRival int que recoge el numero de goles rivales
@@ -23,7 +23,7 @@ public class Partido {
      **/    
     public Partido(String rival, Date fecha, int goles, int golRival, 
             boolean esLocal, ArrayList<Jugador> listaJugadores) {
-        this.rival = rival;
+        this.nombreRival = rival;
         this.fecha = fecha;
         this.goles = goles;
         this.golRival = golRival;
@@ -32,19 +32,19 @@ public class Partido {
     }
     
     /**
-     * Metodo que devuelve el String rival
+     * Metodo que devuelve el String nombreRival
      * @return String
      **/
-    public String getRival() {
-        return rival;
+    public String getNombreRival() {
+        return nombreRival;
     }
 
     /**
-     * Metodo que asigna un valor al String rival
-     * @param rival que recoge el valor a asignar
+     * Metodo que asigna un valor al String nombreRival
+     * @param nombreRival que recoge el valor a asignar
      **/
-    public void setRival(String rival) {
-        this.rival = rival;
+    public void setNombreRival(String nombreRival) {
+        this.nombreRival = nombreRival;
     }
 
     /**
@@ -139,7 +139,7 @@ public class Partido {
             participantes.setLength(participantes.length() - 2);
         }
         
-        return "Partido -> Rival: " + rival +
+        return "Partido -> Rival: " + nombreRival +
            " | Fecha: " + fecha +
            " | Resultado: " + (esLocal ? "Local" : "Visitante") +
            " " + goles + "-" + golRival +

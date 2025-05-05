@@ -4,7 +4,7 @@ import Empleados.Directivo;
 import Empleados.Tecnico;
 import Empleados.Empleado;
 import Empleados.Jugador;
-import Menus.Submenus.ImprimirEmpleados;
+import Menus.Submenus.Imprimir;
 import Menus.Submenus.ModificarEmpleado;
 import Menus.Submenus.NuevoEmpleado;
 import java.awt.BorderLayout;
@@ -283,9 +283,9 @@ public class MenuEmpleados extends JFrame implements ActionListener {
         } else if (ae.getSource() == botonModificar) {
             modificarEmpleado();
         } else if (ae.getSource() == botonImprimir) {
-            new ImprimirEmpleados();
+            new Imprimir(false);
         } else if (ae.getSource() == botonImprimirEliminados) {
-            
+            new Imprimir(true);
         } else if (ae.getSource() == botonEliminar) {
             eliminarEmpleado();
         }

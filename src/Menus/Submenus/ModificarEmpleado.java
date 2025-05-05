@@ -365,6 +365,10 @@ public class ModificarEmpleado extends JFrame implements ActionListener {
         return valor;
     }
 
+    /**
+     * Método que devuelve el boolean estado
+     * @return boolean
+     **/
     public boolean isEstado() {
         return estado;
     }

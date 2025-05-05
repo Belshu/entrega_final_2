@@ -1,6 +1,5 @@
 package Menus.Submenus;
 
-import Empleados.*;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -17,13 +16,22 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+/**
+ * Menu del programa que hereda de JFrame e implementa la interfaz
+ * ActionListener
+ * 
+ * @author Isabel Shuang Piñana Alonso
+ **/
 public class NuevoEmpleado extends JFrame implements ActionListener, ItemListener {
 
+    // PANELES
     private JPanel formularioPanel;
     private final JPanel mainPanel, radioButtonsPanel, buttonsPanel;
 
+    // RADIOBUTTONS
     private final JRadioButton jugador, tecnico, directivo;
 
+    // LABELES Y TEXTFIELDS
     private final JLabel dniLabel, nombreLabel, apellidoLabel, telfLabel,
             demarcacionLabel, edadLabel, valorLabel,
             puestoLabel, especialidadLabel,
@@ -33,16 +41,22 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
             puestoTextField, especialidadTextField,
             cargoTextField;
 
+    // BOTONES
     private final JButton botonAnadir, botonCancelar;
 
+    // VARIABLES
     private String dni, nombre, apellido, puesto, especialidad, cargo;
     private int telf, demarcacion, edad;
     private double valor;
     private boolean estado = true;
 
+    /**
+     * CONSTRUCTOR: inicializa los atributos finales
+     **/
     public NuevoEmpleado() {
         mainPanel = new JPanel(new BorderLayout());
         radioButtonsPanel = new JPanel(new FlowLayout());
+        formularioPanel = new JPanel(new GridLayout(0, 2, 15, 20));
         buttonsPanel = new JPanel(new FlowLayout());
 
         jugador = new JRadioButton("Jugador");
@@ -80,9 +94,23 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
         initialize();
     }
 
+    /**
+     * Método que inicia el tamaño de la interfaz, poner el panel contenido y 
+     * diversas propiedades
+     **/
     private void initialize() {
+        int altura = 600;
+        
+        if(jugador.isSelected()) {
+            altura = 500;
+        } else if(tecnico.isSelected()) {
+            altura = 300;
+        } else if (directivo.isSelected()) {
+            altura = 250;
+        }
+        
+        setSize(500, altura);
         setTitle("Nuevo empleado");
-        setSize(500, 500);
         setContentPane(getMainPanel());
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -90,6 +118,11 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
         setVisible(true);
     }
 
+
+    /**
+     * Método que devuelve el panel principal
+     * @return JPanel
+     */    
     private JPanel getMainPanel() {
         mainPanel.add(margenLabel1, BorderLayout.LINE_START);
         mainPanel.add(margenLabel2, BorderLayout.LINE_END);
@@ -100,6 +133,11 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
         return mainPanel;
     }
 
+    
+    /**
+     * Método que devuelve el panel que contiene los radiobuttons
+     * @return JPanel
+     */
     private JPanel getRadioButtonsPanel() {
         jugador.addItemListener(this);
         tecnico.addItemListener(this);
@@ -120,20 +158,51 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
         return radioButtonsPanel;
     }
 
+    
+    /**
+     * Método que devuelve el panel que contiene un formulario, compuesto por los
+     * labeles y los textfields y añaden ajustando el tamaño dependiendo del tipo
+     * de empleado elegido
+     * @return JPanel
+     */
     private JPanel getFormularioPanel() {
-        formularioPanel = new JPanel(new GridLayout(0, 2, 15, 20));
-
         formularioPanel.add(dniLabel);
         formularioPanel.add(dniTextField);
         formularioPanel.add(nombreLabel);
         formularioPanel.add(nombreTextField);
         formularioPanel.add(telfLabel);
         formularioPanel.add(telfTextField);
-        updateFormularioPanel();
-
+        
+        if (jugador.isSelected()) {
+            formularioPanel.setLayout(new GridLayout(0, 2, 15, 30));
+            formularioPanel.add(apellidoLabel);
+            formularioPanel.add(apellidoTextField);
+            formularioPanel.add(demarcacionLabel);
+            formularioPanel.add(demarcacionTextField);
+            formularioPanel.add(edadLabel);
+            formularioPanel.add(edadTextField);
+            formularioPanel.add(valorLabel);
+            formularioPanel.add(valorTextField);
+        } else if (tecnico.isSelected()) {
+            formularioPanel.setLayout(new GridLayout(0, 2, 15, 15));            
+            formularioPanel.add(puestoLabel);
+            formularioPanel.add(puestoTextField);
+            formularioPanel.add(especialidadLabel);
+            formularioPanel.add(especialidadTextField);
+        } else if (directivo.isSelected()) {
+            formularioPanel.setLayout(new GridLayout(0, 2, 15, 5));
+            formularioPanel.add(cargoLabel);
+            formularioPanel.add(cargoTextField);
+        }
+        
         return formularioPanel;
     }
 
+    
+    /**
+     * Método que devuelve el panel que contiene los botones de aceptar o cancelar
+     * @return JPanel
+     */
     private JPanel getButtonsPanel() {
         botonAnadir.addActionListener(this);
         botonCancelar.addActionListener(this);
@@ -144,11 +213,14 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
         return buttonsPanel;
     }
 
+    
+    /**
+     * Método que devuelve el panel actualizado del formulario, ajustando tamaño
+     * y elementos necesarios dependiendo del tipo
+     * @return JPanel
+     */
     private void updateFormularioPanel() {
-        if (formularioPanel == null) {
-            formularioPanel = new JPanel(new GridLayout(0, 2, 15, 2));
-        }
-
+        
         formularioPanel.removeAll();
 
         formularioPanel.add(dniLabel);
@@ -161,7 +233,7 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
         int altura = 300;
 
         if (jugador.isSelected()) {
-            formularioPanel.setLayout(new GridLayout(0, 2, 15, 35));
+            formularioPanel.setLayout(new GridLayout(0, 2, 15, 30));
             formularioPanel.add(apellidoLabel);
             formularioPanel.add(apellidoTextField);
             formularioPanel.add(demarcacionLabel);
@@ -172,19 +244,21 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
             formularioPanel.add(valorTextField);
             altura = 500;
         } else if (tecnico.isSelected()) {
+            formularioPanel.setLayout(new GridLayout(0, 2, 15, 15));            
             formularioPanel.add(puestoLabel);
             formularioPanel.add(puestoTextField);
             formularioPanel.add(especialidadLabel);
             formularioPanel.add(especialidadTextField);
+            altura = 300;
         } else if (directivo.isSelected()) {
             formularioPanel.setLayout(new GridLayout(0, 2, 15, 5));
             formularioPanel.add(cargoLabel);
             formularioPanel.add(cargoTextField);
-            altura = 200;
+            altura = 250;
         }
 
         setSize(500, altura);
-
+        
         formularioPanel.revalidate();
         formularioPanel.repaint();
     }
@@ -202,6 +276,11 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
         return index;
     }
 
+    /**
+     * Metodo sobrecargado que recoge las acciones dentro de la interfaz y se le asignara una utilidad a los
+     * botones correspondientes y el tipo de radiobutton seleccionado
+     * @param ae ActionEvent 
+     **/    
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == botonAnadir) {
@@ -249,6 +328,10 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
         }
     }
 
+    /**
+     * Método sobrecargado que recoge el estado y el cambio a cada elemento similar, en este
+     * caso los radiobutton
+     **/
     @Override
     public void itemStateChanged(ItemEvent e) {
         if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -256,46 +339,92 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
         }
     }
 
+
+    /**
+     * Método que devuelve el String dni
+     * @return String
+     **/    
     public String getDni() {
         return dni;
     }
 
+    /**
+     * Método que devuelve el String nombre
+     * @return String
+     **/    
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     * Método que devuelve el String apellido
+     * @return String
+     **/
     public String getApellido() {
         return apellido;
     }
 
+    /**
+     * Método que devuelve el String puesto
+     * @return String
+     **/
     public String getPuesto() {
         return puesto;
     }
 
+    
+    /**
+     * Método que devuelve el String especialidad
+     * @return String
+     **/
     public String getEspecialidad() {
         return especialidad;
     }
 
+    /**
+     * Método que devuelve el String cargo
+     * @return String
+     **/
     public String getCargo() {
         return cargo;
     }
 
+    /**
+     * Método que devuelve el int telf
+     * @return int
+     **/
     public int getTelf() {
         return telf;
     }
-
+    
+    /**
+     * Método que devuelve el int demarcacion
+     * @return int
+     **/
     public int getDemarcacion() {
         return demarcacion;
     }
 
+    /**
+     * Método que devuelve el int edad
+     * @return int
+     **/    
     public int getEdad() {
         return edad;
     }
 
+    /**
+     * Método que devuelve el double valor
+     * @return double
+     **/    
     public double getValor() {
         return valor;
     }
 
+    /**
+     * Método que devuelve el boolean estado
+     * @return boolean
+     **/    
     public boolean isEstado() {
         return estado;
     }

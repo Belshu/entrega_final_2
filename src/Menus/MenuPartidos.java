@@ -1,5 +1,7 @@
 package Menus;
 
+import Menus.Submenus.Imprimir;
+import Menus.Submenus.NuevoPartido;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -12,7 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import Partido.Partido;
+import Partidos.Partido;
 
 /**
  * Menu inicial del programa que hereda de JFrame e implementa la interfaz 
@@ -23,7 +25,7 @@ public class MenuPartidos extends JFrame implements ActionListener {
     private static ArrayList <Partido> listaPartidos;
     
     private final JPanel mainPanel, buttonsPanel;
-    private final JButton botonAnadir, botonModificar, botonImprimir;
+    private final JButton botonAnadir, botonImprimir;
     private JList <Partido> listaPartidos2;
     
     private DefaultListModel <Partido> partidosListModel;
@@ -37,8 +39,6 @@ public class MenuPartidos extends JFrame implements ActionListener {
         listaPartidos.add(new Partido("Equipo rival 1",new Date(), 1, 0, true, MenuEmpleados.getListaJugadores()));
         listaPartidos.add(new Partido("Equipo rival 2",new Date(), 1, 0, true, MenuEmpleados.getListaJugadores()));
         listaPartidos.add(new Partido("Equipo rival 3",new Date(), 1, 0, true, MenuEmpleados.getListaJugadores()));
-        listaPartidos.add(new Partido("Equipo rival 4",new Date(), 1, 0, true, MenuEmpleados.getListaJugadores()));
-        listaPartidos.add(new Partido("Equipo rival 5",new Date(), 1, 0, true, MenuEmpleados.getListaJugadores()));
     }
     
     /**
@@ -49,7 +49,6 @@ public class MenuPartidos extends JFrame implements ActionListener {
         buttonsPanel = new JPanel(new FlowLayout());
         
         botonAnadir = new JButton("Anadir");
-        botonModificar = new JButton("Modificar");
         botonImprimir = new JButton("Imprimir");
     }
     
@@ -73,11 +72,9 @@ public class MenuPartidos extends JFrame implements ActionListener {
      **/
     private JPanel getButtonsPanel() {
         botonAnadir.addActionListener(this);
-        botonModificar.addActionListener(this);
         botonImprimir.addActionListener(this);
 
         buttonsPanel.add(botonAnadir);
-        buttonsPanel.add(botonModificar);
         buttonsPanel.add(botonImprimir);
 
         return buttonsPanel;
@@ -106,16 +103,36 @@ public class MenuPartidos extends JFrame implements ActionListener {
         return partidosListModel;
     }
     
+    /**
+     * Metodo sobrecargado que recoge las acciones dentro de la interfaz y se le asignara una utilidad a los
+     * botones correspondientes
+     * @param ae ActionEvent 
+     **/    
     @Override
     public void actionPerformed(ActionEvent ae) {
         if(ae.getSource() == botonAnadir) {
-            
-        }
-        else if(ae.getSource() == botonModificar) {
-            
+            anadirPartido();
         }
         else if(ae.getSource() == botonImprimir) {
-            
+            new Imprimir();
         }
+    }
+    
+    /**
+     * Método que añade el partido nuevo al cerrar la ventana creada en la interfaz NuevoPartido
+     **/
+    private void anadirPartido() {
+        NuevoPartido nuevoPartido = new NuevoPartido(MenuEmpleados.getListaJugadores());
+        
+        nuevoPartido.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                partidosListModel.addElement(nuevoPartido.getPartidoNuevo());
+            }
+        });
+    }
+
+    public static ArrayList<Partido> getListaPartidos() {
+        return listaPartidos;
     }
 }

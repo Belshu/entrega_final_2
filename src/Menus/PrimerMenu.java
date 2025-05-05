@@ -15,7 +15,7 @@ import javax.swing.JPanel;
  * @author Isabel Shuang Piñana Alonso
  **/
 
-public class primerMenu extends JFrame implements ActionListener {    
+public class PrimerMenu extends JFrame implements ActionListener {    
     private final JPanel mainPanel, buttonsPanel, marginPanel1, marginPanel2;
     private final JLabel title, marginLabel1, marginLabel2, marginLabel3;
     private final JButton botonEmpleados, botonPartidos, botonFacturas, botonSalir;
@@ -23,7 +23,7 @@ public class primerMenu extends JFrame implements ActionListener {
     /**
      * CONSTRUCTOR: Inicialización de los atributos finales y puesta del título de la pestaña
      **/
-    public primerMenu() {
+    public PrimerMenu() {
         
         // Título en el encabezado de la pestaña
         super("Menu inicial");
@@ -167,6 +167,6 @@ public class primerMenu extends JFrame implements ActionListener {
         MenuPartidos.inicializarLista();
         MenuFacturas.inicializarListas();
         
-        new primerMenu();
+        new PrimerMenu();
     }
 }

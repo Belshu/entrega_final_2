@@ -1,0 +1,6 @@
+Jugador -> DNI: 111111111A | nombre: Jugador1 | Telefono: 123456 | Apellido: 1 | Demarcacion: 0 | Edad: 21 | Valor de mercado: 111.0M€ | Estado: Disponible
+Jugador -> DNI: 111111111B | nombre: Jugador2 | Telefono: 123456 | Apellido: 2 | Demarcacion: 1 | Edad: 22 | Valor de mercado: 112.0M€ | Estado: Disponible
+Tecnico -> DNI: 222222222A | nombre: Tecnico 1 | Telefono: 654321| Puesto: Informatico | Especialidad: Redes de sistemas
+Tecnico -> DNI: 222222222B | nombre: Tecnico 2 | Telefono: 654321| Puesto: Informatico | Especialidad: ciberseguridad
+Directivo -> DNI: 333333333A | nombre: Directivo 1 | Telefono: 135246 | Cargo: Subdirector
+Directivo -> DNI: 333333333B | nombre: Directivo 2 | Telefono: 135246 | Cargo: Director
