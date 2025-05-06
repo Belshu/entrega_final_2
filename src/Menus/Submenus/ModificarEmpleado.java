@@ -264,26 +264,35 @@ public class ModificarEmpleado extends JFrame implements ActionListener {
                 
                 switch(index) {
                     case 0 -> {
-                        apellido = apellidoTextField.getText();
                         demarcacion = Integer.parseInt(demarcacionTextField.getText());
-                        edad = Integer.parseInt(edadTextField.getText());
-                        valor = Double.parseDouble(valorTextField.getText());
-                        
-                        if(disponible.isSelected()) { estado = true; } 
-                        else{ estado = false; }
+                        if(demarcacion < 0 || demarcacion > 11) {
+                            JOptionPane.showMessageDialog(this, "La demarcación debe ser entre 0 y 11", "WARNING", JOptionPane.WARNING_MESSAGE);
+                            demarcacion = 0;
+                            demarcacionTextField.setText("");
+                        } else {
+                            apellido = apellidoTextField.getText();
+                            edad = Integer.parseInt(edadTextField.getText());
+                            valor = Double.parseDouble(valorTextField.getText());
+                            if(disponible.isSelected()) { estado = true; } 
+                            else{ estado = false; }
+                            
+                            dispose();
+                        }
                     }
                     
                     case 1 -> {
                         puesto = puestoTextField.getText();
                         especialidad = especialidadTextField.getText();
+                        dispose();
+
                     }
                     
                     case 2 -> {
                         cargo = cargoTextField.getText();
+                        dispose();
                     }
                 }
                 
-                dispose();
             } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Error en la entrada de datos. Por favor, revise los campos.", "Error", JOptionPane.ERROR_MESSAGE);                
             }

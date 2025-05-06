@@ -25,25 +25,34 @@ import javax.swing.JTabbedPane;
  */
 public class MenuFacturas extends JFrame implements ActionListener{
     private static ArrayList <Factura> listaFacturas;
+    private static ArrayList <Nomina> listaNominas;
     
     private final JPanel mainPanel, facturasPanel, nominasPanel, buttonsPanel;
     private final JTabbedPane ventanas;
     
-    private JList listaFacturas2, listaNominas2;
-    private DefaultListModel facturasListModel, nominasListModel;
+    private JList <Factura> listaFacturas2;
+    private JList <Nomina> listaNominas2;
+    
+    private DefaultListModel <Factura> facturasListModel;
+    private DefaultListModel <Nomina> nominasListModel;
     
     private final JButton botonAnadir, botonImprimir;
     
     public static void inicializarListas() {
         listaFacturas = new ArrayList<>();
+        listaNominas = new ArrayList<>();
         
         listaFacturas.add(new Factura("111111", 100.00, LocalDate.now(), new Cliente("222221", "cliente 1")));
         listaFacturas.add(new Factura("111112", 200.00, LocalDate.now(), new Cliente("222222", "cliente 2")));
         
         for(int i = 0; i < MenuEmpleados.getListaEmpleados().size(); i++){
             Empleado empleado = MenuEmpleados.getListaEmpleados().get(i);
-            Nomina n = new Nomina(empleado.getDni(), 1, (2000 + i));
-            empleado.agregarNomina(n);
+            if(!empleado.isEliminado()) {
+                Nomina n = new Nomina(empleado.getDni(), 1, (2000 + i));
+                empleado.agregarNomina(n);
+            
+                listaNominas.add(n);
+            }
         }
     }
 
@@ -80,13 +89,13 @@ public class MenuFacturas extends JFrame implements ActionListener{
         return facturasPanel;
     }
     
-    private JList getListaFacturas2() {
+    private JList <Factura> getListaFacturas2() {
         listaFacturas2 = new JList(getFacturasListModel());
         
         return listaFacturas2;
     }
     
-    private DefaultListModel getFacturasListModel() {
+    private DefaultListModel <Factura> getFacturasListModel() {
         facturasListModel = new DefaultListModel<>();
         
         for(Factura f : listaFacturas) facturasListModel.addElement(f);
@@ -109,28 +118,42 @@ public class MenuFacturas extends JFrame implements ActionListener{
         return buttonsPanel;
     }
     
-    private JList getListaNominas2() {
+    private JList <Nomina> getListaNominas2() {
         listaNominas2 = new JList<>(getNominasListModel());
         
         return listaNominas2;
     }
     
-    private DefaultListModel getNominasListModel() {
+    private DefaultListModel <Nomina> getNominasListModel() {
         nominasListModel = new DefaultListModel<>();
         
-        for(Empleado e : MenuEmpleados.getListaEmpleados()) {
-           if(!e.isEliminado()) {
-               for(Nomina n : e.getNominas()) {
-                   nominasListModel.addElement(n);
-               }
-           }
+        for(Nomina n : listaNominas) {
+            nominasListModel.addElement(n);
         }
         
         return nominasListModel;
     }
     
+    public void updateNominas(Empleado elegido) {
+        if(nominasListModel == null) { nominasListModel = new DefaultListModel<>(); }
+        
+        for(Nomina n : listaNominas) {
+            if(elegido.getDni().equals(n.getDniEmpleado())){
+                nominasListModel.removeElement(n);
+                break;
+            }
+        }
+        
+        if(listaNominas2 == null) { listaNominas2 = new JList<>(nominasListModel); } 
+        else { listaNominas2.setModel((nominasListModel)); }
+    }
+    
     @Override
     public void actionPerformed(ActionEvent ae) {
+        
+    }
+    
+    public void anadirNomina() {
         
     }
 }

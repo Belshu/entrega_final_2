@@ -119,6 +119,7 @@ public class NuevoPartido extends JFrame implements ActionListener {
 
     private JPanel getJugadoresPanel() {
         botonListaJugadores.addActionListener(this);
+        jugadoresTextArea.setEnabled(false);
         
         jugadoresPanel.add(jugadoresLabel);
         jugadoresPanel.add(botonListaJugadores);

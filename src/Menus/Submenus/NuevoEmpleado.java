@@ -293,11 +293,17 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
                     if (jugador.isSelected()) {
                         if (!apellidoTextField.getText().isEmpty() && !demarcacionTextField.getText().isEmpty()
                                 && !edadTextField.getText().isEmpty() && !valorTextField.getText().isEmpty()) {
-                            apellido = apellidoTextField.getText();
                             demarcacion = Integer.parseInt(demarcacionTextField.getText());
-                            edad = Integer.parseInt(edadTextField.getText());
-                            valor = Double.parseDouble(valorTextField.getText());
-                            dispose();
+                            if(demarcacion < 0 || demarcacion > 11) {
+                                JOptionPane.showMessageDialog(this, "La demarcación debe ser entre 0 y 11", "WARNING", JOptionPane.WARNING_MESSAGE);
+                                demarcacion = 0;
+                                demarcacionTextField.setText("");
+                            } else {
+                                apellido = apellidoTextField.getText();
+                                edad = Integer.parseInt(edadTextField.getText());
+                                valor = Double.parseDouble(valorTextField.getText());
+                                dispose();
+                            }
                         } else {
                             JOptionPane.showMessageDialog(this, "Completa todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
                         }

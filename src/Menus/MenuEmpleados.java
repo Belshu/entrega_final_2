@@ -55,6 +55,9 @@ public class MenuEmpleados extends JFrame implements ActionListener {
     
     // EMPLEADO ELEGIDO POR EL USUARIO
     Empleado elegido;
+    
+    // OTRA INTERFAZ
+    MenuFacturas menuFacturas;
 
     /**
      * Método que inicializa las listas de prueba
@@ -88,7 +91,8 @@ public class MenuEmpleados extends JFrame implements ActionListener {
     /**
      * CONSTRUCTOR: inicialización de los atributos finales
      */
-    public MenuEmpleados() {
+    public MenuEmpleados(MenuFacturas menuFacturas) {
+        this.menuFacturas = menuFacturas;
 
         // PANELES
         mainPanel = new JPanel(new BorderLayout());
@@ -435,7 +439,8 @@ public class MenuEmpleados extends JFrame implements ActionListener {
                 elegido.setEliminado(true);
                 elegido.setFechaEliminacion(new Date());
                 
-                empleadoListModel.removeElement(elegido);
+                    empleadoListModel.removeElement(elegido);
+                
                 if (elegido instanceof Jugador) {
                     jugadorListModel.removeElement(elegido);
                 } else if (elegido instanceof Tecnico) {
@@ -448,6 +453,8 @@ public class MenuEmpleados extends JFrame implements ActionListener {
                 listaJugadores2.setModel(jugadorListModel);
                 listaTecnicos2.setModel(tecnicoListModel);
                 listaDirectivos2.setModel(directivoListModel);
+                
+                menuFacturas.updateNominas(elegido);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione un empleado para eliminar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
