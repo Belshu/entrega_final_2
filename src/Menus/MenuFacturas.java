@@ -47,6 +47,7 @@ public class MenuFacturas extends JFrame implements ActionListener{
         
         for(int i = 0; i < MenuEmpleados.getListaEmpleados().size(); i++){
             Empleado empleado = MenuEmpleados.getListaEmpleados().get(i);
+            
             if(!empleado.isEliminado()) {
                 Nomina n = new Nomina(empleado.getDni(), 1, (2000 + i));
                 empleado.agregarNomina(n);

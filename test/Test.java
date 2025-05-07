@@ -22,8 +22,10 @@ public class Test {
         // new ImprimirEmpleados(false);
         
         MenuEmpleados.inicializarListas();
-        MenuPartidos.inicializarLista();
-        new NuevoPartido(MenuEmpleados.getListaJugadores());
+        // MenuPartidos.inicializarLista();
+        // new NuevoPartido(MenuEmpleados.getListaJugadores());
+
+        new NuevaNomina();
     }
 }
 

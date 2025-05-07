@@ -463,18 +463,37 @@ public class MenuEmpleados extends JFrame implements ActionListener {
 
     
     // GETTERS DE LISTAS ESTATICAS
+    
+    /**
+     * Método que devuelve la ArrayList estática de empleados
+     * @return ArrayList Empleado
+     **/
     public static ArrayList<Empleado> getListaEmpleados() {
         return listaEmpleados;
     }
 
+    
+    /**
+     * Método que devuelve la ArrayList estática de jugadores
+     * @return ArrayList Jugador
+     **/
     public static ArrayList<Jugador> getListaJugadores() {
         return listaJugadores;
     }
 
+    
+    /**
+     * Método que devuelve la ArrayList estática de tecnicos
+     * @return ArrayList Tecnico
+     **/
     public static ArrayList<Tecnico> getListaTecnicos() {
         return listaTecnicos;
     }
 
+    /**
+     * Método que devuelve la ArrayList estática de directivos
+     * @return ArrayList Directivo
+     **/
     public static ArrayList<Directivo> getListaDirectivos() {
         return listaDirectivos;
     }

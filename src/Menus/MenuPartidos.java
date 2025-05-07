@@ -132,6 +132,10 @@ public class MenuPartidos extends JFrame implements ActionListener {
         });
     }
 
+    /**
+     * Método que devuelve la ArrayList estática de partidos
+     * @return ArrayList Partido
+     **/
     public static ArrayList<Partido> getListaPartidos() {
         return listaPartidos;
     }

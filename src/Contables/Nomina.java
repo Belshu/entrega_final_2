@@ -9,11 +9,12 @@ import java.util.ArrayList;
 
 public class Nomina {
    private final String dniEmpleado;
-   private int mes, anio;
-   private ArrayList <Concepto> conceptos;
+   private final int mes, anio;
+   private final ArrayList <Concepto> conceptos;
    
        /**
      * Recoge el mes y el anio de la realizacion de la nomina
+     * @param dniEmpleado String que recoge el dni del empleado al que pertenece
      * @param mes int que recoge el mes de la creacion de la nomina
      * @param anio int que recoge el anio de la creacion de la nomina
      **/
@@ -95,7 +96,7 @@ public class Nomina {
     String conceptosStr = conceptos.stream()
                                    .map(concepto -> "  - " + concepto)
                                    .reduce("", (a, b) -> a + b + "\n");
-    return String.format("DNI Empleado: " + dniEmpleado + " | Nómina del mes: %s del año %d\n "
+    return String.format("DNI Empleado: " + dniEmpleado + " | Mes/Año: %s/%d\n "
             + "Conceptos:\n "
             + "%s Total: %.2f €", mes, anio, conceptosStr, calcularTotal());
 
