@@ -67,7 +67,7 @@ public class NuevaNomina extends JFrame implements ActionListener{
         mesTextField = new JTextField(2);
         anioTextField = new JTextField(2);
         
-        conceptosTextArea = new JTextArea(10, 30);
+        conceptosTextArea = new JTextArea(6, 30);
         
         botonSeleccionarEmpleado = new JButton("Añadir a...");
         botonConceptos = new JButton("Nuevo");
@@ -83,6 +83,7 @@ public class NuevaNomina extends JFrame implements ActionListener{
         setContentPane(getMainPanel());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+        setResizable(false);
         setVisible(true);
     }
     
@@ -168,7 +169,7 @@ public class NuevaNomina extends JFrame implements ActionListener{
         }
         
         if(ae.getSource() == botonAceptar) {
-            
+            anadirNomina();
         } else if(ae.getSource() == botonCancelar) {
            dispose();
         }
@@ -211,11 +212,15 @@ public class NuevaNomina extends JFrame implements ActionListener{
     
     private void mostrarFormularioConceptos() {
         JFrame formularioConceptos = new JFrame();
-        JPanel formularioPanel = new JPanel(new BorderLayout());
-        JPanel formularioPanel2 = new JPanel(new GridLayout(0, 2, 10, 10));
+        
+        JPanel formularioPanelConceptos = new JPanel(new BorderLayout());
+        JPanel formularioPanelConceptos2 = new JPanel();
+        JPanel descripcionPanel = new JPanel(new FlowLayout());
+        JPanel importePanel = new JPanel(new FlowLayout());
+        formularioPanelConceptos2.setLayout(new BoxLayout(formularioPanelConceptos2,BoxLayout.Y_AXIS));
         JButton botonAgregar = new JButton("Agregar");
         
-        formularioConceptos.setSize(500, 500);
+        formularioConceptos.setSize(450, 300);
         formularioConceptos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         formularioConceptos.setLocationRelativeTo(null);
         formularioConceptos.setResizable(false);
@@ -223,33 +228,49 @@ public class NuevaNomina extends JFrame implements ActionListener{
         JTextArea descripcionTextArea = new JTextArea(10, 30);
         JTextField importeTextField = new JTextField(20);
         
-        formularioPanel2.add(new JLabel("Descripcion: "));
-        formularioPanel2.add(new JScrollPane(descripcionTextArea));
-        formularioPanel2.add(new JLabel("Importe: "));
-        formularioPanel2.add(importeTextField);
+        descripcionPanel.add(new JLabel("Descripcion: "));
+        descripcionPanel.add(new JScrollPane(descripcionTextArea));
+        
+        importePanel.add(new JLabel("Importe: "));
+        importePanel.add(importeTextField);
+        
+        formularioPanelConceptos2.add(descripcionPanel);
+        formularioPanelConceptos2.add(Box.createVerticalStrut(0));
+        formularioPanelConceptos2.add(importePanel);
+        
+        formularioPanelConceptos.add(formularioPanelConceptos2, BorderLayout.CENTER);
+        formularioPanelConceptos.add(botonAgregar, BorderLayout.PAGE_END);
+        
+        formularioConceptos.setContentPane(formularioPanelConceptos);
+        formularioConceptos.setVisible(true);
         
         botonAgregar.addActionListener(e -> {
             try {
                 Random rand = new Random();
                 int codigo = rand.nextInt(10000000);
                 
-                listaConceptos.add(new Concepto(String.valueOf(codigo), descripcionTextArea.getText(), 
-                        Double.parseDouble(importeTextField.getText())));
+                Concepto concepto = new Concepto(String.valueOf(codigo), descripcionTextArea.getText(), 
+                        Double.parseDouble(importeTextField.getText()));
+                
+                listaConceptos.add(concepto);
+                
+                JOptionPane.showMessageDialog(this, "Concepto creado con exito!", "Concepto creado", JOptionPane.INFORMATION_MESSAGE);
+                
+                conceptosTextArea.append(concepto.getCodigo() + " | " + concepto.getImporte());
+                
+                formularioConceptos.dispose();
+            }catch(NullPointerException ex) {
+                JOptionPane.showMessageDialog(this, "Complete todos los campos, por favor.",
+                        "Faltan campos", JOptionPane.WARNING_MESSAGE);
             } catch(NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Error en la entrada de datos. Por favor, revise los campos.",
                     "Error", JOptionPane.ERROR_MESSAGE);
-            } catch(NullPointerException ex) {
-                JOptionPane.showMessageDialog(this, "Complete todos los campos, por favor.",
-                        "Faltan campos", JOptionPane.WARNING_MESSAGE);
             }
         });
-        
-        formularioPanel.add(formularioPanel2, BorderLayout.CENTER);
-        formularioPanel.add(botonAgregar, BorderLayout.PAGE_END);
     }
     
     private void anadirNomina() {
-        
+        // COLOCAR DATOS EN LA NOMINA "nuevaNomina"
     }
     
 }

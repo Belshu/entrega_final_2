@@ -151,7 +151,9 @@ public class MenuFacturas extends JFrame implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent ae) {
-        
+        if(ae.getSource() == botonAnadir) {
+            
+        }
     }
     
     public void anadirNomina() {
