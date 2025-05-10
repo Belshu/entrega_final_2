@@ -128,6 +128,7 @@ public class MenuPartidos extends JFrame implements ActionListener {
             @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
                 partidosListModel.addElement(nuevoPartido.getPartidoNuevo());
+                listaPartidos.add(nuevoPartido.getPartidoNuevo());
             }
         });
     }

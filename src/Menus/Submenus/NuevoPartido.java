@@ -230,6 +230,7 @@
             }
 
             JList<Jugador> listaJugadores2 = new JList<>(jugadoresListModel);
+            
             listaJugadores2.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
             JScrollPane scrollPane = new JScrollPane(listaJugadores2);
 

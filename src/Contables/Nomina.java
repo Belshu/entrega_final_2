@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Nomina {
    private final String dniEmpleado;
-   private final int mes, anio;
+   private final int dia, mes, anio;
    private final ArrayList <Concepto> conceptos;
    
        /**
@@ -18,8 +18,9 @@ public class Nomina {
      * @param mes int que recoge el mes de la creacion de la nomina
      * @param anio int que recoge el anio de la creacion de la nomina
      **/
-    public Nomina(String dniEmpleado, int mes, int anio) {
+    public Nomina(String dniEmpleado,int dia, int mes, int anio) {
         this.dniEmpleado = dniEmpleado;
+        this.dia = dia;
         this.mes = mes;
         this.anio = anio;
         this.conceptos = new ArrayList<>();
@@ -31,6 +32,10 @@ public class Nomina {
      **/
     public String getDniEmpleado() {
         return dniEmpleado;
+    }
+    
+    public int getDia() {
+        return dia;
     }
 
     /**
@@ -93,12 +98,15 @@ public class Nomina {
     @Override
     public String toString() {
         
-    String conceptosStr = conceptos.stream()
-                                   .map(concepto -> "  - " + concepto)
-                                   .reduce("", (a, b) -> a + b + "\n");
-    return String.format("DNI Empleado: " + dniEmpleado + " | Mes/Año: %s/%d\n "
+        String conceptosStr = "\n - ";
+        
+        for(Concepto c : conceptos) {
+            conceptosStr+= c.toString() + "\n - ";
+        }
+    
+    return String.format("DNI Empleado: " + dniEmpleado + " | Dia/Mes/Año: %d/%d/%d\n "
             + "Conceptos:\n "
-            + "%s Total: %.2f €", mes, anio, conceptosStr, calcularTotal());
+            + "%s Total: %.2f €", dia, mes, anio, conceptosStr, calcularTotal());
 
     }
 }

@@ -3,13 +3,18 @@ package Menus;
 import Contables.Nomina;
 import Contables.Cliente;
 import Contables.Factura;
+import Empleados.Directivo;
 import Empleados.Empleado;
+import Empleados.Jugador;
+import Empleados.Tecnico;
+import Menus.Submenus.NuevaNomina;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -49,7 +54,7 @@ public class MenuFacturas extends JFrame implements ActionListener{
             Empleado empleado = MenuEmpleados.getListaEmpleados().get(i);
             
             if(!empleado.isEliminado()) {
-                Nomina n = new Nomina(empleado.getDni(), 1, (2000 + i));
+                Nomina n = new Nomina(empleado.getDni(), 1, 1, (2000 + i));
                 empleado.agregarNomina(n);
             
                 listaNominas.add(n);
@@ -110,53 +115,126 @@ public class MenuFacturas extends JFrame implements ActionListener{
         
         return nominasPanel;
     }
-    
+
     private JPanel getButtonsPanel() {
         botonAnadir.addActionListener(this);
         buttonsPanel.add(botonAnadir);
         buttonsPanel.add(botonImprimir);
-        
+
         return buttonsPanel;
     }
-    
-    private JList <Nomina> getListaNominas2() {
+
+    private JList<Nomina> getListaNominas2() {
         listaNominas2 = new JList<>(getNominasListModel());
-        
+
         return listaNominas2;
     }
-    
-    private DefaultListModel <Nomina> getNominasListModel() {
+
+    private DefaultListModel<Nomina> getNominasListModel() {
         nominasListModel = new DefaultListModel<>();
-        
-        for(Nomina n : listaNominas) {
+
+        for (Nomina n : listaNominas) {
             nominasListModel.addElement(n);
         }
-        
+
         return nominasListModel;
     }
-    
+
     public void updateNominas(Empleado elegido) {
-        if(nominasListModel == null) { nominasListModel = new DefaultListModel<>(); }
-        
-        for(Nomina n : listaNominas) {
-            if(elegido.getDni().equals(n.getDniEmpleado())){
+        if (nominasListModel == null) {
+            nominasListModel = new DefaultListModel<>();
+        }
+
+        for (Nomina n : listaNominas) {
+            if (elegido.getDni().equals(n.getDniEmpleado())) {
                 nominasListModel.removeElement(n);
                 break;
             }
         }
-        
-        if(listaNominas2 == null) { listaNominas2 = new JList<>(nominasListModel); } 
-        else { listaNominas2.setModel((nominasListModel)); }
-    }
-    
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        if(ae.getSource() == botonAnadir) {
-            
+
+        if (listaNominas2 == null) {
+            listaNominas2 = new JList<>(nominasListModel);
+        } else {
+            listaNominas2.setModel((nominasListModel));
         }
     }
-    
-    public void anadirNomina() {
-        
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource() == botonAnadir) {
+            anadirNomina();
+        }
+    }
+
+    private void anadirNomina() {
+        NuevaNomina menu = new NuevaNomina();
+
+        menu.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                
+                if (menu.getNominas() != null || menu.getNominas().isEmpty()) {
+                    for (Nomina nomina : menu.getNominas()) {
+                        nominasListModel.addElement(nomina);
+                        listaNominas.add(nomina);
+                        
+                        for (Empleado e : MenuEmpleados.getListaEmpleados()) {
+                            if (e.getDni().equals(nomina.getDniEmpleado())) {
+                                e.agregarNomina(nomina);
+
+                                Random rand = new Random();
+                                LocalDate fecha = LocalDate.of(menu.getAnio(),
+                                        menu.getMes(), menu.getDia());
+
+                                int codigo = rand.nextInt(1000000);
+
+                                int i = 0;
+                                while (listaFacturas.get(i).getCodigo().equals(codigo)) {
+                                    codigo = rand.nextInt(1000000);
+                                }
+
+                                crearFactura(String.valueOf(codigo), nomina.calcularTotal(), fecha,
+                                        new Cliente(e.getDni(), e.getNombre()));
+                            }
+
+                            /*
+                            if (e instanceof Jugador) {
+                                for (Jugador j : MenuEmpleados.getListaJugadores()) {
+                                    if (j.getDni().equals(nomina.getDniEmpleado())) {
+                                        j.agregarNomina(nomina);
+                                        break;
+                                    }
+                                }
+                                break;
+                            } else if (e instanceof Tecnico) {
+                                for (Tecnico t : MenuEmpleados.getListaTecnicos()) {
+                                    if (t.getDni().equals(nomina.getDniEmpleado())) {
+                                        t.agregarNomina(nomina);
+                                        break;
+                                    }
+                                }
+                                break;
+                            } else if (e instanceof Directivo) {
+                                for (Directivo d : MenuEmpleados.getListaDirectivos()) {
+                                    if (d.getDni().equals(nomina.getDniEmpleado())) {
+                                        d.agregarNomina(nomina);
+                                        break;
+                                    }
+                                }
+                                break;
+                            }
+                            */
+                        }
+                    }
+                }
+            }
+            
+            private void crearFactura(String codigo, double cantidad, LocalDate fecha, Cliente cliente) {
+                Factura factura = new Factura(codigo, cantidad, fecha, cliente);
+                
+                facturasListModel.addElement(factura);
+                listaFacturas.add(factura);
+            }
+        });
     }
 }
