@@ -39,7 +39,7 @@ public class Imprimir extends JFrame implements ActionListener{
     private final JButton botonImprimir, botonCancelar;
     
     private final String ruta = System.getProperty("user.dir") + File.separator + "Ficheros";
-    private ArrayList <Empleado> listaEmpleado;
+    private ArrayList <Empleado> listaEmpleados;
     private ArrayList <Partido> listaPartidos;
     private ArrayList <Nomina> listaNominas;
     
@@ -48,6 +48,7 @@ public class Imprimir extends JFrame implements ActionListener{
     
     public Imprimir(ArrayList <Nomina> listaNominas) {
         this.listaNominas = listaNominas;
+        this.listaEmpleados = MenuEmpleados.getListaEmpleados();
         
         if(listaNominas == null) {
             JOptionPane.showMessageDialog(this, "LISTA VACIA", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -113,16 +114,16 @@ public class Imprimir extends JFrame implements ActionListener{
         partidos = false;
         nominas = false;
         
-        listaEmpleado = MenuEmpleados.getListaEmpleados();
+        listaEmpleados = MenuEmpleados.getListaEmpleados();
         
-        if(listaEmpleado == null) {
+        if(listaEmpleados == null) {
             JOptionPane.showMessageDialog(this, "LISTA VACIA", "Advertencia", JOptionPane.WARNING_MESSAGE);
             this.dispose();
         }
         
         if(eliminados) {
             boolean hay = false;
-            for(Empleado e : listaEmpleado) {
+            for(Empleado e : listaEmpleados) {
                 if(e.isEliminado()) {
                     hay = true;
                     break;
@@ -202,9 +203,9 @@ public class Imprimir extends JFrame implements ActionListener{
             
             if(empleados) {
                 if(!eliminados) {
-                    Collections.sort(listaEmpleado, (Empleado t1, Empleado t2) -> t1.getDni().compareTo(t2.getDni()));
+                    Collections.sort(listaEmpleados, (Empleado t1, Empleado t2) -> t1.getDni().compareTo(t2.getDni()));
                 } else if (eliminados) {
-                    Collections.sort(listaEmpleado, (Empleado t1, Empleado t2) -> t1.getNombre().compareTo(t2.getNombre()));
+                    Collections.sort(listaEmpleados, (Empleado t1, Empleado t2) -> t1.getNombre().compareTo(t2.getNombre()));
                 }
             }
             
@@ -231,7 +232,7 @@ public class Imprimir extends JFrame implements ActionListener{
             try {
                 FileWriter fileWriter = new FileWriter(ruta + File.separator + "Ficheros" + nombre);
 
-                for (Empleado e : listaEmpleado) {
+                for (Empleado e : listaEmpleados) {
                     if (!eliminados) {
                         if (!e.isEliminado()) {
                             fileWriter.write(e.toString() + "\n");
@@ -266,8 +267,13 @@ public class Imprimir extends JFrame implements ActionListener{
                 FileWriter fileWriter = new FileWriter(ruta + File.separator + "Ficheros" + "Nominas.txt");
 
                 for (Nomina n : listaNominas) {
-                    fileWriter.write(n.toString());
+                    for(Empleado e : listaEmpleados) {
+                        if(e.getDni().equals(n.getDniEmpleado())) {
+                            fileWriter.write(e.getNombre() + " -> " + n.toString() + "\n");
+                        }
+                    }
                 }
+                
                 fileWriter.close();
                 JOptionPane.showMessageDialog(this, "FINALIZADO! archivo guardado en: " + ruta);
 
@@ -289,7 +295,7 @@ public class Imprimir extends JFrame implements ActionListener{
                 PdfWriter.getInstance(doc, new FileOutputStream(ruta + File.separator + "Ficheros" + nombre));
                 doc.open();
 
-                for (Empleado e : listaEmpleado) {
+                for (Empleado e : listaEmpleados) {
                     if (!eliminados) {
                         if (!e.isEliminado()) {
                             doc.add(new Paragraph(e.toString() + "\n"));
@@ -328,7 +334,11 @@ public class Imprimir extends JFrame implements ActionListener{
                 doc.open();
 
                 for(Nomina n : listaNominas){
-                    doc.add(new Paragraph(n.toString() + "\n"));
+                    for(Empleado e : listaEmpleados) {
+                        if(e.getDni().equals(n.getDniEmpleado())) {
+                            doc.add(new Paragraph(e.getNombre() + " -> " + n.toString() + "\n"));
+                        }
+                    }
                 }
 
                 doc.close();

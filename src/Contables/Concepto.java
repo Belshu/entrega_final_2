@@ -54,8 +54,8 @@ public class Concepto {
      **/
     @Override
     public String toString(){
-        return "\n Codigo: " + codigoConcepto + "|Descripcion: " +
-                descripcion + "|Importe: " + 
+        return "Codigo: " + codigoConcepto + " | \n\tDescripcion: " +
+                descripcion + " | \n\tImporte: " + 
                 String.format("%.2f", importe) + "€";
     }
 }

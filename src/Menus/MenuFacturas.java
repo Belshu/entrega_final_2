@@ -7,6 +7,7 @@ import Empleados.Directivo;
 import Empleados.Empleado;
 import Empleados.Jugador;
 import Empleados.Tecnico;
+import Menus.Submenus.Imprimir;
 import Menus.Submenus.NuevaNomina;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -32,7 +33,7 @@ public class MenuFacturas extends JFrame implements ActionListener{
     private static ArrayList <Factura> listaFacturas;
     private static ArrayList <Nomina> listaNominas;
     
-    private final JPanel mainPanel, facturasPanel, nominasPanel, buttonsPanel;
+    private final JPanel mainPanel, facturasPanel, nominasPanel, buttonsPanel, buttonsPanel2;
     private final JTabbedPane ventanas;
     
     private JList <Factura> listaFacturas2;
@@ -41,14 +42,11 @@ public class MenuFacturas extends JFrame implements ActionListener{
     private DefaultListModel <Factura> facturasListModel;
     private DefaultListModel <Nomina> nominasListModel;
     
-    private final JButton botonAnadir, botonImprimir;
+    private final JButton botonAnadir, botonImprimir, botonAnadir2;
     
     public static void inicializarListas() {
         listaFacturas = new ArrayList<>();
         listaNominas = new ArrayList<>();
-        
-        listaFacturas.add(new Factura("111111", 100.00, LocalDate.now(), new Cliente("222221", "cliente 1")));
-        listaFacturas.add(new Factura("111112", 200.00, LocalDate.now(), new Cliente("222222", "cliente 2")));
         
         for(int i = 0; i < MenuEmpleados.getListaEmpleados().size(); i++){
             Empleado empleado = MenuEmpleados.getListaEmpleados().get(i);
@@ -58,6 +56,13 @@ public class MenuFacturas extends JFrame implements ActionListener{
                 empleado.agregarNomina(n);
             
                 listaNominas.add(n);
+                
+                Random rand = new Random();
+                
+                int codigo = rand.nextInt(1000000);
+                
+                listaFacturas.add(new Factura(String.valueOf(codigo), 0, LocalDate.of(2000 + i, 1, 1),
+                new Cliente(empleado.getDni(), empleado.getNombre())));
             }
         }
     }
@@ -69,8 +74,10 @@ public class MenuFacturas extends JFrame implements ActionListener{
         nominasPanel = new JPanel(new BorderLayout());
         
         buttonsPanel = new JPanel(new FlowLayout());
+        buttonsPanel2 = new JPanel(new FlowLayout());
         
         botonAnadir = new JButton("Anadir");
+        botonAnadir2 = new JButton("Anadir");
         botonImprimir = new JButton("Imprimir");
         
         ventanas = new JTabbedPane(JTabbedPane.NORTH);
@@ -90,9 +97,17 @@ public class MenuFacturas extends JFrame implements ActionListener{
     }
     
     private JPanel getFacturasPanel() {
+        facturasPanel.add(getButtonsPanel(), BorderLayout.PAGE_START);
         facturasPanel.add(new JScrollPane(getListaFacturas2()), BorderLayout.CENTER);
         
         return facturasPanel;
+    }
+    
+    private JPanel getButtonsPanel() {
+        botonAnadir.addActionListener(this);
+        buttonsPanel.add(botonAnadir);
+        
+        return buttonsPanel;
     }
     
     private JList <Factura> getListaFacturas2() {
@@ -110,18 +125,19 @@ public class MenuFacturas extends JFrame implements ActionListener{
     }
     
     private JPanel getNominasPanel() {
-        nominasPanel.add(getButtonsPanel(), BorderLayout.PAGE_START);
+        nominasPanel.add(getButtonsPanel2(), BorderLayout.PAGE_START);
         nominasPanel.add(new JScrollPane(getListaNominas2()), BorderLayout.CENTER);
         
         return nominasPanel;
     }
 
-    private JPanel getButtonsPanel() {
-        botonAnadir.addActionListener(this);
-        buttonsPanel.add(botonAnadir);
-        buttonsPanel.add(botonImprimir);
+    private JPanel getButtonsPanel2() {
+        botonAnadir2.addActionListener(this);
+        botonImprimir.addActionListener(this);
+        buttonsPanel2.add(botonAnadir2);
+        buttonsPanel2.add(botonImprimir);
 
-        return buttonsPanel;
+        return buttonsPanel2;
     }
 
     private JList<Nomina> getListaNominas2() {
@@ -161,9 +177,17 @@ public class MenuFacturas extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == botonAnadir) {
+        if(ae.getSource() == botonAnadir) {
+            anadirFactura();
+        } else if (ae.getSource() == botonAnadir2) {
             anadirNomina();
+        } else if(ae.getSource() == botonImprimir) {
+            new Imprimir(listaNominas);
         }
+    }
+    
+    private void anadirFactura() {
+        // NUEVAFACTURA
     }
 
     private void anadirNomina() {

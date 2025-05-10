@@ -105,8 +105,8 @@ public class Nomina {
         }
     
     return String.format("DNI Empleado: " + dniEmpleado + " | Dia/Mes/Año: %d/%d/%d\n "
-            + "Conceptos:\n "
-            + "%s Total: %.2f €", dia, mes, anio, conceptosStr, calcularTotal());
+            + "Conceptos:"
+            + "%s Total: %.2f€", dia, mes, anio, conceptosStr, calcularTotal());
 
     }
 }

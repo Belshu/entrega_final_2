@@ -90,6 +90,7 @@ public class MenuEmpleados extends JFrame implements ActionListener {
 
     /**
      * CONSTRUCTOR: inicialización de los atributos finales
+     * @param menuFacturas
      */
     public MenuEmpleados(MenuFacturas menuFacturas) {
         this.menuFacturas = menuFacturas;
@@ -337,10 +338,10 @@ public class MenuEmpleados extends JFrame implements ActionListener {
                             empleadoListModel.addElement(nuevo);
                             if (nuevo instanceof Jugador jugador) {
                                 jugadorListModel.addElement(jugador);
-                            } else if (nuevo instanceof Tecnico) {
-                                tecnicoListModel.addElement((Tecnico) nuevo);
-                            } else if (nuevo instanceof Directivo) {
-                                directivoListModel.addElement((Directivo) nuevo);
+                            } else if (nuevo instanceof Tecnico tecnico) {
+                                tecnicoListModel.addElement(tecnico);
+                            } else if (nuevo instanceof Directivo directivo) {
+                                directivoListModel.addElement(directivo);
                             }
                         }
 

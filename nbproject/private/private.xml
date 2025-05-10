@@ -5,8 +5,8 @@
         <group>
             <file>file:/home/mint/NetBeansProjects/entrega_final/src/Menus/MenuFacturas.java</file>
             <file>file:/home/mint/NetBeansProjects/entrega_final/src/Menus/Submenus/NuevaNomina.java</file>
-            <file>file:/home/mint/NetBeansProjects/entrega_final/test/Test.java</file>
-            <file>file:/home/mint/NetBeansProjects/entrega_final/src/Contables/Concepto.java</file>
+            <file>file:/home/mint/NetBeansProjects/entrega_final/src/Menus/Submenus/NuevoPartido.java</file>
+            <file>file:/home/mint/NetBeansProjects/entrega_final/src/Menus/MenuPartidos.java</file>
         </group>
     </open-files>
 </project-private>
