@@ -2,16 +2,20 @@
 package Empleados;
 
 /**
- * Utilizada para la creación y gestión de los empleados con la clase
- * heredada de "Empleado"
+ * Clase Jugador que hereda de Empleado y teniendo otro atributo aparte:
+ * - String: el cargo del directivo
+ * 
  * @author Santiago Colomer Andreu
  */
 
 public class Directivo extends Empleado{
+    
+    // ATRIBUTOS
     private String cargo;
 
    /**
      * Recoge el DNI, nombre, numero de telefono y el cargo
+     * 
      * @param dni String que recoge el dato heredado
      * @param nombre String que recoge el dato heredado
      * @param telf int que recoge el dato heredado
@@ -23,6 +27,7 @@ public class Directivo extends Empleado{
         this.cargo = cargo;
     }
     
+    // GETTERS Y SETTERS
     /**
      * Metodo que devuelve el String cargo
      * @return String

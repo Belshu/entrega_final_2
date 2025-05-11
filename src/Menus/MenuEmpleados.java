@@ -23,8 +23,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
 /**
- * Menu del programa que hereda de JFrame e implementa la interfaz
- * ActionListener
+ * Menu de gestión de empleados: se crean unas listas estáticas que contendrán
+ * todos los empleados y por separado; los jugadores, técnicos y directivos.
+ * Contiene tres ventanas de JTabbedPane que divide la forma de mostrar las listas
+ * en esas cuatro pestañas. En base a los botones, se sabrá lo que desea el usuario
+ * hacer con ello
  *
  * @author Isabel Shuang Piñana Alonso
  */
@@ -89,11 +92,29 @@ public class MenuEmpleados extends JFrame implements ActionListener {
     }
 
     /**
-     * CONSTRUCTOR: inicialización de los atributos finales
+     * CONSTRUCTOR: inicialización de los atributos finales. Pide el menuFacturas
+     * creado para que, cuando se elimine un empleado, se actualice la JList del otro
+     * menu
      * @param menuFacturas
      */
     public MenuEmpleados(MenuFacturas menuFacturas) {
         this.menuFacturas = menuFacturas;
+        
+        if(listaEmpleados == null) {
+            listaEmpleados = new ArrayList<>();
+        } 
+        
+        if(listaJugadores == null) {
+            listaJugadores = new ArrayList<>();
+        }
+        
+        if(listaTecnicos == null) {
+            listaTecnicos = new ArrayList<>();
+        }
+        
+        if(listaDirectivos == null) {
+            listaDirectivos = new ArrayList<>();
+        }
 
         // PANELES
         mainPanel = new JPanel(new BorderLayout());
@@ -107,12 +128,10 @@ public class MenuEmpleados extends JFrame implements ActionListener {
         botonAnadir = new JButton("Añadir");
         botonModificar = new JButton("Modificar");
         botonImprimir = new JButton("Imprimir");
-        botonImprimirEliminados = new JButton("Imprimir empleados eliminados");
+        botonImprimirEliminados = new JButton("Imprimir eliminados");
         botonEliminar = new JButton("Eliminar");
 
         ventanas = new JTabbedPane(JTabbedPane.NORTH);
-
-        inicializarListas();        
     }
 
     /**
@@ -179,11 +198,15 @@ public class MenuEmpleados extends JFrame implements ActionListener {
      **/
     private DefaultListModel<Empleado> getEmpleadoListModel() {
         empleadoListModel = new DefaultListModel<>();
-        for (Empleado e : listaEmpleados) {
-            if (!e.isEliminado()) {
-                empleadoListModel.addElement(e);
+        
+        if(!listaEmpleados.isEmpty()) {
+            for (Empleado e : listaEmpleados) {
+                if (!e.isEliminado()) {
+                    empleadoListModel.addElement(e);
+                }
             }
         }
+        
         return empleadoListModel;
     }
 
@@ -210,9 +233,11 @@ public class MenuEmpleados extends JFrame implements ActionListener {
     private DefaultListModel<Jugador> getJugadorListModel() {
         jugadorListModel = new DefaultListModel<>();
 
-        for (Jugador j : listaJugadores) {
-            if (!j.isEliminado()) {
-                jugadorListModel.addElement(j);
+        if(!listaJugadores.isEmpty()) {
+            for (Jugador j : listaJugadores) {
+                if (!j.isEliminado()) {
+                    jugadorListModel.addElement(j);
+                }
             }
         }
         return jugadorListModel;
@@ -239,9 +264,11 @@ public class MenuEmpleados extends JFrame implements ActionListener {
      **/
     private DefaultListModel<Tecnico> getTecnicoListModel() {
         tecnicoListModel = new DefaultListModel<>();
-        for (Tecnico t : listaTecnicos) {
-            if (!t.isEliminado()) {
-                tecnicoListModel.addElement(t);
+        if(!listaTecnicos.isEmpty()) {
+            for (Tecnico t : listaTecnicos) {
+                if (!t.isEliminado()) {
+                    tecnicoListModel.addElement(t);
+                }
             }
         }
         return tecnicoListModel;
@@ -268,9 +295,11 @@ public class MenuEmpleados extends JFrame implements ActionListener {
      **/
     private DefaultListModel<Directivo> getDirectivoListModel() {
         directivoListModel = new DefaultListModel<>();
-        for (Directivo d : listaDirectivos) {
-            if (!d.isEliminado()) {
-                directivoListModel.addElement(d);
+        if(!listaDirectivos.isEmpty()) {
+            for (Directivo d : listaDirectivos) {
+                if (!d.isEliminado()) {
+                    directivoListModel.addElement(d);
+                }
             }
         }
         return directivoListModel;
@@ -464,7 +493,6 @@ public class MenuEmpleados extends JFrame implements ActionListener {
 
     
     // GETTERS DE LISTAS ESTATICAS
-    
     /**
      * Método que devuelve la ArrayList estática de empleados
      * @return ArrayList Empleado

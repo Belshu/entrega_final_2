@@ -5,44 +5,49 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Scanner;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * Menu inicial del programa
+ * Menu inicial del programa: se inicailizan las listas de ejemplo y muestra una
+ * interfaz con cuatro botones (uno para ir directamente a la ventana de gestión
+ * de empleados, otro para los partidos, otro para las facturas y el último para 
+ * salir del programa).
+ * Dependiendo del botón que haya pulsado el usuario, un int index tomará un valor diferente 
+ * y al crear el objeto MenuPrincipal, le pasaremos con su método "setSelectedIndex" para que 
+ * atuomáticamente aparezca la ventana de gestión correspondiente
+ * 
  * @author Isabel Shuang Piñana Alonso
  **/
 
-public class PrimerMenu extends JFrame implements ActionListener {    
+public class PrimerMenu extends JFrame implements ActionListener {
+    
+    // ATRIBUTOS
     private final JPanel mainPanel, buttonsPanel, marginPanel1, marginPanel2;
     private final JLabel title, marginLabel1, marginLabel2, marginLabel3;
     private final JButton botonEmpleados, botonPartidos, botonFacturas, botonSalir;
     
     /**
-     * CONSTRUCTOR: Inicialización de los atributos finales y puesta del título de la pestaña
+     * CONSTRUCTOR: Inicialización de los atributos finales
      **/
-    public PrimerMenu() {
+    public PrimerMenu() {        
         
-        // Título en el encabezado de la pestaña
-        super("Menu inicial");
-        
-        // Paneles
+        // PANELES
         mainPanel = new JPanel(new BorderLayout());
         buttonsPanel = new JPanel(new GridLayout(0, 1, 300, 15));
         marginPanel1 = new JPanel(new BorderLayout());
         marginPanel2 = new JPanel(new BorderLayout());
         
-        // Título de la interfaz
+        // LABELES
         title = new JLabel("Gestión del club", JLabel.CENTER);
-        
-        // Márgenes
         marginLabel1 = new JLabel("                                   ");
         marginLabel2 = new JLabel("                                   ");
         marginLabel3 = new JLabel(" ", JLabel.CENTER);
         
-        // Botones
+        // BOTONES
         botonEmpleados = new JButton("Gestionar empleados");
         botonPartidos = new JButton("Gestionar partidos");
         botonFacturas = new JButton("Gestionar facturas");
@@ -55,7 +60,8 @@ public class PrimerMenu extends JFrame implements ActionListener {
      * Método que inicia el tamaño de la interfaz, poner el panel contenido y 
      * diversas propiedades
      **/
-    private void initialize(){        
+    private void initialize(){ 
+        setTitle("Menu inicial");
         setContentPane(getMainPanel());
         setSize(600, 500);
         setResizable(false);
@@ -160,12 +166,26 @@ public class PrimerMenu extends JFrame implements ActionListener {
     
     /**
      * Método principal "main", inicializa las listas de cada menu y el 
-    * y el constructor de este primer menu
+    * y el constructor de este primer menu. Antes de declarar el constructor
+    * se pregunta por terminal si quiere empezar con las listas de ejemplo ya
+    * con cierta información en su interior
+     * @param args
      **/
     public static void main(String[] args) {
-        MenuEmpleados.inicializarListas();
-        MenuPartidos.inicializarLista();
-        MenuFacturas.inicializarListas();
+        Scanner S = new Scanner(System.in);
+        
+        try {
+            System.out.println("Activar listas de prueba[ 1->SI / 2-> NO ]: ");
+            int eleccion = S.nextInt();
+            
+            if(eleccion == 1) {
+                MenuEmpleados.inicializarListas();
+                MenuPartidos.inicializarLista();
+                MenuFacturas.inicializarListas();
+            }
+        } catch (Exception ex) {
+            System.out.println("comando no valido");
+        }
         
         new PrimerMenu();
     }

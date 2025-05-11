@@ -1,17 +1,20 @@
 package Empleados;
 
 /**
- * Utilizada para la creación y gestión de los empleados con la clase
- * heredada de "Empleado"
+ * Clase Jugador que hereda de Empleado y teniendo otros atributos aparte:
+ * - String: puesto y especialidad del técnico
+ * 
  * @author Santiago Colomer Andreu
  */
-public class Tecnico extends Empleado {
-    private String puesto, especialidad;
 
+public class Tecnico extends Empleado {
+    
+    // ATRIBUTOS
+    private String puesto, especialidad;
     
     /**
-     * Recoge el DNI, nombre, numero de telefono, el puesto y 
-     * la especialidad
+     * Recoge el DNI, nombre, numero de telefono, el puesto y la especialidad
+     * 
      * @param dni String que recoge el dato heredado
      * @param nombre String que recoge el dato heredado
      * @param telf int que recoge el dato heredado
@@ -25,7 +28,7 @@ public class Tecnico extends Empleado {
         this.especialidad = especialidad;
     }
     
-    
+    // GETTERS Y SETTERS
     /**
      * Metodo que devuelve el String puesto
      * @return String
@@ -59,7 +62,7 @@ public class Tecnico extends Empleado {
     }
 
     /**
-     * Devuelve el String sobrecargado de todos los datos
+     * Devuelve el String sobrecargado de todos los datos de la calse
      * @return String
      **/    
     @Override

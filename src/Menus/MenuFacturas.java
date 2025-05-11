@@ -68,6 +68,15 @@ public class MenuFacturas extends JFrame implements ActionListener{
     }
 
     public MenuFacturas(){
+        
+        if(listaFacturas == null) {
+            listaFacturas = new ArrayList<>();
+        }
+        
+        if(listaNominas == null) {
+            listaNominas = new ArrayList<>();
+        }
+        
         mainPanel = new JPanel(new BorderLayout());
         
         facturasPanel = new JPanel(new BorderLayout());
@@ -119,7 +128,9 @@ public class MenuFacturas extends JFrame implements ActionListener{
     private DefaultListModel <Factura> getFacturasListModel() {
         facturasListModel = new DefaultListModel<>();
         
-        for(Factura f : listaFacturas) facturasListModel.addElement(f);
+        if(!listaFacturas.isEmpty()) {
+            for(Factura f : listaFacturas) facturasListModel.addElement(f);
+        }
         
         return facturasListModel;
     }
@@ -149,8 +160,10 @@ public class MenuFacturas extends JFrame implements ActionListener{
     private DefaultListModel<Nomina> getNominasListModel() {
         nominasListModel = new DefaultListModel<>();
 
-        for (Nomina n : listaNominas) {
-            nominasListModel.addElement(n);
+        if(!listaNominas.isEmpty()) {
+            for (Nomina n : listaNominas) {
+                nominasListModel.addElement(n);
+            }
         }
 
         return nominasListModel;
@@ -212,9 +225,11 @@ public class MenuFacturas extends JFrame implements ActionListener{
 
                                 int codigo = rand.nextInt(1000000);
 
-                                int i = 0;
-                                while (listaFacturas.get(i).getCodigo().equals(codigo)) {
-                                    codigo = rand.nextInt(1000000);
+                                if(!listaFacturas.isEmpty()) {
+                                    int i = 0;
+                                    while (listaFacturas.get(i).getCodigo().equals(codigo)) {
+                                        codigo = rand.nextInt(1000000);
+                                    }
                                 }
 
                                 crearFactura(String.valueOf(codigo), nomina.calcularTotal(), fecha,

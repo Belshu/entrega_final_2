@@ -1,21 +1,27 @@
 package Empleados;
 
 /**
- * Utilizada para la creación y gestión de los empleados con la clase
- * heredada de "Empleado"
+ * Clase Jugador que hereda de Empleado y teniendo otros atributos aparte:
+ * - String: los apellidos del jugador
+ * - int: la demarcación y la edad del jugador
+ * - double: el valor monetario del jugador
+ * - boolea: en estado del jugador si está o no disponible
+ * 
  * @author Santiago Colomer Andreu
  **/
 
 public class Jugador extends Empleado {
+    
+    // ATRIBUTOS
     private String apellidos;
     private int demarcacion, edad;
     private double valor;
     private boolean estado;
 
     /**
-     * Recoge el DNI, nombre, numero de telefono, apellidos, 
-     * demarcacion, la edad, el valor 
-     * del jugador y su estado
+     * Recoge el DNI, nombre, numero de telefono, apellidos, demarcacion, la edad, 
+     * el valor del jugador y su estado
+     * 
      * @param dni String que recoge el dato heredado
      * @param nombre String que recoge el dato heredado
      * @param telf int que recoge el dato heredado
@@ -36,7 +42,7 @@ public class Jugador extends Empleado {
         this.estado = estado;
     }
     
-    
+    // GETTERS Y SETTERS
     /**
      * Metodo que devuelve el String apellidos
      * @return String
@@ -118,7 +124,7 @@ public class Jugador extends Empleado {
     }
 
     /**
-     * Devuelve el String sobrecargado de todos los datos
+     * Devuelve el String sobrecargado de todos los datos de la clase
      * @return String
      **/    
     @Override

@@ -3,10 +3,18 @@ package Contables;
 import java.time.LocalDate;
 
 /**
- * Utilizada para la creación y gestión de facturas realizadas
+ * Clase que reúne los métodos y atributos necesarios en la creación de la factura:
+ * - String: el código de la misma y será final
+ * - double: la cantidad que se maneja
+ * - LocalDate: la fecha especificada del pago
+ * - Cliente: el cliente de la factura
+ * 
  * @author Ágata Gambín Póveda
  */
+
 public class Factura {
+    
+    // ATRIBUTOS
     private final String codigo;
     private double cantidad;
     private LocalDate fechaPago;
@@ -27,6 +35,7 @@ public class Factura {
         this.cliente = cliente;
     }
 
+    // GETTERS Y SETTERS
     /**
      * Devuelve el String codigo
      * @return String
@@ -60,7 +69,7 @@ public class Factura {
     }    
 
     /**
-     * Devuelve el String sobrecargado de todos los datos
+     * Devuelve el String sobrecargado de todos los datos de la clase
      * @return String
      **/    
     @Override

@@ -4,7 +4,19 @@ import Empleados.Jugador;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Clase que crea un partido con sus atributos de:
+ * - String: nombre del rival
+ * - Date: fecha del partido
+ * - int: goles marcados y goles del rival
+ * - boolean: si es local o no
+ * - ArrayList: la lista de jugadores participantes de nuestro equipo
+ * 
+ * @author Santiago Colomer Andreu
+ **/
 public class Partido {
+    
+    // ATRIBUTOS
     private String nombreRival;
     private Date fecha;
     private int goles, golRival;
@@ -12,8 +24,9 @@ public class Partido {
     private ArrayList <Jugador> listaJugadores;
 
     /**
-     * Recoge el nombreRival, la fecha, los goles marcados por nosotros, los del nombreRival, si somos locales y 
- una lista de jugadores
+     * Recoge el nombre del rival, la fecha, los goles marcados por nosotros, los del rival, si es local el partido 
+     * y una lista de jugadores que participaron de nuestro equipo
+     * 
      * @param rival String que recoge el nombre del equipo nombreRival
      * @param fecha Date que recoge la fecha de celebracion del partido
      * @param goles int que recoge el numero de goles nuestros
@@ -39,6 +52,7 @@ public class Partido {
         return nombreRival;
     }
 
+    // GETTERS Y SETTERS
     /**
      * Metodo que asigna un valor al String nombreRival
      * @param nombreRival que recoge el valor a asignar
@@ -127,6 +141,10 @@ public class Partido {
         this.listaJugadores = listaJugadores;
     }    
     
+    /**
+     * Devuelve el String sobrecargado de todos los datos de la clase
+     * @return String
+     **/    
     @Override
     public String toString(){
         StringBuilder participantes = new StringBuilder();

@@ -6,11 +6,17 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 /**
- * Menu inicial del programa que hereda de JFrame
+ * Menu inicial del programa: formado únicamente por el panel principal y un
+ * JTabbedPane donde sus ventanas conformarán el nombre de "Empleados", "Partidos" y
+ * "Facturas". Hacer click en él te llevará a los paneles de cada uno, mostrando 
+ * las listas y en algunos casos, unos botones para gestionarlas.
+ * 
  * @author Isabel Shuang Piñana Alonso
  */
 
 public class MenuPrincipal extends JFrame {
+    
+    // ATRIBUTOS
     private final JPanel mainPanel;
     private final JTabbedPane ventanas;
     
@@ -67,7 +73,7 @@ public class MenuPrincipal extends JFrame {
     }
     
     /**
-     * Método que asigna el número de ventana seleccionada en el primer menú
+     * Método que asigna el número de ventana seleccionada en el primer menu.
      * Contiene un try/catch en caso de que haya un error donde el index sea fuera
      * del rango de las ventanas
      * @param index int
@@ -75,7 +81,6 @@ public class MenuPrincipal extends JFrame {
     public void setSelectedIndex(int index){
         try {
             ventanas.setSelectedIndex(index);
-            // System.out.println(ventanas.getSelectedIndex());
         } catch(IndexOutOfBoundsException e) {
             System.out.println("ERROR -> index fuera de alcance");
         }

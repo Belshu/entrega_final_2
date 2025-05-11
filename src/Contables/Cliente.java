@@ -2,6 +2,7 @@ package Contables;
 
 /**
  * Utilizada para el registro y gestión de los clientes
+ * 
  * @author Ágata Gambín Póveda
  **/
 

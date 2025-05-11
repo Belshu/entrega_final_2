@@ -19,6 +19,7 @@ import Partidos.Partido;
 /**
  * Menu inicial del programa que hereda de JFrame e implementa la interfaz 
  * ActionListener
+ * 
  * @author Isabel Shuang Piñana Alonso
  */
 public class MenuPartidos extends JFrame implements ActionListener {
@@ -45,6 +46,10 @@ public class MenuPartidos extends JFrame implements ActionListener {
     * CONSTRUCTOR: inicialización de los atributos finales 
     **/
     public MenuPartidos(){
+        if(listaPartidos == null) {
+            listaPartidos = new ArrayList<>();
+        }
+        
         mainPanel = new JPanel(new BorderLayout());
         buttonsPanel = new JPanel(new FlowLayout());
         
@@ -98,7 +103,9 @@ public class MenuPartidos extends JFrame implements ActionListener {
     private DefaultListModel getPartidosListModel() {
         partidosListModel = new DefaultListModel<>();
         
-        for(Partido p : listaPartidos) partidosListModel.addElement(p);
+        if(!listaPartidos.isEmpty()) {
+            for(Partido p : listaPartidos) partidosListModel.addElement(p);
+        }
         
         return partidosListModel;
     }

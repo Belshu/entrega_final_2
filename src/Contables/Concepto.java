@@ -1,17 +1,22 @@
 package Contables;
 
 /**
- * Utilizado para el registro y gestión de los conecptos de las 
- * nóminas
+* Clase que reúne los métodos y atributos necesarios en la creación de la Nomina: 
+* - String: el codigo del concepto y su descripción. El código será final
+* - double: el importe del concepto 
+* 
  * @author Ágata Gambín Póveda
  */
 public class Concepto {
+    
+    // ATRIBUTOS
     private final String codigoConcepto;
     private String descripcion;
     private double importe;
 
     /**
      * Recoge el codigo, la descripcion y el importe que se va a destinar
+     * 
      * @param codigo String unico para identificar el concepto de cada uno
      * @param descripcion String que recoge una breve descripcion para el concepto en concreto
      * @param importe double que recoge el dinero a pagar
@@ -23,7 +28,7 @@ public class Concepto {
         this.importe = importe;
     }    
     
-
+    // GETTERS Y SETTERS
     /**
      * Devuelve el String codigo
      * @return String
@@ -49,7 +54,7 @@ public class Concepto {
     }
 
     /**
-     * Devuelve el String sobrecargado de todos los datos
+     * Devuelve el String sobrecargado de todos los datos de la clase
      * @return String
      **/
     @Override
