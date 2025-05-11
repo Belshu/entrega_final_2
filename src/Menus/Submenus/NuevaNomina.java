@@ -308,9 +308,7 @@ private void anadirNomina() {
                 }
                 
                 nominas.add(nomina);
-            }
-        
-            JOptionPane.showMessageDialog(this, "Nomina creada con éxito!", "Nomina creada", JOptionPane.INFORMATION_MESSAGE);
+            }        
             dispose();
         }
     } catch (NumberFormatException ex) {

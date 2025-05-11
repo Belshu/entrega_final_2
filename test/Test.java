@@ -9,6 +9,7 @@
  */
 
 import Menus.MenuEmpleados;
+import Menus.MenuFacturas;
 import Menus.MenuPartidos;
 import Menus.Submenus.*;
 
@@ -21,11 +22,13 @@ public class Test {
         // new ImprimirEmpleados(true);
         // new ImprimirEmpleados(false);
         
-        // MenuEmpleados.inicializarListas();
+        MenuEmpleados.inicializarListas();
         // MenuPartidos.inicializarLista();
         // new NuevoPartido(MenuEmpleados.getListaJugadores());
 
-        new NuevaNomina();
+        // new NuevaNomina();
+        MenuFacturas.inicializarListas();
+        new NuevaFactura();
     }
 }
 

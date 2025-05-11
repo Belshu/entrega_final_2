@@ -160,6 +160,7 @@ public class Imprimir extends JFrame implements ActionListener{
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setContentPane(getMainPanel());
+        setResizable(false);
         setVisible(true);
     }
     

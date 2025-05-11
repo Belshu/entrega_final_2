@@ -42,6 +42,7 @@ public class MenuPrincipal extends JFrame {
         setSize(1200, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // setResizable(false);
         setVisible(true);
     }
     

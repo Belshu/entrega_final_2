@@ -8,6 +8,7 @@ import Empleados.Empleado;
 import Empleados.Jugador;
 import Empleados.Tecnico;
 import Menus.Submenus.Imprimir;
+import Menus.Submenus.NuevaFactura;
 import Menus.Submenus.NuevaNomina;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -200,18 +201,27 @@ public class MenuFacturas extends JFrame implements ActionListener{
     }
     
     private void anadirFactura() {
-        // NUEVAFACTURA
+        NuevaFactura nuevaFactura = new NuevaFactura();
+        
+        nuevaFactura.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                if(nuevaFactura.getFactura() != null) {
+                    facturasListModel.addElement(nuevaFactura.getFactura());
+                    listaFacturas.add(nuevaFactura.getFactura());
+                }
+            }
+        });
     }
 
     private void anadirNomina() {
-        NuevaNomina menu = new NuevaNomina();
+        NuevaNomina nuevaNomina = new NuevaNomina();
 
-        menu.addWindowListener(new java.awt.event.WindowAdapter() {
+        nuevaNomina.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-                
-                if (menu.getNominas() != null || menu.getNominas().isEmpty()) {
-                    for (Nomina nomina : menu.getNominas()) {
+                if (nuevaNomina.getNominas() != null || nuevaNomina.getNominas().isEmpty()) {
+                    for (Nomina nomina : nuevaNomina.getNominas()) {
                         nominasListModel.addElement(nomina);
                         listaNominas.add(nomina);
                         
@@ -220,8 +230,8 @@ public class MenuFacturas extends JFrame implements ActionListener{
                                 e.agregarNomina(nomina);
 
                                 Random rand = new Random();
-                                LocalDate fecha = LocalDate.of(menu.getAnio(),
-                                        menu.getMes(), menu.getDia());
+                                LocalDate fecha = LocalDate.of(nuevaNomina.getAnio(),
+                                        nuevaNomina.getMes(), nuevaNomina.getDia());
 
                                 int codigo = rand.nextInt(1000000);
 
@@ -275,5 +285,13 @@ public class MenuFacturas extends JFrame implements ActionListener{
                 listaFacturas.add(factura);
             }
         });
+    }
+
+    public static ArrayList<Factura> getListaFacturas() {
+        return listaFacturas;
+    }
+
+    public static ArrayList<Nomina> getListaNominas() {
+        return listaNominas;
     }
 }
