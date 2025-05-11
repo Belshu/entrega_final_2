@@ -50,7 +50,7 @@ public class Imprimir extends JFrame implements ActionListener{
         this.listaNominas = listaNominas;
         this.listaEmpleados = MenuEmpleados.getListaEmpleados();
         
-        if(listaNominas == null) {
+        if(listaNominas == null || listaNominas.isEmpty()) {
             JOptionPane.showMessageDialog(this, "LISTA VACIA", "Advertencia", JOptionPane.WARNING_MESSAGE);
             this.dispose();
         }
@@ -80,7 +80,7 @@ public class Imprimir extends JFrame implements ActionListener{
     public Imprimir() {
         listaPartidos = MenuPartidos.getListaPartidos();
         
-        if(listaPartidos == null) {
+        if(listaPartidos == null || listaPartidos.isEmpty()) {
             JOptionPane.showMessageDialog(this, "LISTA VACIA", "Advertencia", JOptionPane.WARNING_MESSAGE);
             this.dispose();
         }
@@ -116,7 +116,7 @@ public class Imprimir extends JFrame implements ActionListener{
         
         listaEmpleados = MenuEmpleados.getListaEmpleados();
         
-        if(listaEmpleados == null) {
+        if(listaEmpleados == null || listaEmpleados.isEmpty()) {
             JOptionPane.showMessageDialog(this, "LISTA VACIA", "Advertencia", JOptionPane.WARNING_MESSAGE);
             this.dispose();
         }

@@ -252,28 +252,23 @@ public class NuevaNomina extends JFrame implements ActionListener{
         formularioConceptos.setContentPane(formularioPanelConceptos);
         formularioConceptos.setVisible(true);
         
-        botonAgregar.addActionListener(e -> {
+        botonAgregar.addActionListener((ActionEvent e) -> {
             Random rand = new Random();
             int codigo = rand.nextInt(10000000);
-
-            if (!"".equals(descripcionTextArea.getText()) || descripcionTextArea.getText() != null
-                    || "".equals(importeTextField.getText()) || importeTextField.getText() != null) {
-                try {
-                    Concepto concepto = new Concepto(String.valueOf(codigo), descripcionTextArea.getText(),
-                            Double.parseDouble(importeTextField.getText()));
-
-                    listaConceptos.add(concepto);
-                    JOptionPane.showMessageDialog(this, "Concepto creado con exito!", "Concepto creado", JOptionPane.INFORMATION_MESSAGE);
-                    conceptosTextArea.append(concepto.getCodigo() + " | " + concepto.getImporte() + "\n");
-
-                    formularioConceptos.dispose();
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(this, "Error en la entrada de datos. Por favor, revise los campos.",
-                            "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Complete todos los campos, por favor.",
-                    "Faltan campos", JOptionPane.WARNING_MESSAGE);
+            if (descripcionTextArea.getText().isEmpty() || importeTextField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(NuevaNomina.this, "Complete todos los campos, por favor.", 
+                        "Faltan campos", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            try {
+                Concepto concepto = new Concepto(String.valueOf(codigo), descripcionTextArea.getText(),
+                        Double.parseDouble(importeTextField.getText()));
+                listaConceptos.add(concepto);
+                conceptosTextArea.append(concepto.getCodigo() + " | " + concepto.getImporte() + "\n");
+                formularioConceptos.dispose();
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(NuevaNomina.this, "Error en la entrada de datos. Por favor, revise los campos.", 
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
     }

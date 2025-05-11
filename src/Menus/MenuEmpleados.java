@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.ListSelectionModel;
 
 /**
  * Menu de gestión de empleados: se crean unas listas estáticas que contendrán
@@ -190,6 +191,7 @@ public class MenuEmpleados extends JFrame implements ActionListener {
      **/
     private JList<Empleado> getListaEmpleados2() {
         listaEmpleados2 = new JList<>(getEmpleadoListModel());
+        listaEmpleados2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         return listaEmpleados2;
     }
 
@@ -223,7 +225,7 @@ public class MenuEmpleados extends JFrame implements ActionListener {
      **/
     private JList<Jugador> getListaJugadores2() {
         listaJugadores2 = new JList<>(getJugadorListModel());
-
+        listaJugadores2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         return listaJugadores2;
     }
 
@@ -256,6 +258,7 @@ public class MenuEmpleados extends JFrame implements ActionListener {
      **/
     private JList<Tecnico> getListaTecnicos2() {
         listaTecnicos2 = new JList<>(getTecnicoListModel());
+        listaTecnicos2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);        
         return listaTecnicos2;
     }
 
@@ -287,6 +290,7 @@ public class MenuEmpleados extends JFrame implements ActionListener {
      **/
     private JList<Directivo> getListaDirectivos2() {
         listaDirectivos2 = new JList<>(getDirectivoListModel());
+        listaDirectivos2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);        
         return listaDirectivos2;
     }
 

@@ -138,42 +138,44 @@ public class NuevaFactura extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         if(ae.getSource() == botonAceptar) {
-            if(!cantidadTextField.getText().isEmpty() || !diaTextField.getText().isEmpty()
-                    || !mesTextField.getText().isEmpty() || !anioTextField.getText().isEmpty()
-                    || !cifTextField.getText().isEmpty() || !nombreTextField.getText().isEmpty()) {
-                try {
-                    int dia = Integer.parseInt(diaTextField.getText());
-                    int mes = Integer.parseInt(mesTextField.getText());
-                    int anio = Integer.parseInt(anioTextField.getText());
-                    
-                    if (mes < 1 || mes > 12 || dia < 1 || dia > 31) {
-                        JOptionPane.showMessageDialog(this, "Error en la fecha de creacion de la factura. Por favor, revisa ese campo.",
-                                "Error", JOptionPane.ERROR_MESSAGE);
-                    } else {
-                        LocalDate fecha = LocalDate.of(anio, mes, dia);
-                        double cantidad = Double.parseDouble(cantidadTextField.getText());
-                        
-                        Random rand = new Random();
-                        int cod = rand.nextInt(1000000);
-
-                        if (!MenuFacturas.getListaFacturas().isEmpty()) {
-                            int i = 0;
-                            while (MenuFacturas.getListaFacturas().get(i).getCodigo().equals(cod)) {
-                                cod = rand.nextInt(1000000);
-                            }
-                        }
-                        String codigo = String.valueOf(cod);
-                        
-                        factura = new Factura(codigo, cantidad, fecha, new Cliente(cifTextField.getText(), nombreTextField.getText()));
-                        dispose();
-                    }
-                } catch(NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(this, "Error en la entrada de datos. Por favor, revise los campos.",
-                        "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } else {
+            
+            if(cantidadTextField.getText().isEmpty() || diaTextField.getText().isEmpty()
+                    || mesTextField.getText().isEmpty() || anioTextField.getText().isEmpty()
+                    || cifTextField.getText().isEmpty() || nombreTextField.getText().isEmpty()){
                 JOptionPane.showMessageDialog(this, "Complete todos los campos, por favor.",
                     "Faltan campos", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            try {
+                int dia = Integer.parseInt(diaTextField.getText());
+                int mes = Integer.parseInt(mesTextField.getText());
+                int anio = Integer.parseInt(anioTextField.getText());
+
+                if (mes < 1 || mes > 12 || dia < 1 || dia > 31) {
+                    JOptionPane.showMessageDialog(this, "Error en la fecha de creacion de la factura. Por favor, revisa ese campo.",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    LocalDate fecha = LocalDate.of(anio, mes, dia);
+                    double cantidad = Double.parseDouble(cantidadTextField.getText());
+
+                    Random rand = new Random();
+                    int cod = rand.nextInt(1000000);
+
+                    if (!MenuFacturas.getListaFacturas().isEmpty()) {
+                        int i = 0;
+                        while (MenuFacturas.getListaFacturas().get(i).getCodigo().equals(cod)) {
+                            cod = rand.nextInt(1000000);
+                        }
+                    }
+                    String codigo = String.valueOf(cod);
+
+                    factura = new Factura(codigo, cantidad, fecha, new Cliente(cifTextField.getText(), nombreTextField.getText()));
+                    dispose();
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Error en la entrada de datos. Por favor, revise los campos.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else if(ae.getSource() == botonCancelar) {
             dispose();

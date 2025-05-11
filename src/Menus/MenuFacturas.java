@@ -24,6 +24,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.ListSelectionModel;
 
 /**
  * Menu del programa que hereda de JFrame e implementa la interfaz
@@ -122,7 +123,7 @@ public class MenuFacturas extends JFrame implements ActionListener{
     
     private JList <Factura> getListaFacturas2() {
         listaFacturas2 = new JList(getFacturasListModel());
-        
+        listaFacturas2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);        
         return listaFacturas2;
     }
     
@@ -154,7 +155,7 @@ public class MenuFacturas extends JFrame implements ActionListener{
 
     private JList<Nomina> getListaNominas2() {
         listaNominas2 = new JList<>(getNominasListModel());
-
+        listaNominas2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);        
         return listaNominas2;
     }
 

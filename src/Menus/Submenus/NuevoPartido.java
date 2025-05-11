@@ -265,9 +265,11 @@
 
             if(noLocal.isSelected()) esLocal = false;
             else if(local.isSelected()) esLocal = true;
+            
+            
 
-            if(jugadoresSeleccionados.isEmpty() || "".equals(nombreRivalTextField.getText()) 
-                    || "".equals(golesTextField1.getText()) || "".equals(golesTextField2.getText())) {
+            if(jugadoresSeleccionados.isEmpty() || nombreRivalTextField.getText().isEmpty()
+                    || golesTextField1.getText().isEmpty() ||  golesTextField2.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Complete todos los campos, por favor.", 
                         "Faltan campos", JOptionPane.WARNING_MESSAGE);
             } else {

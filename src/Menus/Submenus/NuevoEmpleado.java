@@ -284,48 +284,61 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == botonAnadir) {
+            if(dniTextField.getText().isEmpty() || nombreTextField.getText().isEmpty() 
+                    || telfTextField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Complete todos los campos, por favor.", 
+                        "Faltan campos", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            
             try {
-                if (!dniTextField.getText().isEmpty() && !nombreTextField.getText().isEmpty() && !telfTextField.getText().isEmpty()) {
-                    dni = dniTextField.getText();
-                    nombre = nombreTextField.getText();
-                    telf = Integer.parseInt(telfTextField.getText());
-
-                    if (jugador.isSelected()) {
-                        if (!apellidoTextField.getText().isEmpty() && !demarcacionTextField.getText().isEmpty()
-                                && !edadTextField.getText().isEmpty() && !valorTextField.getText().isEmpty()) {
-                            demarcacion = Integer.parseInt(demarcacionTextField.getText());
-                            if(demarcacion < 0 || demarcacion > 11) {
-                                JOptionPane.showMessageDialog(this, "La demarcación debe ser entre 0 y 11", "WARNING", JOptionPane.WARNING_MESSAGE);
-                                demarcacion = 0;
-                                demarcacionTextField.setText("");
-                            } else {
-                                apellido = apellidoTextField.getText();
-                                edad = Integer.parseInt(edadTextField.getText());
-                                valor = Double.parseDouble(valorTextField.getText());
-                                dispose();
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Completa todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
-                        }
-                    } else if (tecnico.isSelected()) {
-                        if (!puestoTextField.getText().isEmpty() && !especialidadTextField.getText().isEmpty()) {
-                            puesto = puestoTextField.getText();
-                            especialidad = especialidadTextField.getText();
-                            dispose();
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Completa todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
-                        }
-                    } else if (directivo.isSelected()) {
-                        if (!cargoTextField.getText().isEmpty()) {
-                            cargo = cargoTextField.getText();
-                            dispose();
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Completa todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
-                        }
+                dni = dniTextField.getText();
+                nombre = nombreTextField.getText();
+                telf = Integer.parseInt(telfTextField.getText());
+                
+                if (jugador.isSelected()) {
+                    
+                    if(apellidoTextField.getText().isEmpty() || demarcacionTextField.getText().isEmpty()
+                            || edadTextField.getText().isEmpty() || valorTextField.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(this, "Complete todos los campos, por favor.", 
+                                "Faltan campos", JOptionPane.WARNING_MESSAGE);
+                        return;
                     }
-                } else {
-                    JOptionPane.showMessageDialog(this, "Completa todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+                    
+                    demarcacion = Integer.parseInt(demarcacionTextField.getText());
+                    
+                    if (demarcacion < 0 || demarcacion > 11) {
+                        JOptionPane.showMessageDialog(this, "La demarcación debe ser entre 0 y 11", "WARNING", JOptionPane.WARNING_MESSAGE);
+                        demarcacion = 0;
+                        demarcacionTextField.setText("");
+                        return;
+                    } else {
+                        apellido = apellidoTextField.getText();
+                        edad = Integer.parseInt(edadTextField.getText());
+                        valor = Double.parseDouble(valorTextField.getText());
+                    }
+                    
+                } else if (tecnico.isSelected()) {
+                    
+                    if(puestoTextField.getText().isEmpty() || especialidadTextField.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(this, "Complete todos los campos, por favor.", 
+                                "Faltan campos", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+
+                    puesto = puestoTextField.getText();
+                    especialidad = especialidadTextField.getText();
+                } else if (directivo.isSelected()) {
+                    
+                    if(cargoTextField.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(this, "Complete todos los campos, por favor.", 
+                                "Faltan campos", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+                    
+                    cargo = cargoTextField.getText();
                 }
+                dispose();
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Error en la entrada de datos. Por favor, revise los campos.", "Error", JOptionPane.ERROR_MESSAGE);
             }

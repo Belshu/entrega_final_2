@@ -15,6 +15,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import Partidos.Partido;
+import javax.swing.ListSelectionModel;
 
 /**
  * Menu inicial del programa que hereda de JFrame e implementa la interfaz 
@@ -91,7 +92,7 @@ public class MenuPartidos extends JFrame implements ActionListener {
      **/    
     private JList getListaPartidos2() {
         listaPartidos2 = new JList<>(getPartidosListModel());
-        
+        listaPartidos2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);                
         return listaPartidos2;
     }
     

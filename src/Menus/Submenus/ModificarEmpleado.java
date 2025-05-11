@@ -258,41 +258,64 @@ public class ModificarEmpleado extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         if(ae.getSource() == botonAplicar) {
             
+            if(nombreTextField.getText().isEmpty() || telfTextField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Complete todos los campos, por favor.", 
+                                "Faltan campos", JOptionPane.WARNING_MESSAGE);
+                        return;
+            }
+            
             try {
                 nombre = nombreTextField.getText();
                 telf = Integer.parseInt(telfTextField.getText());
                 
                 switch(index) {
                     case 0 -> {
+                        
+                        if(demarcacionTextField.getText().isEmpty()) {
+                            JOptionPane.showMessageDialog(this, "Complete todos los campos, por favor.", 
+                                "Faltan campos", JOptionPane.WARNING_MESSAGE);
+                            return;
+                        }
+                        
                         demarcacion = Integer.parseInt(demarcacionTextField.getText());
+                        
                         if(demarcacion < 0 || demarcacion > 11) {
                             JOptionPane.showMessageDialog(this, "La demarcación debe ser entre 0 y 11", "WARNING", JOptionPane.WARNING_MESSAGE);
                             demarcacion = 0;
                             demarcacionTextField.setText("");
+                            return;
                         } else {
                             apellido = apellidoTextField.getText();
                             edad = Integer.parseInt(edadTextField.getText());
                             valor = Double.parseDouble(valorTextField.getText());
                             if(disponible.isSelected()) { estado = true; } 
-                            else{ estado = false; }
-                            
-                            dispose();
+                            else{ estado = false; }                            
                         }
                     }
                     
                     case 1 -> {
+                        
+                        if(puestoTextField.getText().isEmpty() || especialidadTextField.getText().isEmpty()){
+                            JOptionPane.showMessageDialog(this, "Complete todos los campos, por favor.", 
+                                "Faltan campos", JOptionPane.WARNING_MESSAGE);
+                            return;
+                        } 
+                        
                         puesto = puestoTextField.getText();
                         especialidad = especialidadTextField.getText();
-                        dispose();
-
                     }
                     
                     case 2 -> {
+                        if(puestoTextField.getText().isEmpty()) {
+                            JOptionPane.showMessageDialog(this, "Complete todos los campos, por favor.", 
+                                "Faltan campos", JOptionPane.WARNING_MESSAGE);
+                            return;
+                        }
+                        
                         cargo = cargoTextField.getText();
-                        dispose();
                     }
                 }
-                
+                dispose();
             } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Error en la entrada de datos. Por favor, revise los campos.", "Error", JOptionPane.ERROR_MESSAGE);                
             }
