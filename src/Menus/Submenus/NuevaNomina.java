@@ -26,29 +26,39 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
 /**
+ * Clase que crea una nueva nomina o un conjunto de estas dependiendo de la 
+ * cantidad de jugadores que elija el usuario para ponerselas. Tomará los datos
+ * del usuario en base a los JTextField y los agregará a cada una para luego 
+ * asignárselo a los empleados elegidos
  * 
  * @author Isabel Shuang Piñana Alonso
  */
 
 public class NuevaNomina extends JFrame implements ActionListener{
-    private ArrayList <Nomina> nominas;
+    
+    // LISTAS
     private ArrayList <Empleado> elegidos;
-    
-    private int dia, mes, anio;
-    
+    private Nomina nomina;
     private ArrayList <Concepto> listaConceptos;
     
-    private JPanel mainPanel, formularioPanel, empleadoPanel, empleadoPanel2, fechaPanel, conceptosPanel, buttonsPanel;
+    // INFORMACIÓN A ALMACENAR
+    private int dia, mes, anio;
     
-    private JLabel seleccionarEmpleadoLabel, fechaLabel, fechaLabel2, fechaLabel3, conceptosLabel;
-    private JTextField diaTextField, mesTextField, anioTextField;
-    private JTextArea conceptosTextArea, seleccionarEmpleadosTextArea;
+    // PANELES
+    private final JPanel mainPanel, formularioPanel, empleadoPanel, empleadoPanel2, fechaPanel, conceptosPanel, buttonsPanel;
     
-    private JButton botonSeleccionarEmpleado, botonConceptos, botonAceptar, botonCancelar;
+    // ELEMENTOS
+    private final JLabel seleccionarEmpleadoLabel, fechaLabel, fechaLabel2, fechaLabel3, conceptosLabel;
+    private final JTextField diaTextField, mesTextField, anioTextField;
+    private final JTextArea conceptosTextArea, seleccionarEmpleadosTextArea;
     
+    private final JButton botonSeleccionarEmpleado, botonConceptos, botonAceptar, botonCancelar;
+    
+    /**
+     * CONSTRUCTOR: inicialización de los atributos finales
+     **/
     public NuevaNomina() {
         listaConceptos = new ArrayList<>();
-        nominas = new ArrayList <>();
         elegidos = new ArrayList<>();
         
         mainPanel = new JPanel(new BorderLayout());
@@ -81,6 +91,10 @@ public class NuevaNomina extends JFrame implements ActionListener{
         initialize();
     }
     
+    /**
+     * Método que inicia el tamaño de la interfaz, poner el panel contenido y 
+     * diversas propiedades
+     **/
     private void initialize() {
         setTitle("Nueva nomina");
         setSize(600, 400);
@@ -91,6 +105,10 @@ public class NuevaNomina extends JFrame implements ActionListener{
         setVisible(true);
     }
     
+    /**
+     * Método que devuelve el panel principal donde se colocarán las ventanas
+     * @return JPanel
+     **/
     private JPanel getMainPanel() {
         JLabel marginLabel = new JLabel("     ");
         marginLabel.setFont(new Font("Arial", Font.PLAIN, 10));
@@ -102,6 +120,11 @@ public class NuevaNomina extends JFrame implements ActionListener{
         return mainPanel;
     }
     
+    /**
+     * Método que devuelve el panel de los formularios donde se colocarán el panel de
+     * empleados, de fecha y de conceptos
+     * @return JPanel
+     **/
     private JPanel getFormularioPanel() {
         formularioPanel.setLayout(new BoxLayout(formularioPanel, BoxLayout.Y_AXIS));
         
@@ -115,6 +138,11 @@ public class NuevaNomina extends JFrame implements ActionListener{
         return formularioPanel;
     }
     
+    /**
+     * Método que devuelve el panel de empleados donde se colocarán los elementos
+     * correspondientes
+     * @return JPanel
+     **/
     private JPanel getEmpleadoPanel() {
         empleadoPanel.add(seleccionarEmpleadoLabel, BorderLayout.PAGE_START);
         empleadoPanel.add(getEmpleadoPanel2(), BorderLayout.CENTER);
@@ -122,7 +150,11 @@ public class NuevaNomina extends JFrame implements ActionListener{
         return empleadoPanel;
     }
 
-    
+    /**
+     * Método que devuelve el segundo panel de empleados donde se colocarán los elementos
+     * correspondientes
+     * @return JPanel
+     **/
     private JPanel getEmpleadoPanel2() {
         botonSeleccionarEmpleado.addActionListener(this);
         seleccionarEmpleadosTextArea.setEnabled(false);
@@ -133,6 +165,11 @@ public class NuevaNomina extends JFrame implements ActionListener{
         return empleadoPanel2;
     }
     
+    /**
+     * Método que devuelve el panel de fecha donde se colocarán los elementos
+     * correspondientes
+     * @return JPanel
+     **/
     private JPanel getFechaPanel() {
         fechaPanel.add(fechaLabel);
         fechaPanel.add(diaTextField);
@@ -144,6 +181,11 @@ public class NuevaNomina extends JFrame implements ActionListener{
         return fechaPanel;
     }
     
+    /**
+     * Método que devuelve el panel de conceptos donde se colocarán los elementos
+     * correspondientes
+     * @return JPanel
+     **/
     private JPanel getConceptosPanel() {
         botonConceptos.addActionListener(this);
         conceptosTextArea.setEnabled(false);
@@ -155,6 +197,11 @@ public class NuevaNomina extends JFrame implements ActionListener{
         return conceptosPanel;
     }
     
+    /**
+     * Método que devuelve el panel de botones donde se colocarán los elementos
+     * correspondientes
+     * @return JPanel
+     **/
     private JPanel getButtonsPanel() {
         botonAceptar.addActionListener(this);
         botonCancelar.addActionListener(this);
@@ -165,6 +212,11 @@ public class NuevaNomina extends JFrame implements ActionListener{
         return buttonsPanel;
     }
     
+    /**
+     * Metodo sobrecargado que recoge las acciones dentro de la interfaz y se le asignara una utilidad a los
+     * botones correspondientes
+     * @param ae ActionEvent 
+     **/
     @Override
     public void actionPerformed(ActionEvent ae) {
         if(ae.getSource() == botonSeleccionarEmpleado) {
@@ -182,6 +234,10 @@ public class NuevaNomina extends JFrame implements ActionListener{
         }
     }
     
+    /**
+     * Método que muestra una lista de empleados que e usuario podrá seleccionar
+     * para agregarles una nómina
+     **/
     private void mostrarListaEmpleados() {
         JFrame seleccionFrame = new JFrame("Seleccionar Empleados");
         
@@ -218,6 +274,10 @@ public class NuevaNomina extends JFrame implements ActionListener{
         seleccionFrame.setVisible(true);
     }
     
+    /**
+     * Método que muestra una interfaz de formulario para rellenar los datos del concepto
+     * que se desea agregar
+     **/
     private void mostrarFormularioConceptos() {
         JFrame formularioConceptos = new JFrame();
         
@@ -272,53 +332,59 @@ public class NuevaNomina extends JFrame implements ActionListener{
             }
         });
     }
-    
-private void anadirNomina() {     
-    if (seleccionarEmpleadosTextArea.getText().isEmpty() || 
-        mesTextField.getText().isEmpty() || 
-        anioTextField.getText().isEmpty()) {
-        
-        JOptionPane.showMessageDialog(this, "Complete todos los campos, por favor.",
-            "Faltan campos", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
 
-    try {
-        dia = Integer.parseInt(diaTextField.getText());
-        mes = Integer.parseInt(mesTextField.getText());
-        anio = Integer.parseInt(anioTextField.getText());
-        
-        if(mes < 1 || mes > 12 || dia < 1 || dia > 31) {
-            JOptionPane.showMessageDialog(this, "Error en la fecha de creación de la nomina. Por favor, revisa ese campo.",
-            "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            for(Empleado empleado : elegidos) {
-                Nomina nomina = new Nomina(empleado.getDni(), dia, mes, anio);
-                empleado.agregarNomina(nomina);
-                
-                if(!listaConceptos.isEmpty()) {
-                    for (Concepto c : listaConceptos) {
-                        nomina.agregarConcepto(c);
+    /**
+     * Método que añade los datos a la nueva o nuevas nóminas, con la información necesaria
+     **/
+    private void anadirNomina() {
+        if (seleccionarEmpleadosTextArea.getText().isEmpty()
+                || mesTextField.getText().isEmpty()
+                || anioTextField.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(this, "Complete todos los campos, por favor.",
+                    "Faltan campos", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            dia = Integer.parseInt(diaTextField.getText());
+            mes = Integer.parseInt(mesTextField.getText());
+            anio = Integer.parseInt(anioTextField.getText());
+
+            if (mes < 1 || mes > 12 || dia < 1 || dia > 31) {
+                JOptionPane.showMessageDialog(this, "Error en la fecha de creación de la nomina. Por favor, revisa ese campo.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                for (Empleado elegido : elegidos) {
+                    for(Empleado e : MenuEmpleados.getListaEmpleados()) {
+                        if(elegido.getDni().equals(e.getDni()) && !e.isEliminado()) {
+                            nomina = new Nomina(dia, mes, anio);
+
+                            if (!listaConceptos.isEmpty()) {
+                                for (Concepto c : listaConceptos) {
+                                    nomina.agregarConcepto(c);
+                                }
+                            }
+                            e.agregarNomina(nomina);
+                            elegido.agregarNomina(nomina);
+                        }
                     }
                 }
-                
-                nominas.add(nomina);
-            }        
-            dispose();
+                dispose();
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Error en la entrada de datos. Por favor, revise los campos.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
-    } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(this, "Error en la entrada de datos. Por favor, revise los campos.",
-            "Error", JOptionPane.ERROR_MESSAGE);
     }
-}
 
-
+    
     public ArrayList <Empleado> getElegidos() {
         return elegidos;
     }
-    
-    public ArrayList <Nomina> getNominas() {
-        return nominas;
+
+    public Nomina getNomina() {
+        return nomina;
     }
     
     public int getDia() {

@@ -17,15 +17,19 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 /**
- * Menu inicial del programa que hereda de JFrame e implementa la interfaz 
- * ActionListener
+ * Clase que Modifica al empleado seleccionado por el usuario y pone la información
+ * en los TextField para que sea modificado como el usuario quiera
+ * 
  * @author Isabel Shuang Piñana Alonso
  */
 
 public class ModificarEmpleado extends JFrame implements ActionListener {
+    
+    // PANELES
     private JPanel formularioPanel;
     private final JPanel mainPanel, buttonsPanel;
     
+    // ELEMENTOS
     private final JLabel nombreLabel, apellidoLabel, telfLabel,
             demarcacionLabel, edadLabel, valorLabel,
             puestoLabel, especialidadLabel, 
@@ -39,6 +43,7 @@ public class ModificarEmpleado extends JFrame implements ActionListener {
     private final JRadioButton disponible, noDisponible;
     private final ButtonGroup grupoBotones;
     
+    // INFORMACION A ALMACENAR
     private int index;
     
     private String nombre, apellido, puesto, especialidad, cargo;
@@ -254,6 +259,11 @@ public class ModificarEmpleado extends JFrame implements ActionListener {
         return buttonsPanel;
     }
     
+    /**
+     * Metodo sobrecargado que recoge las acciones dentro de la interfaz y se le asignara una utilidad a los
+     * botones correspondientes
+     * @param ae ActionEvent 
+     **/
     @Override
     public void actionPerformed(ActionEvent ae) {
         if(ae.getSource() == botonAplicar) {

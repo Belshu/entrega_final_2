@@ -13,20 +13,17 @@ import java.util.ArrayList;
 public class Nomina {
 
     // ATRIBUTOS
-    private final String dniEmpleado;
     private final int dia, mes, anio;
     private final ArrayList<Concepto> conceptos;
 
     /**
      * Recoge el mes y el anio de la realizacion de la nomina
      *
-     * @param dniEmpleado String que recoge el dni del empleado al que pertenece
      * @param mes int que recoge el mes de la creacion de la nomina
      * @param anio int que recoge el anio de la creacion de la nomina
      *
      */
-    public Nomina(String dniEmpleado, int dia, int mes, int anio) {
-        this.dniEmpleado = dniEmpleado;
+    public Nomina( int dia, int mes, int anio) {
         this.dia = dia;
         this.mes = mes;
         this.anio = anio;
@@ -35,13 +32,9 @@ public class Nomina {
 
     // GETTERS Y SETTERS
     /**
-     * Devuelve el String dniEmpleado
-     * @return String
+     * Devuelve el int dia
+     * @return int
      */
-    public String getDniEmpleado() {
-        return dniEmpleado;
-    }
-
     public int getDia() {
         return dia;
     }
@@ -111,9 +104,9 @@ public class Nomina {
             conceptosStr += c.toString() + "\n - ";
         }
 
-        return String.format("DNI Empleado: " + dniEmpleado + " | Dia/Mes/Año: %d/%d/%d\n "
-                + "Conceptos:"
-                + "%s Total: %.2f€", dia, mes, anio, conceptosStr, calcularTotal());
+        return String.format("""
+                             Dia/Mes/A\u00f1o: %d/%d/%d
+                              Conceptos:%s Total: %.2f\u20ac""", dia, mes, anio, conceptosStr, calcularTotal());
 
     }
 }

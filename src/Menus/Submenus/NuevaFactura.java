@@ -21,17 +21,26 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 /**
+ * Clase que obtiene la información puesta por el usuario y con ella crea una factura
+ * para añadir a la lista de facturas
  * 
  * @author Isabel Shuang Piñana Alonso
  */
 public class NuevaFactura extends JFrame implements ActionListener {
+    // FACTURA
     private Factura factura;
     
-    private JPanel mainPanel, formularioPanel, cantidadPanel, fechaPanel, clientePanel, buttonsPanel;
-    private JLabel cantidadLabel, cantidadLabel2, fechaLabel1, fechaLabel2, fechaLabel3, clienteLabel1, clienteLabel2;
-    private JTextField cantidadTextField, diaTextField, mesTextField, anioTextField, cifTextField, nombreTextField;
-    private JButton botonAceptar, botonCancelar;
+    // PANELES
+    private final JPanel mainPanel, formularioPanel, cantidadPanel, fechaPanel, clientePanel, buttonsPanel;
     
+    // ELEMENTOS
+    private final JLabel cantidadLabel, cantidadLabel2, fechaLabel1, fechaLabel2, fechaLabel3, clienteLabel1, clienteLabel2;
+    private final JTextField cantidadTextField, diaTextField, mesTextField, anioTextField, cifTextField, nombreTextField;
+    private final JButton botonAceptar, botonCancelar;
+    
+    /**
+     * CONSTRUCTOR: inicialización de los atributos finales.
+     **/
     public NuevaFactura() {
         
         // PANELES
@@ -66,6 +75,10 @@ public class NuevaFactura extends JFrame implements ActionListener {
         initialize();
     }
     
+    /**
+     * Método que inicia el tamaño de la interfaz, poner el panel contenido y 
+     * diversas propiedades
+     **/
     private void initialize() {
         setTitle("Nueva factura");
         setContentPane(getMainPanel());
@@ -76,6 +89,11 @@ public class NuevaFactura extends JFrame implements ActionListener {
         setVisible(true);
     }
     
+    /**
+     * Método que devuelve el panel principal donde se colocarán el panel del
+     * formulario y el de los botones
+     * @return JPanel
+     **/
     private JPanel getMainPanel() {
         mainPanel.add(getFormularioPanel(), BorderLayout.CENTER);
         mainPanel.add(getButtonsPanel(), BorderLayout.PAGE_END);
@@ -83,6 +101,11 @@ public class NuevaFactura extends JFrame implements ActionListener {
         return mainPanel;
     }
     
+    /**
+     * Método que devuelve el panel de los formularios donde se colocarán el panel de
+     * cantidad, de fecha y de cliente
+     * @return JPanel
+     **/
     private JPanel getFormularioPanel() {
         formularioPanel.setLayout(new BoxLayout(formularioPanel, BoxLayout.Y_AXIS));
         formularioPanel.add(getCantidadPanel());
@@ -94,6 +117,11 @@ public class NuevaFactura extends JFrame implements ActionListener {
         return formularioPanel;
     }
     
+    /**
+     * Método que devuelve el panel de cantidad donde se colocarán los elementos
+     * correspondientes
+     * @return JPanel
+     **/
     private JPanel getCantidadPanel() {
         cantidadPanel.add(cantidadLabel);        
         cantidadPanel.add(cantidadTextField);
@@ -102,6 +130,11 @@ public class NuevaFactura extends JFrame implements ActionListener {
         return cantidadPanel;
     }
     
+    /**
+     * Método que devuelve el panel de fechas donde se colocarán los elementos
+     * correspondientes
+     * @return JPanel
+     **/
     private JPanel getFechaPanel() {
         fechaPanel.add(fechaLabel1);
         fechaPanel.add(diaTextField);
@@ -113,6 +146,11 @@ public class NuevaFactura extends JFrame implements ActionListener {
         return fechaPanel;
     }
     
+    /**
+     * Método que devuelve el panel de cliente donde se colocarán los elementos
+     * correspondientes
+     * @return JPanel
+     **/
     private JPanel getClientePanel() {
         clientePanel.setBorder(new TitledBorder("Datos del cliente"));
         
@@ -124,6 +162,11 @@ public class NuevaFactura extends JFrame implements ActionListener {
         return clientePanel;
     }
     
+    /**
+     * Método que devuelve el panel de botones donde se colocarán los elementos
+     * correspondientes
+     * @return JPanel
+     **/
     private JPanel getButtonsPanel() {
         botonAceptar.addActionListener(this);
         botonCancelar.addActionListener(this);
@@ -134,7 +177,11 @@ public class NuevaFactura extends JFrame implements ActionListener {
         return buttonsPanel;
     }
     
-    
+    /**
+     * Metodo sobrecargado que recoge las acciones dentro de la interfaz y se le asignara una utilidad a los
+     * botones correspondientes
+     * @param ae ActionEvent 
+     **/
     @Override
     public void actionPerformed(ActionEvent ae) {
         if(ae.getSource() == botonAceptar) {

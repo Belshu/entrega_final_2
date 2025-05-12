@@ -63,8 +63,8 @@ public class MenuPrincipal extends JFrame {
      **/
     private JTabbedPane getVentanas(){
         MenuFacturas menuFacturas = new MenuFacturas();
-        MenuEmpleados menuEmpleados = new MenuEmpleados(menuFacturas);
         MenuPartidos menuPartidos = new MenuPartidos();
+        MenuEmpleados menuEmpleados = new MenuEmpleados(menuFacturas, menuPartidos);
         
         ventanas.add("Empleados", menuEmpleados.getMainPanel());
         ventanas.add("Partidos", menuPartidos.getMainPanel());

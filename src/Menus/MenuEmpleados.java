@@ -36,9 +36,6 @@ public class MenuEmpleados extends JFrame implements ActionListener {
 
     // LISTAS ESTÁTICAS
     private static ArrayList<Empleado> listaEmpleados;
-    private static ArrayList<Jugador> listaJugadores;
-    private static ArrayList<Tecnico> listaTecnicos;
-    private static ArrayList<Directivo> listaDirectivos;
 
     // PANELES
     private final JPanel mainPanel, todosPanel, jugadoresPanel, tecnicosPanel, directivosPanel, buttonsPanel;
@@ -61,35 +58,23 @@ public class MenuEmpleados extends JFrame implements ActionListener {
     Empleado elegido;
     
     // OTRA INTERFAZ
-    MenuFacturas menuFacturas;
-
+    private MenuFacturas menuFacturas;
+    private MenuPartidos menuPartidos;
+    
     /**
      * Método que inicializa las listas de prueba
      */
     public static void inicializarListas() {
         listaEmpleados = new ArrayList<>();
-        listaJugadores = new ArrayList<>();
-        listaTecnicos = new ArrayList<>();
-        listaDirectivos = new ArrayList<>();
 
-        listaJugadores.add(new Jugador("111111111A", "Jugador1", 123456, "1", 0, 21, 111, true));
-        listaJugadores.add(new Jugador("111111111B", "Jugador2", 123456, "2", 1, 22, 112, true));
+        listaEmpleados.add(new Jugador("111111111A", "Jugador1", 123456, "1", 0, 21, 111, true));
+        listaEmpleados.add(new Jugador("111111111B", "Jugador2", 123456, "2", 1, 22, 112, true));
 
-        listaTecnicos.add(new Tecnico("Informatico", "Redes de sistemas", "222222222A", "Tecnico 1", 654321));
-        listaTecnicos.add(new Tecnico("Informatico", "ciberseguridad", "222222222B", "Tecnico 2", 654321));
+        listaEmpleados.add(new Tecnico("Informatico", "Redes de sistemas", "222222222A", "Tecnico 1", 654321));
+        listaEmpleados.add(new Tecnico("Informatico", "ciberseguridad", "222222222B", "Tecnico 2", 654321));
 
-        listaDirectivos.add(new Directivo("Subdirector", "333333333A", "Directivo 1", 135246));
-        listaDirectivos.add(new Directivo("Director", "333333333B", "Directivo 2", 135246));
-
-        for (Jugador j : listaJugadores) {
-            listaEmpleados.add(j);
-        }
-        for (Tecnico t : listaTecnicos) {
-            listaEmpleados.add(t);
-        }
-        for (Directivo d : listaDirectivos) {
-            listaEmpleados.add(d);
-        }
+        listaEmpleados.add(new Directivo("Subdirector", "333333333A", "Directivo 1", 135246));
+        listaEmpleados.add(new Directivo("Director", "333333333B", "Directivo 2", 135246));
     }
 
     /**
@@ -98,23 +83,12 @@ public class MenuEmpleados extends JFrame implements ActionListener {
      * menu
      * @param menuFacturas
      */
-    public MenuEmpleados(MenuFacturas menuFacturas) {
+    public MenuEmpleados(MenuFacturas menuFacturas, MenuPartidos menuPartidos) {
         this.menuFacturas = menuFacturas;
+        this.menuPartidos = menuPartidos;
         
         if(listaEmpleados == null) {
             listaEmpleados = new ArrayList<>();
-        } 
-        
-        if(listaJugadores == null) {
-            listaJugadores = new ArrayList<>();
-        }
-        
-        if(listaTecnicos == null) {
-            listaTecnicos = new ArrayList<>();
-        }
-        
-        if(listaDirectivos == null) {
-            listaDirectivos = new ArrayList<>();
         }
 
         // PANELES
@@ -137,6 +111,7 @@ public class MenuEmpleados extends JFrame implements ActionListener {
 
     /**
      * Método que devuelve el panel principal
+     * Será público para pasarlo a las ventanas del menú principal
      * @return JPanel
      */
     public JPanel getMainPanel() {
@@ -159,9 +134,9 @@ public class MenuEmpleados extends JFrame implements ActionListener {
 
         buttonsPanel.add(botonAnadir);
         buttonsPanel.add(botonModificar);
+        buttonsPanel.add(botonEliminar);        
         buttonsPanel.add(botonImprimir);
         buttonsPanel.add(botonImprimirEliminados);
-        buttonsPanel.add(botonEliminar);
 
         return buttonsPanel;
     }
@@ -235,9 +210,9 @@ public class MenuEmpleados extends JFrame implements ActionListener {
     private DefaultListModel<Jugador> getJugadorListModel() {
         jugadorListModel = new DefaultListModel<>();
 
-        if(!listaJugadores.isEmpty()) {
-            for (Jugador j : listaJugadores) {
-                if (!j.isEliminado()) {
+        if(!listaEmpleados.isEmpty()) {
+            for(Empleado e : listaEmpleados) {
+                if(e instanceof Jugador j && !e.isEliminado()) {
                     jugadorListModel.addElement(j);
                 }
             }
@@ -267,11 +242,11 @@ public class MenuEmpleados extends JFrame implements ActionListener {
      **/
     private DefaultListModel<Tecnico> getTecnicoListModel() {
         tecnicoListModel = new DefaultListModel<>();
-        if(!listaTecnicos.isEmpty()) {
-            for (Tecnico t : listaTecnicos) {
-                if (!t.isEliminado()) {
+        if(!listaEmpleados.isEmpty()) {
+            for(Empleado e : listaEmpleados) {
+                if(e instanceof Tecnico t && !t.isEliminado()) {
                     tecnicoListModel.addElement(t);
-                }
+                } 
             }
         }
         return tecnicoListModel;
@@ -299,9 +274,9 @@ public class MenuEmpleados extends JFrame implements ActionListener {
      **/
     private DefaultListModel<Directivo> getDirectivoListModel() {
         directivoListModel = new DefaultListModel<>();
-        if(!listaDirectivos.isEmpty()) {
-            for (Directivo d : listaDirectivos) {
-                if (!d.isEliminado()) {
+        if(!listaEmpleados.isEmpty()) {
+            for(Empleado e : listaEmpleados) {
+                if(e instanceof Directivo d && !e.isEliminado()) {
                     directivoListModel.addElement(d);
                 }
             }
@@ -349,19 +324,20 @@ public class MenuEmpleados extends JFrame implements ActionListener {
                                         nuevoEmpleado.getApellido(), nuevoEmpleado.getDemarcacion(), nuevoEmpleado.getEdad(),
                                         nuevoEmpleado.getValor(),
                                         nuevoEmpleado.isEstado());
-                                listaJugadores.add(jugador);
+                                listaEmpleados.add(jugador);
                                 nuevo = jugador;
+                                menuPartidos.updateListaJugadores(jugador, 0);
                             }
                             case 1 -> {
                                 Tecnico tecnico = new Tecnico(nuevoEmpleado.getPuesto(), nuevoEmpleado.getEspecialidad(),
                                         nuevoEmpleado.getDni(), nuevoEmpleado.getNombre(), nuevoEmpleado.getTelf());
-                                listaTecnicos.add(tecnico);
+                                listaEmpleados.add(tecnico);
                                 nuevo = tecnico;
                             }
                             case 2 -> {
                                 Directivo directivo = new Directivo(nuevoEmpleado.getCargo(),
                                         nuevoEmpleado.getDni(), nuevoEmpleado.getNombre(), nuevoEmpleado.getTelf());
-                                listaDirectivos.add(directivo);
+                                listaEmpleados.add(directivo);
                                 nuevo = directivo;
                             }
                         }
@@ -427,6 +403,8 @@ public class MenuEmpleados extends JFrame implements ActionListener {
                                 jugador.setEdad(modificarEmpleado.getEdad());
                                 jugador.setValor(modificarEmpleado.getValor());
                                 jugador.setEstado(modificarEmpleado.isEstado());
+                                
+                                menuPartidos.updateListaJugadores(jugador, 1);
                             } else if (elegido instanceof Tecnico tecnico) {
                                 tecnico.setPuesto(modificarEmpleado.getPuesto());
                                 tecnico.setEspecialidad(modificarEmpleado.getEspecialidad());
@@ -475,8 +453,9 @@ public class MenuEmpleados extends JFrame implements ActionListener {
                 
                     empleadoListModel.removeElement(elegido);
                 
-                if (elegido instanceof Jugador) {
+                if (elegido instanceof Jugador j) {
                     jugadorListModel.removeElement(elegido);
+                    menuPartidos.updateListaJugadores(j, 2);
                 } else if (elegido instanceof Tecnico) {
                     tecnicoListModel.removeElement(elegido);
                 } else if (elegido instanceof Directivo) {
@@ -503,31 +482,5 @@ public class MenuEmpleados extends JFrame implements ActionListener {
      **/
     public static ArrayList<Empleado> getListaEmpleados() {
         return listaEmpleados;
-    }
-
-    
-    /**
-     * Método que devuelve la ArrayList estática de jugadores
-     * @return ArrayList Jugador
-     **/
-    public static ArrayList<Jugador> getListaJugadores() {
-        return listaJugadores;
-    }
-
-    
-    /**
-     * Método que devuelve la ArrayList estática de tecnicos
-     * @return ArrayList Tecnico
-     **/
-    public static ArrayList<Tecnico> getListaTecnicos() {
-        return listaTecnicos;
-    }
-
-    /**
-     * Método que devuelve la ArrayList estática de directivos
-     * @return ArrayList Directivo
-     **/
-    public static ArrayList<Directivo> getListaDirectivos() {
-        return listaDirectivos;
     }
 }

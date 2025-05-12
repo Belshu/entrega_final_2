@@ -1,5 +1,7 @@
 package Menus;
 
+import Empleados.Empleado;
+import Empleados.Jugador;
 import Menus.Submenus.Imprimir;
 import Menus.Submenus.NuevoPartido;
 import java.awt.BorderLayout;
@@ -18,18 +20,25 @@ import Partidos.Partido;
 import javax.swing.ListSelectionModel;
 
 /**
- * Menu inicial del programa que hereda de JFrame e implementa la interfaz 
- * ActionListener
+ * Menu de gestión de partidos: se crea una lista estática que almacena los partidos
+ * y para su gestión a base de botones
  * 
  * @author Isabel Shuang Piñana Alonso
  */
 public class MenuPartidos extends JFrame implements ActionListener {
-    private static ArrayList <Partido> listaPartidos;
     
+    // LISTA
+    private static ArrayList <Partido> listaPartidos;
+    private final ArrayList <Jugador> listaJugadores;
+    
+    // PANELES
     private final JPanel mainPanel, buttonsPanel;
+    
+    // ELEMENTOS
     private final JButton botonAnadir, botonImprimir;
     private JList <Partido> listaPartidos2;
     
+    // MODELO DE LISTA
     private DefaultListModel <Partido> partidosListModel;
     
     /**
@@ -38,9 +47,17 @@ public class MenuPartidos extends JFrame implements ActionListener {
     public static void inicializarLista() {
         listaPartidos = new ArrayList<>();
         
-        listaPartidos.add(new Partido("Equipo rival 1",new Date(), 1, 0, true, MenuEmpleados.getListaJugadores()));
-        listaPartidos.add(new Partido("Equipo rival 2",new Date(), 1, 0, true, MenuEmpleados.getListaJugadores()));
-        listaPartidos.add(new Partido("Equipo rival 3",new Date(), 1, 0, true, MenuEmpleados.getListaJugadores()));
+        ArrayList <Jugador> listaJugadoresAuxialiar = new ArrayList<>();
+        
+        for(Empleado e : MenuEmpleados.getListaEmpleados()) {
+            if(e instanceof Jugador j && !e.isEliminado()) {
+                listaJugadoresAuxialiar.add(j);
+            }
+        }
+        
+        listaPartidos.add(new Partido("Equipo rival 1",new Date(), 1, 0, true, listaJugadoresAuxialiar));
+        listaPartidos.add(new Partido("Equipo rival 2",new Date(), 1, 0, true, listaJugadoresAuxialiar));
+        listaPartidos.add(new Partido("Equipo rival 3",new Date(), 1, 0, true, listaJugadoresAuxialiar));
     }
     
     /**
@@ -49,6 +66,14 @@ public class MenuPartidos extends JFrame implements ActionListener {
     public MenuPartidos(){
         if(listaPartidos == null) {
             listaPartidos = new ArrayList<>();
+        }
+        
+        listaJugadores = new ArrayList<>();
+        
+        for(Empleado e : MenuEmpleados.getListaEmpleados()) {
+            if(e instanceof Jugador j && !e.isEliminado()) {
+                listaJugadores.add(j);
+            }
         }
         
         mainPanel = new JPanel(new BorderLayout());
@@ -115,14 +140,14 @@ public class MenuPartidos extends JFrame implements ActionListener {
      * Metodo sobrecargado que recoge las acciones dentro de la interfaz y se le asignara una utilidad a los
      * botones correspondientes
      * @param ae ActionEvent 
-     **/    
+     **/
     @Override
     public void actionPerformed(ActionEvent ae) {
         if(ae.getSource() == botonAnadir) {
             anadirPartido();
         }
         else if(ae.getSource() == botonImprimir) {
-            new Imprimir();
+            new Imprimir(0);
         }
     }
     
@@ -130,7 +155,7 @@ public class MenuPartidos extends JFrame implements ActionListener {
      * Método que añade el partido nuevo al cerrar la ventana creada en la interfaz NuevoPartido
      **/
     private void anadirPartido() {
-        NuevoPartido nuevoPartido = new NuevoPartido(MenuEmpleados.getListaJugadores());
+        NuevoPartido nuevoPartido = new NuevoPartido(listaJugadores);
         
         nuevoPartido.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -139,6 +164,27 @@ public class MenuPartidos extends JFrame implements ActionListener {
                 listaPartidos.add(nuevoPartido.getPartidoNuevo());
             }
         });
+    }
+    
+    public void updateListaJugadores(Jugador jugador, int who) {
+        switch(who) {
+            case 0 -> listaJugadores.add(jugador);
+            case 1 -> {
+                for(Jugador j : listaJugadores) {
+                    if(j.getDni().equals(jugador.getDni())) {
+                        listaJugadores.set(listaJugadores.indexOf(j), jugador);
+                    }
+                }
+            }
+            case 2 -> {
+                for(Jugador j :listaJugadores) {
+                    if(j.getDni().equals(jugador.getDni())) {
+                        j.setEliminado(true);
+                        j.setFechaEliminacion(new Date());
+                    }
+                }
+            }
+        }
     }
 
     /**

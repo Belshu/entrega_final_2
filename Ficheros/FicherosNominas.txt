@@ -1,18 +1,53 @@
-Jugador1 -> DNI Empleado: 111111111A | Dia/Mes/Año: 1/1/2000
+DNI: 111111111A | Nombre: Jugador1
+-> NOMINAS: 
+Dia/Mes/Año: 1/1/2000
  Conceptos:
- -  Total: 0,00€
-Jugador2 -> DNI Empleado: 111111111B | Dia/Mes/Año: 1/1/2001
+ -  Total: 0,00€DNI: 111111111B | Nombre: Jugador2
+-> NOMINAS: 
+Dia/Mes/Año: 1/1/2000
  Conceptos:
- -  Total: 0,00€
-Tecnico 1 -> DNI Empleado: 222222222A | Dia/Mes/Año: 1/1/2002
+ -  Total: 0,00€DNI: 111111111B | Nombre: Jugador2
+-> NOMINAS: 
+Dia/Mes/Año: 12/11/1222
  Conceptos:
- -  Total: 0,00€
-Tecnico 2 -> DNI Empleado: 222222222B | Dia/Mes/Año: 1/1/2003
+ - Codigo: 5239398 | 
+	Descripcion: qwurqwoeygrowey | 
+	Importe: 112,00€
+ -  Total: 112,00€DNI: 111111111B | Nombre: Jugador2
+-> NOMINAS: 
+Dia/Mes/Año: 12/11/1222
  Conceptos:
- -  Total: 0,00€
-Directivo 1 -> DNI Empleado: 333333333A | Dia/Mes/Año: 1/1/2004
+ - Codigo: 5239398 | 
+	Descripcion: qwurqwoeygrowey | 
+	Importe: 112,00€
+ -  Total: 112,00€DNI: 222222222A | Nombre: Tecnico 1
+-> NOMINAS: 
+Dia/Mes/Año: 1/1/2000
  Conceptos:
- -  Total: 0,00€
-Directivo 2 -> DNI Empleado: 333333333B | Dia/Mes/Año: 1/1/2005
+ -  Total: 0,00€DNI: 222222222A | Nombre: Tecnico 1
+-> NOMINAS: 
+Dia/Mes/Año: 12/11/1222
+ Conceptos:
+ - Codigo: 5239398 | 
+	Descripcion: qwurqwoeygrowey | 
+	Importe: 112,00€
+ -  Total: 112,00€DNI: 222222222A | Nombre: Tecnico 1
+-> NOMINAS: 
+Dia/Mes/Año: 12/11/1222
+ Conceptos:
+ - Codigo: 5239398 | 
+	Descripcion: qwurqwoeygrowey | 
+	Importe: 112,00€
+ -  Total: 112,00€DNI: 222222222B | Nombre: Tecnico 2
+-> NOMINAS: 
+Dia/Mes/Año: 1/1/2000
+ Conceptos:
+ -  Total: 0,00€DNI: 333333333A | Nombre: Directivo 1
+-> NOMINAS: 
+Dia/Mes/Año: 1/1/2000
+ Conceptos:
+ -  Total: 0,00€DNI: 333333333B | Nombre: Directivo 2
+-> NOMINAS: 
+Dia/Mes/Año: 1/1/2000
  Conceptos:
  -  Total: 0,00€

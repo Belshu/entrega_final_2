@@ -3,10 +3,7 @@ package Menus;
 import Contables.Nomina;
 import Contables.Cliente;
 import Contables.Factura;
-import Empleados.Directivo;
 import Empleados.Empleado;
-import Empleados.Jugador;
-import Empleados.Tecnico;
 import Menus.Submenus.Imprimir;
 import Menus.Submenus.NuevaFactura;
 import Menus.Submenus.NuevaNomina;
@@ -15,6 +12,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.DefaultListModel;
@@ -27,56 +25,66 @@ import javax.swing.JTabbedPane;
 import javax.swing.ListSelectionModel;
 
 /**
- * Menu del programa que hereda de JFrame e implementa la interfaz
- * ActionListener
+ * Menu de gestión de facturas y nóminas: se crean dos listas estáticas en las que
+ * guardan las facturas y las nominas creadas respectivamente. Contiene dos ventanas
+ * de JTabbedPane que divide ambas listas en la parte visual. En base a los botones 
+ * se gestionarán según lo que quiera el usuario
+ * 
  * @author Isabel Shuang Piñana Alonso
  */
 public class MenuFacturas extends JFrame implements ActionListener{
+    
+    // LISTAS ESTÁTICAS
     private static ArrayList <Factura> listaFacturas;
-    private static ArrayList <Nomina> listaNominas;
     
+    // PANELES
     private final JPanel mainPanel, facturasPanel, nominasPanel, buttonsPanel, buttonsPanel2;
-    private final JTabbedPane ventanas;
     
+    // ELEMENTOS
+    private final JTabbedPane ventanas;
     private JList <Factura> listaFacturas2;
     private JList <Nomina> listaNominas2;
+    private final JButton botonAnadir, botonImprimir, botonAnadir2;    
     
+    // MODELOS DE LISTAS
     private DefaultListModel <Factura> facturasListModel;
     private DefaultListModel <Nomina> nominasListModel;
     
-    private final JButton botonAnadir, botonImprimir, botonAnadir2;
-    
+    /**
+     * Método que inicializa las listas de prueba
+     */
     public static void inicializarListas() {
         listaFacturas = new ArrayList<>();
-        listaNominas = new ArrayList<>();
         
-        for(int i = 0; i < MenuEmpleados.getListaEmpleados().size(); i++){
-            Empleado empleado = MenuEmpleados.getListaEmpleados().get(i);
-            
+        for(Empleado empleado : MenuEmpleados.getListaEmpleados()){
             if(!empleado.isEliminado()) {
-                Nomina n = new Nomina(empleado.getDni(), 1, 1, (2000 + i));
-                empleado.agregarNomina(n);
-            
-                listaNominas.add(n);
+                empleado.agregarNomina(new Nomina(1, 1, 2000));
                 
                 Random rand = new Random();
                 
                 int codigo = rand.nextInt(1000000);
                 
-                listaFacturas.add(new Factura(String.valueOf(codigo), 0, LocalDate.of(2000 + i, 1, 1),
+                if(!listaFacturas.isEmpty()) {
+                    int i = 0;
+                    while(listaFacturas.get(i).getCodigo().equals(codigo)) {
+                        codigo = rand.nextInt(1000000);
+                        i++;
+                    }
+                }
+                
+                listaFacturas.add(new Factura(String.valueOf(codigo), 0, LocalDate.of(2000, 1, 1),
                 new Cliente(empleado.getDni(), empleado.getNombre())));
             }
         }
     }
 
+    /**
+     * CONSTRUCTOR: inicialización de los atributos finales
+     **/
     public MenuFacturas(){
         
         if(listaFacturas == null) {
             listaFacturas = new ArrayList<>();
-        }
-        
-        if(listaNominas == null) {
-            listaNominas = new ArrayList<>();
         }
         
         mainPanel = new JPanel(new BorderLayout());
@@ -94,12 +102,21 @@ public class MenuFacturas extends JFrame implements ActionListener{
         ventanas = new JTabbedPane(JTabbedPane.NORTH);
     }
     
+    /**
+     * Método que devuelve el panel principal
+     * Será público para pasarlo a las ventanas del menú principal
+     * @return JPanel
+     */
     public JPanel getMainPanel() {
         mainPanel.add(getVentanas());
         
         return mainPanel;
     }
     
+    /**
+     * Método que devuelve las ventanas, añadiendo los paneles de cada una
+     * @return JTabbedPane
+     **/
     private JTabbedPane getVentanas() {
         ventanas.add("Facturas", getFacturasPanel());
         ventanas.add("Nóminas", getNominasPanel());
@@ -107,6 +124,9 @@ public class MenuFacturas extends JFrame implements ActionListener{
         return ventanas;
     }
     
+    /**
+     * Método que devuelve el panel de las facturas
+     **/
     private JPanel getFacturasPanel() {
         facturasPanel.add(getButtonsPanel(), BorderLayout.PAGE_START);
         facturasPanel.add(new JScrollPane(getListaFacturas2()), BorderLayout.CENTER);
@@ -121,12 +141,18 @@ public class MenuFacturas extends JFrame implements ActionListener{
         return buttonsPanel;
     }
     
+    /**
+     * Método que devuelve la lista visual de las facturas
+     **/
     private JList <Factura> getListaFacturas2() {
         listaFacturas2 = new JList(getFacturasListModel());
         listaFacturas2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);        
         return listaFacturas2;
     }
     
+    /**
+     * Método que devuelve el modelo de la lista de las facturas
+     **/
     private DefaultListModel <Factura> getFacturasListModel() {
         facturasListModel = new DefaultListModel<>();
         
@@ -137,6 +163,7 @@ public class MenuFacturas extends JFrame implements ActionListener{
         return facturasListModel;
     }
     
+    
     private JPanel getNominasPanel() {
         nominasPanel.add(getButtonsPanel2(), BorderLayout.PAGE_START);
         nominasPanel.add(new JScrollPane(getListaNominas2()), BorderLayout.CENTER);
@@ -144,6 +171,10 @@ public class MenuFacturas extends JFrame implements ActionListener{
         return nominasPanel;
     }
 
+    /**
+     * Método que devuelve el panel de botones
+     * @return buttonsPanel
+     */
     private JPanel getButtonsPanel2() {
         botonAnadir2.addActionListener(this);
         botonImprimir.addActionListener(this);
@@ -153,34 +184,43 @@ public class MenuFacturas extends JFrame implements ActionListener{
         return buttonsPanel2;
     }
 
+    /**
+     * Método que devuelve la lista visual de las nominas
+     **/
     private JList<Nomina> getListaNominas2() {
         listaNominas2 = new JList<>(getNominasListModel());
         listaNominas2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);        
         return listaNominas2;
     }
 
+    /**
+     * Método que devuelve el modelo de la lista de las nominas
+     **/
     private DefaultListModel<Nomina> getNominasListModel() {
         nominasListModel = new DefaultListModel<>();
 
-        if(!listaNominas.isEmpty()) {
-            for (Nomina n : listaNominas) {
-                nominasListModel.addElement(n);
+        for(Empleado e : MenuEmpleados.getListaEmpleados()) {
+            if(!e.isEliminado()) {
+                for(Nomina n : e.getNominas()) {
+                    nominasListModel.addElement(n);
+                }
             }
         }
 
         return nominasListModel;
     }
 
+    /**
+     * Método que actualiza el modelo de la lista de las nóminas
+     * @param elegido
+     **/
     public void updateNominas(Empleado elegido) {
         if (nominasListModel == null) {
             nominasListModel = new DefaultListModel<>();
         }
 
-        for (Nomina n : listaNominas) {
-            if (elegido.getDni().equals(n.getDniEmpleado())) {
-                nominasListModel.removeElement(n);
-                break;
-            }
+        for(Nomina n : elegido.getNominas()) {
+            nominasListModel.removeElement(n);
         }
 
         if (listaNominas2 == null) {
@@ -190,6 +230,11 @@ public class MenuFacturas extends JFrame implements ActionListener{
         }
     }
 
+    /**
+     * Metodo sobrecargado que recoge las acciones dentro de la interfaz y se le asignara una utilidad a los
+     * botones correspondientes
+     * @param ae ActionEvent 
+     **/
     @Override
     public void actionPerformed(ActionEvent ae) {
         if(ae.getSource() == botonAnadir) {
@@ -197,10 +242,23 @@ public class MenuFacturas extends JFrame implements ActionListener{
         } else if (ae.getSource() == botonAnadir2) {
             anadirNomina();
         } else if(ae.getSource() == botonImprimir) {
-            new Imprimir(listaNominas);
+            ArrayList <Nomina> listaNominas = new ArrayList<>();
+            
+            for(Empleado e : MenuEmpleados.getListaEmpleados()) {
+                if(!e.isEliminado()) {
+                    for(Nomina n : e.getNominas()) {
+                        listaNominas.add(n);
+                    }
+                }
+            }
+            new Imprimir(1);
         }
     }
     
+    /**
+     * Método que añade una nueva factura al cerrar la ventana creada en la interfaz NuevaFactura y
+     * actualiza las listas y los modelos de listas
+     **/
     private void anadirFactura() {
         NuevaFactura nuevaFactura = new NuevaFactura();
         
@@ -215,68 +273,76 @@ public class MenuFacturas extends JFrame implements ActionListener{
         });
     }
 
+    /**
+     * Método que añade una nueva o varias nominas al cerrar la ventana creada en la interfaz NuevaNomina y
+     * actualiza las listas y los modelos de listas, añadiendo también una factura nueva correspondiente a 
+     * la nómina
+     **/
     private void anadirNomina() {
         NuevaNomina nuevaNomina = new NuevaNomina();
 
         nuevaNomina.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-                if (nuevaNomina.getNominas() != null || nuevaNomina.getNominas().isEmpty()) {
-                    for (Nomina nomina : nuevaNomina.getNominas()) {
-                        nominasListModel.addElement(nomina);
-                        listaNominas.add(nomina);
-                        
-                        for (Empleado e : MenuEmpleados.getListaEmpleados()) {
-                            if (e.getDni().equals(nomina.getDniEmpleado())) {
-                                e.agregarNomina(nomina);
-
-                                Random rand = new Random();
-                                LocalDate fecha = LocalDate.of(nuevaNomina.getAnio(),
-                                        nuevaNomina.getMes(), nuevaNomina.getDia());
-
-                                int codigo = rand.nextInt(1000000);
-
+                
+                Nomina nueva = nuevaNomina.getNomina();
+                
+                if(!nuevaNomina.getElegidos().isEmpty()) {
+                    nominasListModel.addElement(nueva);
+                    Random rand = new Random();
+                    
+                    for(Empleado elegido : nuevaNomina.getElegidos()) {
+                        for(Nomina n : elegido.getNominas()) {
+                            if(n.equals(nueva)) {
+                                int codigo = rand.nextInt();
+                                
                                 if(!listaFacturas.isEmpty()) {
-                                    int i = 0;
-                                    while (listaFacturas.get(i).getCodigo().equals(codigo)) {
-                                        codigo = rand.nextInt(1000000);
+                                    int k = 0; 
+                                    while(listaFacturas.get(k).getCodigo().equals(codigo)) {
+                                        codigo = rand.nextInt();
+                                        k++;
                                     }
+                                    
+                                    LocalDate fecha = LocalDate.of(nueva.getAnio(), nueva.getMes(), nueva.getDia());
+                                    
+                                    crearFactura(String.valueOf(codigo), nueva.calcularTotal(), fecha, 
+                                            new Cliente(elegido.getDni(), elegido.getNombre()));
                                 }
-
-                                crearFactura(String.valueOf(codigo), nomina.calcularTotal(), fecha,
-                                        new Cliente(e.getDni(), e.getNombre()));
                             }
-
-                            /*
-                            if (e instanceof Jugador) {
-                                for (Jugador j : MenuEmpleados.getListaJugadores()) {
-                                    if (j.getDni().equals(nomina.getDniEmpleado())) {
-                                        j.agregarNomina(nomina);
-                                        break;
-                                    }
-                                }
-                                break;
-                            } else if (e instanceof Tecnico) {
-                                for (Tecnico t : MenuEmpleados.getListaTecnicos()) {
-                                    if (t.getDni().equals(nomina.getDniEmpleado())) {
-                                        t.agregarNomina(nomina);
-                                        break;
-                                    }
-                                }
-                                break;
-                            } else if (e instanceof Directivo) {
-                                for (Directivo d : MenuEmpleados.getListaDirectivos()) {
-                                    if (d.getDni().equals(nomina.getDniEmpleado())) {
-                                        d.agregarNomina(nomina);
-                                        break;
-                                    }
-                                }
-                                break;
-                            }
-                            */
                         }
                     }
                 }
+                
+                /*
+                if (nuevaNomina.getNominas() != null || nuevaNomina.getNominas().isEmpty()) {
+                    for (Nomina nomina : nuevaNomina.getNominas()) {
+                        nominasListModel.addElement(nomina);
+                        for (Empleado e : MenuEmpleados.getListaEmpleados()) {
+                            if(!e.isEliminado()) {
+                                if (e.getDni().equals(nomina.getDniEmpleado())) {
+                                    e.agregarNomina(nomina);
+
+                                    Random rand = new Random();
+                                    LocalDate fecha = LocalDate.of(nuevaNomina.getAnio(),
+                                            nuevaNomina.getMes(), nuevaNomina.getDia());
+
+                                    int codigo = rand.nextInt(1000000);
+
+                                    if (!listaFacturas.isEmpty()) {
+                                        int i = 0;
+                                        while (listaFacturas.get(i).getCodigo().equals(codigo)) {
+                                            codigo = rand.nextInt(1000000);
+                                        }
+                                    }
+
+                                    crearFactura(String.valueOf(codigo), nomina.calcularTotal(), fecha,
+                                            new Cliente(e.getDni(), e.getNombre()));
+                                }
+                            }
+                        }
+                    }
+                }
+                */
             }
             
             private void crearFactura(String codigo, double cantidad, LocalDate fecha, Cliente cliente) {
@@ -288,11 +354,11 @@ public class MenuFacturas extends JFrame implements ActionListener{
         });
     }
 
+    /**
+     * Método que devuelve la ArrayList estática de las facturas
+     * @return ArrayList Factura
+     **/
     public static ArrayList<Factura> getListaFacturas() {
         return listaFacturas;
-    }
-
-    public static ArrayList<Nomina> getListaNominas() {
-        return listaNominas;
     }
 }
