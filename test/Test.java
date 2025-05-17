@@ -8,6 +8,8 @@
  * @author mint
  */
 
+import Contables.Concepto;
+import Contables.Nomina;
 import Menus.MenuEmpleados;
 import Menus.MenuFacturas;
 import Menus.MenuPartidos;
@@ -22,13 +24,14 @@ public class Test {
         // new ImprimirEmpleados(true);
         // new ImprimirEmpleados(false);
         
-        MenuEmpleados.inicializarListas();
         // MenuPartidos.inicializarLista();
         // new NuevoPartido(MenuEmpleados.getListaJugadores());
 
         // new NuevaNomina();
-        MenuFacturas.inicializarListas();
-        new NuevaFactura();
+        // new NuevaFactura();
+        Nomina nomina = new Nomina(1, 1, 1);
+        nomina.agregarConcepto(new Concepto("1111", "KK", 100.00));
+        new MenuConceptos(nomina);
     }
 }
 

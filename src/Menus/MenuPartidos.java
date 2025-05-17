@@ -70,9 +70,11 @@ public class MenuPartidos extends JFrame implements ActionListener {
         
         listaJugadores = new ArrayList<>();
         
-        for(Empleado e : MenuEmpleados.getListaEmpleados()) {
-            if(e instanceof Jugador j && !e.isEliminado()) {
-                listaJugadores.add(j);
+        if(MenuEmpleados.getListaEmpleados() != null) {
+            for(Empleado e : MenuEmpleados.getListaEmpleados()) {
+                if(e instanceof Jugador j && !e.isEliminado()) {
+                    listaJugadores.add(j);
+                }
             }
         }
         
