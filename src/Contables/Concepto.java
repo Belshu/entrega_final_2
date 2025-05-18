@@ -29,6 +29,15 @@ public class Concepto {
     }    
     
     // GETTERS Y SETTERS
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setImporte(double importe) {
+        this.importe = importe;
+    }
+    
     /**
      * Devuelve el String codigo
      * @return String

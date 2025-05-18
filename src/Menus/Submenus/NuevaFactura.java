@@ -207,17 +207,19 @@ public class NuevaFactura extends JFrame implements ActionListener {
                     double cantidad = Double.parseDouble(cantidadTextField.getText());
 
                     Random rand = new Random();
-                    int cod = rand.nextInt(1000000);
+                    int codigo = rand.nextInt(1000000);
 
                     if (!MenuFacturas.getListaFacturas().isEmpty()) {
-                        int i = 0;
-                        while (MenuFacturas.getListaFacturas().get(i).getCodigo().equals(cod)) {
-                            cod = rand.nextInt(1000000);
+                        for (Factura f : MenuFacturas.getListaFacturas()) {
+                            if (f.getCodigo().equals(codigo)) {
+                                while (f.getCodigo().equals(codigo)) {
+                                    codigo = rand.nextInt(1000000);
+                                }
+                            }
                         }
                     }
-                    String codigo = String.valueOf(cod);
 
-                    factura = new Factura(codigo, cantidad, fecha, new Cliente(cifTextField.getText(), nombreTextField.getText()));
+                    factura = new Factura(String.valueOf(codigo), cantidad, fecha, new Cliente(cifTextField.getText(), nombreTextField.getText()));
                     dispose();
                 }
             } catch (NumberFormatException ex) {

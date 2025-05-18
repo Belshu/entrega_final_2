@@ -31,6 +31,7 @@ public class Nomina {
     }
 
     // GETTERS Y SETTERS
+    
     /**
      * Devuelve el int dia
      * @return int
@@ -71,7 +72,7 @@ public class Nomina {
         conceptos.add(concepto);
     }
 
-    /**
+    /**nomina
      * Elimina un concepto de la lista
      * @param concepto
      */
@@ -97,16 +98,8 @@ public class Nomina {
      */
     @Override
     public String toString() {
-
-        String conceptosStr = "\n - ";
-
-        for (Concepto c : conceptos) {
-            conceptosStr += c.toString() + "\n - ";
-        }
-
         return String.format("""
-                             Dia/Mes/A\u00f1o: %d/%d/%d
-                              Conceptos:%s Total: %.2f\u20ac""", dia, mes, anio, conceptosStr, calcularTotal());
+                             Dia/Mes/Año: %d/%d/%d Total: %.2f\u20ac""", dia, mes, anio, calcularTotal());
 
     }
 }

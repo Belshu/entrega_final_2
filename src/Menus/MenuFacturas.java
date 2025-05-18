@@ -5,6 +5,7 @@ import Contables.Cliente;
 import Contables.Factura;
 import Empleados.Empleado;
 import Menus.Submenus.Imprimir;
+import Menus.Submenus.MenuConceptos;
 import Menus.Submenus.NuevaFactura;
 import Menus.Submenus.NuevaNomina;
 import java.awt.BorderLayout;
@@ -12,7 +13,6 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.DefaultListModel;
@@ -44,7 +44,7 @@ public class MenuFacturas extends JFrame implements ActionListener{
     private final JTabbedPane ventanas;
     private JList <Factura> listaFacturas2;
     private JList <Nomina> listaNominas2;
-    private final JButton botonAnadir, botonImprimir, botonAnadir2;    
+    private final JButton botonAnadir, botonImprimir, botonAnadir2, botonConceptos;    
     
     // MODELOS DE LISTAS
     private DefaultListModel <Factura> facturasListModel;
@@ -65,10 +65,12 @@ public class MenuFacturas extends JFrame implements ActionListener{
                 int codigo = rand.nextInt(1000000);
                 
                 if(!listaFacturas.isEmpty()) {
-                    int i = 0;
-                    while(listaFacturas.get(i).getCodigo().equals(codigo)) {
-                        codigo = rand.nextInt(1000000);
-                        i++;
+                    for (Factura f : listaFacturas) {
+                        if (f.getCodigo().equals(codigo)) {
+                            while (f.getCodigo().equals(codigo)) {
+                                codigo = rand.nextInt(1000000);
+                            }
+                        }
                     }
                 }
                 
@@ -97,6 +99,7 @@ public class MenuFacturas extends JFrame implements ActionListener{
         
         botonAnadir = new JButton("Anadir");
         botonAnadir2 = new JButton("Anadir");
+        botonConceptos = new JButton("Gestionar conceptos");
         botonImprimir = new JButton("Imprimir");
         
         ventanas = new JTabbedPane(JTabbedPane.NORTH);
@@ -177,8 +180,10 @@ public class MenuFacturas extends JFrame implements ActionListener{
      */
     private JPanel getButtonsPanel2() {
         botonAnadir2.addActionListener(this);
+        botonConceptos.addActionListener(this);
         botonImprimir.addActionListener(this);
         buttonsPanel2.add(botonAnadir2);
+        buttonsPanel2.add(botonConceptos);
         buttonsPanel2.add(botonImprimir);
 
         return buttonsPanel2;
@@ -241,7 +246,10 @@ public class MenuFacturas extends JFrame implements ActionListener{
             anadirFactura();
         } else if (ae.getSource() == botonAnadir2) {
             anadirNomina();
-        } else if(ae.getSource() == botonImprimir) {
+        } else if(ae.getSource() == botonConceptos) {
+            gestionarConceptos();
+        } 
+        else if(ae.getSource() == botonImprimir) {
             ArrayList <Nomina> listaNominas = new ArrayList<>();
             
             for(Empleado e : MenuEmpleados.getListaEmpleados()) {
@@ -294,13 +302,15 @@ public class MenuFacturas extends JFrame implements ActionListener{
                     for(Empleado elegido : nuevaNomina.getElegidos()) {
                         for(Nomina n : elegido.getNominas()) {
                             if(n.equals(nueva)) {
-                                int codigo = rand.nextInt();
+                                int codigo = rand.nextInt(1000000);
                                 
                                 if(!listaFacturas.isEmpty()) {
-                                    int k = 0; 
-                                    while(listaFacturas.get(k).getCodigo().equals(codigo)) {
-                                        codigo = rand.nextInt();
-                                        k++;
+                                    for(Factura f : listaFacturas) {
+                                        if(f.getCodigo().equals(codigo)) {
+                                            while(f.getCodigo().equals(codigo)) {
+                                                codigo = rand.nextInt(1000000);
+                                            }
+                                        }
                                     }
                                     
                                     LocalDate fecha = LocalDate.of(nueva.getAnio(), nueva.getMes(), nueva.getDia());
@@ -312,37 +322,6 @@ public class MenuFacturas extends JFrame implements ActionListener{
                         }
                     }
                 }
-                
-                /*
-                if (nuevaNomina.getNominas() != null || nuevaNomina.getNominas().isEmpty()) {
-                    for (Nomina nomina : nuevaNomina.getNominas()) {
-                        nominasListModel.addElement(nomina);
-                        for (Empleado e : MenuEmpleados.getListaEmpleados()) {
-                            if(!e.isEliminado()) {
-                                if (e.getDni().equals(nomina.getDniEmpleado())) {
-                                    e.agregarNomina(nomina);
-
-                                    Random rand = new Random();
-                                    LocalDate fecha = LocalDate.of(nuevaNomina.getAnio(),
-                                            nuevaNomina.getMes(), nuevaNomina.getDia());
-
-                                    int codigo = rand.nextInt(1000000);
-
-                                    if (!listaFacturas.isEmpty()) {
-                                        int i = 0;
-                                        while (listaFacturas.get(i).getCodigo().equals(codigo)) {
-                                            codigo = rand.nextInt(1000000);
-                                        }
-                                    }
-
-                                    crearFactura(String.valueOf(codigo), nomina.calcularTotal(), fecha,
-                                            new Cliente(e.getDni(), e.getNombre()));
-                                }
-                            }
-                        }
-                    }
-                }
-                */
             }
             
             private void crearFactura(String codigo, double cantidad, LocalDate fecha, Cliente cliente) {
@@ -354,6 +333,52 @@ public class MenuFacturas extends JFrame implements ActionListener{
         });
     }
 
+    private void gestionarConceptos() {
+        Nomina nomina = listaNominas2.getSelectedValue();
+        
+        if(nomina != null) {
+            MenuConceptos menuConceptos = new MenuConceptos(nomina);
+            
+            menuConceptos.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                    listaNominas2.setModel(nominasListModel);
+                    Random rand = new Random();
+                    
+                    for(Empleado e : MenuEmpleados.getListaEmpleados()) {
+                       for(Nomina n : e.getNominas()) {
+                           if(n.equals(nomina)) {
+                               int codigo = rand.nextInt(1000000);
+                                
+                                if(!listaFacturas.isEmpty()) {
+                                    for(Factura f : listaFacturas) {
+                                        if(f.getCodigo().equals(codigo)) {
+                                            while(f.getCodigo().equals(codigo)) {
+                                                codigo = rand.nextInt(1000000);
+                                            }
+                                        }
+                                    }
+                                    
+                                    LocalDate fecha = LocalDate.of(nomina.getAnio(), nomina.getMes(), nomina.getDia());
+                                    
+                                    crearFactura(String.valueOf(codigo), nomina.calcularTotal(), fecha, 
+                                            new Cliente(e.getDni(), e.getNombre()));
+                                }
+                           }
+                       }
+                    }
+                }
+                
+                private void crearFactura(String codigo, double cantidad, LocalDate fecha, Cliente cliente) {
+                    Factura factura = new Factura(codigo, cantidad, fecha, cliente);
+                
+                    facturasListModel.addElement(factura);
+                    listaFacturas.add(factura);
+                }
+            });
+        }
+    }
+    
     /**
      * Método que devuelve la ArrayList estática de las facturas
      * @return ArrayList Factura

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -247,6 +249,10 @@ public class NuevaNomina extends JFrame implements ActionListener{
         seleccionFrame.setResizable(false);
         
         DefaultListModel <Empleado> empleadoListModel = new DefaultListModel<>();
+        
+        empleadoListModel.clear();
+
+        
         for(Empleado empleado : MenuEmpleados.getListaEmpleados()) {
             if(!empleado.isEliminado()) {
                 empleadoListModel.addElement(empleado);
@@ -279,30 +285,54 @@ public class NuevaNomina extends JFrame implements ActionListener{
      * que se desea agregar
      **/
     private void mostrarFormularioConceptos() {
+        
+        // JFRAME
         JFrame formularioConceptos = new JFrame();
         
+        // PANELES
         JPanel formularioPanelConceptos = new JPanel(new BorderLayout());
         JPanel formularioPanelConceptos2 = new JPanel();
-        JPanel descripcionPanel = new JPanel(new FlowLayout());
+        JPanel textAreaPanel = new JPanel(new FlowLayout());
+        JPanel radioButtonsPanel = new JPanel(new FlowLayout());
         JPanel importePanel = new JPanel(new FlowLayout());
         formularioPanelConceptos2.setLayout(new BoxLayout(formularioPanelConceptos2,BoxLayout.Y_AXIS));
-        JButton botonAgregar = new JButton("Agregar");
         
-        formularioConceptos.setSize(450, 300);
+        // ELEMENTOS
+        JButton botonAgregar = new JButton("Agregar");
+        JRadioButton botonSalarioBase = new JRadioButton("Salario base");
+        JRadioButton botonPrimaPorVictoria = new JRadioButton("Prima por victoria");
+        JRadioButton botonPagaExtra = new JRadioButton("Paga Extra");
+        JTextArea descripcionTextArea = new JTextArea(5, 30);
+        JTextField importeTextField = new JTextField(20);
+        
+        // PROPIEDADES DEL JFRAME
+        formularioConceptos.setSize(600, 300);
         formularioConceptos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         formularioConceptos.setLocationRelativeTo(null);
         formularioConceptos.setResizable(false);
         
-        JTextArea descripcionTextArea = new JTextArea(10, 30);
-        JTextField importeTextField = new JTextField(20);
+        // AÑADIR ELEMENTOS AL RADIOBUTTONPANEL
+        ButtonGroup grupo = new ButtonGroup();
+        grupo.add(botonSalarioBase);
+        grupo.add(botonPrimaPorVictoria);
+        grupo.add(botonPagaExtra);
         
-        descripcionPanel.add(new JLabel("Descripcion: "));
-        descripcionPanel.add(new JScrollPane(descripcionTextArea));
+        radioButtonsPanel.add(botonSalarioBase);
+        radioButtonsPanel.add(botonPrimaPorVictoria);
+        radioButtonsPanel.add(botonPagaExtra);
         
+        // AÑADIR ELEMENTOS AL TEXTAREAPANEL
+        textAreaPanel.add(new JLabel("Descripcion: "));
+        textAreaPanel.add(new JScrollPane(descripcionTextArea));
+        
+        // AÑADIR ELEMENTOS AL IMPORTEPANEL
         importePanel.add(new JLabel("Importe: "));
         importePanel.add(importeTextField);
         
-        formularioPanelConceptos2.add(descripcionPanel);
+        // AÑADIR PANELES AL PRINCIPAL
+        formularioPanelConceptos2.add(radioButtonsPanel);
+        formularioPanelConceptos2.add(Box.createVerticalStrut(0));
+        formularioPanelConceptos2.add(textAreaPanel);
         formularioPanelConceptos2.add(Box.createVerticalStrut(0));
         formularioPanelConceptos2.add(importePanel);
         
@@ -312,14 +342,39 @@ public class NuevaNomina extends JFrame implements ActionListener{
         formularioConceptos.setContentPane(formularioPanelConceptos);
         formularioConceptos.setVisible(true);
         
+        // ACTIONLISTENERS
+        
+        botonSalarioBase.addActionListener((ActionEvent e) -> {
+            descripcionTextArea.setText("Salario base.");
+        });
+        
+        botonPrimaPorVictoria.addActionListener((ActionEvent e) -> {
+            descripcionTextArea.setText("Prima por victoria.");
+        });
+        
+        botonPagaExtra.addActionListener((ActionEvent e) -> {
+            descripcionTextArea.setText("Paga extra.");
+        });
+        
         botonAgregar.addActionListener((ActionEvent e) -> {
             Random rand = new Random();
-            int codigo = rand.nextInt(10000000);
+            int codigo = rand.nextInt(1000000);
             if (descripcionTextArea.getText().isEmpty() || importeTextField.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(NuevaNomina.this, "Complete todos los campos, por favor.", 
                         "Faltan campos", JOptionPane.WARNING_MESSAGE);
                 return;
             }
+            
+            if(!listaConceptos.isEmpty()) {
+                for(Concepto c : listaConceptos) {
+                    if(c.getCodigo().equals(codigo)) {
+                        while(c.getCodigo().equals(codigo)) {
+                            codigo = rand.nextInt(1000000);
+                        }
+                    }
+                }
+            }
+            
             try {
                 Concepto concepto = new Concepto(String.valueOf(codigo), descripcionTextArea.getText(),
                         Double.parseDouble(importeTextField.getText()));

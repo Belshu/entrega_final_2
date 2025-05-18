@@ -324,20 +324,17 @@ public class MenuEmpleados extends JFrame implements ActionListener {
                                         nuevoEmpleado.getApellido(), nuevoEmpleado.getDemarcacion(), nuevoEmpleado.getEdad(),
                                         nuevoEmpleado.getValor(),
                                         nuevoEmpleado.isEstado());
-                                listaEmpleados.add(jugador);
                                 nuevo = jugador;
                                 menuPartidos.updateListaJugadores(jugador, 0);
                             }
                             case 1 -> {
                                 Tecnico tecnico = new Tecnico(nuevoEmpleado.getPuesto(), nuevoEmpleado.getEspecialidad(),
                                         nuevoEmpleado.getDni(), nuevoEmpleado.getNombre(), nuevoEmpleado.getTelf());
-                                listaEmpleados.add(tecnico);
                                 nuevo = tecnico;
                             }
                             case 2 -> {
                                 Directivo directivo = new Directivo(nuevoEmpleado.getCargo(),
                                         nuevoEmpleado.getDni(), nuevoEmpleado.getNombre(), nuevoEmpleado.getTelf());
-                                listaEmpleados.add(directivo);
                                 nuevo = directivo;
                             }
                         }
@@ -353,7 +350,7 @@ public class MenuEmpleados extends JFrame implements ActionListener {
                                 directivoListModel.addElement(directivo);
                             }
                         }
-
+                        
                         listaEmpleados2.setModel(empleadoListModel);
                         listaJugadores2.setModel(jugadorListModel);
                         listaTecnicos2.setModel(tecnicoListModel);
