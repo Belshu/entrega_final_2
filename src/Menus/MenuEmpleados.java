@@ -32,7 +32,7 @@ import javax.swing.ListSelectionModel;
  *
  * @author Isabel Shuang Piñana Alonso
  */
-public class MenuEmpleados extends JFrame implements ActionListener {
+public class MenuEmpleados implements ActionListener {
 
     // LISTAS ESTÁTICAS
     private static ArrayList<Empleado> listaEmpleados;
@@ -155,6 +155,8 @@ public class MenuEmpleados extends JFrame implements ActionListener {
 
     /**
      * Método que devuelve el panel de todos y muestra los empleados
+     * 
+     * @return JPanel
      **/
     private JPanel getTodosPanel() {
         todosPanel.add(new JScrollPane(getListaEmpleados2()), BorderLayout.CENTER);
@@ -163,6 +165,8 @@ public class MenuEmpleados extends JFrame implements ActionListener {
 
     /**
      * Método que devuelve la lista visual de los empleados
+     * 
+     * @return JList
      **/
     private JList<Empleado> getListaEmpleados2() {
         listaEmpleados2 = new JList<>(getEmpleadoListModel());
@@ -172,6 +176,8 @@ public class MenuEmpleados extends JFrame implements ActionListener {
 
     /**
      * Método que devuelve el modelo de la lista de los empleados
+     * 
+     * @return DefaultListModel
      **/
     private DefaultListModel<Empleado> getEmpleadoListModel() {
         empleadoListModel = new DefaultListModel<>();
@@ -359,7 +365,7 @@ public class MenuEmpleados extends JFrame implements ActionListener {
                 }
             });
         } catch (NullPointerException ex) {
-            JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -417,10 +423,10 @@ public class MenuEmpleados extends JFrame implements ActionListener {
                     }
                 });
             } catch (NullPointerException ex) {
-                JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Seleccione un empleado para modificar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Seleccione un empleado para modificar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -441,7 +447,7 @@ public class MenuEmpleados extends JFrame implements ActionListener {
         }
 
         if (elegido != null) {
-            int confirmar = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar a este empleado?",
+            int confirmar = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar a este empleado?",
                     "Confirmación", JOptionPane.YES_NO_OPTION);
 
             if (confirmar == JOptionPane.YES_OPTION) {
@@ -467,7 +473,7 @@ public class MenuEmpleados extends JFrame implements ActionListener {
                 menuFacturas.updateNominas(elegido);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Seleccione un empleado para eliminar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Seleccione un empleado para eliminar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
     }
 

@@ -5,10 +5,10 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Scanner;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -156,8 +156,22 @@ public class PrimerMenu extends JFrame implements ActionListener {
             System.exit(0);
         }
         
+        int inicializarListas = JOptionPane.showConfirmDialog(this, "Desea inicializar el programa con listas de prueba inicializadas?",
+                "Inicializar listas de prueba", JOptionPane.YES_NO_OPTION);
+        
+        if(inicializarListas == 0)  {
+            MenuEmpleados.inicializarListas();
+            MenuPartidos.inicializarLista();
+            MenuFacturas.inicializarListas();
+        }
+        
         MenuPrincipal menuPrincipal = new MenuPrincipal();
-
+        
+        if (inicializarListas == -1) {
+            JOptionPane.showMessageDialog(menuPrincipal, "Al no elegir ninguna opción, no se ha inicializado ninguna lista!",
+                    "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+        
         menuPrincipal.setSelectedIndex(index);
 
         setVisible(false);
@@ -172,21 +186,6 @@ public class PrimerMenu extends JFrame implements ActionListener {
      * @param args
      **/
     public static void main(String[] args) {
-        Scanner S = new Scanner(System.in);
-        
-        try {
-            System.out.println("Activar listas de prueba[ 1->SI / 2-> NO ]: ");
-            int eleccion = S.nextInt();
-            
-            if(eleccion == 1) {
-                MenuEmpleados.inicializarListas();
-                MenuPartidos.inicializarLista();
-                MenuFacturas.inicializarListas();
-            }
-        } catch (Exception ex) {
-            System.out.println("comando no valido");
-        }
-        
         new PrimerMenu();
     }
 }

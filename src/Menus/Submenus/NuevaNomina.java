@@ -421,7 +421,6 @@ public class NuevaNomina extends JFrame implements ActionListener{
                                 }
                             }
                             e.agregarNomina(nomina);
-                            elegido.agregarNomina(nomina);
                         }
                     }
                 }
@@ -432,8 +431,8 @@ public class NuevaNomina extends JFrame implements ActionListener{
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
     
+    // GETTERS Y SETTERS
     public ArrayList <Empleado> getElegidos() {
         return elegidos;
     }

@@ -6,7 +6,6 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -25,18 +24,31 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
 /**
- *
+ * Menu de conceptos al darle al botón de gestionar en la pestaña de las nóminas.
+ * Seleccionando una nómina, podrás gestionar sus conceptos y se mostrará en esta
+ * interfaz
+ * 
  * @author Isabel S. Piñana Alonso
  */
 public class MenuConceptos extends JFrame implements ActionListener {
+    
+    // PANELES
     private JPanel mainPanel, buttonsPanel;
     
+    // ELEMENTOS
     private JList <Concepto> listaConceptos2;
     private DefaultListModel <Concepto> conceptoListModel;
     private JButton botonCrear, botonModificar, botonEliminar;
     
+    // NOMINA SELECCIOANDA
     private Nomina nomina;
     
+    /**
+     * CONSTRUCTOR: recoge la nómina elegida por el usuario y le asignamos
+     * el valor para guardarla
+     * 
+     * @param nomina 
+     **/
     public MenuConceptos(Nomina nomina) {
         this.nomina = nomina;
         
@@ -50,6 +62,9 @@ public class MenuConceptos extends JFrame implements ActionListener {
         initialize();
     }
     
+    /**
+     * Método que asigna algunas características de la interfaz
+     **/
     private void initialize() {
         setTitle("Conceptos");
         setSize(800, 500);
@@ -60,6 +75,12 @@ public class MenuConceptos extends JFrame implements ActionListener {
         setResizable(false);
     }
     
+    /**
+     * Método que devuelve el panel principal, conteniendo en él el panel de
+     * botones y la JList de conceptos
+     * 
+     * @return JPanel
+     **/
     private JPanel getMainPanel() {
         mainPanel.add(getButtonsPanel(), BorderLayout.PAGE_START);
         mainPanel.add(getListaConceptos2(), BorderLayout.CENTER);
@@ -67,6 +88,11 @@ public class MenuConceptos extends JFrame implements ActionListener {
         return mainPanel;
     }
     
+    /**
+     * Método que devuelve el panel de los botones
+     * 
+     * @return JPanel
+     **/
     private JPanel getButtonsPanel() {
         botonCrear.addActionListener(this);
         botonModificar.addActionListener(this);
@@ -79,7 +105,11 @@ public class MenuConceptos extends JFrame implements ActionListener {
         return buttonsPanel;
     }
     
-    
+    /**
+     * Método que devuelve la lista visual de los conceptos
+     * 
+     * @return JList
+     **/
     private JList getListaConceptos2() {
         listaConceptos2 = new JList <>(getConceptoListModel());
         listaConceptos2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -87,6 +117,11 @@ public class MenuConceptos extends JFrame implements ActionListener {
         return listaConceptos2;
     }
     
+    /**
+     * Método que devuelve el modelo de la lista de los empleados
+     * 
+     * @return DefaultListModel
+     **/
     private DefaultListModel getConceptoListModel() {
         conceptoListModel = new DefaultListModel<>();
         
@@ -99,6 +134,11 @@ public class MenuConceptos extends JFrame implements ActionListener {
         return conceptoListModel;
     }
     
+    /**
+     * Metodo sobrecargado que recoge las acciones dentro de la interfaz y se le asignara una utilidad a los
+     * botones correspondientes
+     * @param ae ActionEvent 
+     **/
     @Override
     public void actionPerformed(ActionEvent ae) {
         if(ae.getSource() == botonCrear) {
@@ -129,6 +169,9 @@ public class MenuConceptos extends JFrame implements ActionListener {
         }
     }
     
+    /**
+     * Método que abre un formulario para añadir un nuevo concepto
+     **/
     private void nuevoConcepto() { 
         // JFRAME
         JFrame formularioConceptos = new JFrame();
@@ -232,6 +275,9 @@ public class MenuConceptos extends JFrame implements ActionListener {
         });
     }
     
+    /**
+     * Método que modifica el concepto seleccionado por el usuario
+     **/
     private void modificarConcepto(Concepto elegido) {
         // JFRAME
         JFrame formularioConceptos = new JFrame();
