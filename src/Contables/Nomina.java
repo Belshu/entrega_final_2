@@ -3,10 +3,10 @@ package Contables;
 import java.util.ArrayList;
 
 /**
- * Clase que reúne los métodos y atributos necesarios en la creación de la Nomina: 
- * - String: el dni del empleado 
- * - int: el día, el mes y el anio de la creación de la nómina 
- * - ArrayList: una lista de conceptos asignados a la nómina
+ * Clase que reúne los métodos y atributos necesarios en la creación de la
+ * Nomina: - String: el dni del empleado - int: el día, el mes y el anio de la
+ * creación de la nómina - ArrayList: una lista de conceptos asignados a la
+ * nómina
  *
  * @author Ágata Gambín Póveda
  */
@@ -23,7 +23,7 @@ public class Nomina {
      * @param anio int que recoge el anio de la creacion de la nomina
      *
      */
-    public Nomina( int dia, int mes, int anio) {
+    public Nomina(int dia, int mes, int anio) {
         this.dia = dia;
         this.mes = mes;
         this.anio = anio;
@@ -31,9 +31,9 @@ public class Nomina {
     }
 
     // GETTERS Y SETTERS
-    
     /**
      * Devuelve el int dia
+     *
      * @return int
      */
     public int getDia() {
@@ -42,6 +42,7 @@ public class Nomina {
 
     /**
      * Devuelve el int mes
+     *
      * @return int
      */
     public int getMes() {
@@ -50,6 +51,7 @@ public class Nomina {
 
     /**
      * Devuelve el int anio
+     *
      * @return int
      */
     public int getAnio() {
@@ -58,6 +60,7 @@ public class Nomina {
 
     /**
      * Devuelve el ArrayList conceptos
+     *
      * @return ArrayList
      */
     public ArrayList<Concepto> getConceptos() {
@@ -66,14 +69,16 @@ public class Nomina {
 
     /**
      * Añade un concepto a la lista
+     *
      * @param concepto
      */
     public void agregarConcepto(Concepto concepto) {
         conceptos.add(concepto);
     }
 
-    /**nomina
-     * Elimina un concepto de la lista
+    /**
+     * nomina Elimina un concepto de la lista
+     *
      * @param concepto
      */
     public void eliminarConcepto(Concepto concepto) {
@@ -82,6 +87,7 @@ public class Nomina {
 
     /**
      * Devuelve un double que recoge el total de los importes de cada concepto
+     *
      * @return double
      */
     public double calcularTotal() {
@@ -94,6 +100,7 @@ public class Nomina {
 
     /**
      * Devuelve el String sobrecargado de todos los datos de la clase
+     *
      * @return String
      */
     @Override

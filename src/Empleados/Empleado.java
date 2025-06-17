@@ -6,11 +6,10 @@ import java.util.ArrayList;
 
 /**
  * Clase inicial que reúne todos los métodos y atributos, siendo estos últimos:
- * - String: el dni y nombre del empleado. El dni será final 
- * - int: el número de teléfono 
- * - boolean: indicación de si está eliminado o no 
- * - Date: indicación de la fecha de eliminación en caso que lo sea 
- * - ArrayList: todas las nóminas asociadas a él TODOS los atributos serán protegidos
+ * - String: el dni y nombre del empleado. El dni será final - int: el número de
+ * teléfono - boolean: indicación de si está eliminado o no - Date: indicación
+ * de la fecha de eliminación en caso que lo sea - ArrayList: todas las nóminas
+ * asociadas a él TODOS los atributos serán protegidos
  *
  * @author Santiago Colomer Andreu
  *

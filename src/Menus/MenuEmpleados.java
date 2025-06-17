@@ -26,9 +26,9 @@ import javax.swing.ListSelectionModel;
 /**
  * Menu de gestión de empleados: se crean unas listas estáticas que contendrán
  * todos los empleados y por separado; los jugadores, técnicos y directivos.
- * Contiene tres ventanas de JTabbedPane que divide la forma de mostrar las listas
- * en esas cuatro pestañas. En base a los botones, se sabrá lo que desea el usuario
- * hacer con ello
+ * Contiene tres ventanas de JTabbedPane que divide la forma de mostrar las
+ * listas en esas cuatro pestañas. En base a los botones, se sabrá lo que desea
+ * el usuario hacer con ello
  *
  * @author Isabel Shuang Piñana Alonso
  */
@@ -40,7 +40,7 @@ public class MenuEmpleados implements ActionListener {
     // PANELES
     private final JPanel mainPanel, todosPanel, jugadoresPanel, tecnicosPanel, directivosPanel, buttonsPanel;
     private final JTabbedPane ventanas;
-    
+
     // ELEMENTOS
     private final JButton botonAnadir, botonModificar, botonImprimir, botonImprimirEliminados, botonEliminar;
     private JList<Empleado> listaEmpleados2;
@@ -53,14 +53,14 @@ public class MenuEmpleados implements ActionListener {
     private DefaultListModel<Jugador> jugadorListModel;
     private DefaultListModel<Tecnico> tecnicoListModel;
     private DefaultListModel<Directivo> directivoListModel;
-    
+
     // EMPLEADO ELEGIDO POR EL USUARIO
     Empleado elegido;
-    
+
     // OTRA INTERFAZ
     private MenuFacturas menuFacturas;
     private MenuPartidos menuPartidos;
-    
+
     /**
      * Método que inicializa las listas de prueba
      */
@@ -78,16 +78,17 @@ public class MenuEmpleados implements ActionListener {
     }
 
     /**
-     * CONSTRUCTOR: inicialización de los atributos finales. Pide el menuFacturas
-     * creado para que, cuando se elimine un empleado, se actualice la JList del otro
-     * menu
+     * CONSTRUCTOR: inicialización de los atributos finales. Pide el
+     * menuFacturas creado para que, cuando se elimine un empleado, se actualice
+     * la JList del otro menu
+     *
      * @param menuFacturas
      */
     public MenuEmpleados(MenuFacturas menuFacturas, MenuPartidos menuPartidos) {
         this.menuFacturas = menuFacturas;
         this.menuPartidos = menuPartidos;
-        
-        if(listaEmpleados == null) {
+
+        if (listaEmpleados == null) {
             listaEmpleados = new ArrayList<>();
         }
 
@@ -110,19 +111,21 @@ public class MenuEmpleados implements ActionListener {
     }
 
     /**
-     * Método que devuelve el panel principal
-     * Será público para pasarlo a las ventanas del menú principal
+     * Método que devuelve el panel principal Será público para pasarlo a las
+     * ventanas del menú principal
+     *
      * @return JPanel
      */
     public JPanel getMainPanel() {
         mainPanel.add(getButtonsPanel(), BorderLayout.PAGE_START);
         mainPanel.add(new JScrollPane(getVentanas()), BorderLayout.CENTER);
-        
+
         return mainPanel;
     }
 
     /**
      * Método que devuelve el panel de botones
+     *
      * @return buttonsPanel
      */
     private JPanel getButtonsPanel() {
@@ -134,7 +137,7 @@ public class MenuEmpleados implements ActionListener {
 
         buttonsPanel.add(botonAnadir);
         buttonsPanel.add(botonModificar);
-        buttonsPanel.add(botonEliminar);        
+        buttonsPanel.add(botonEliminar);
         buttonsPanel.add(botonImprimir);
         buttonsPanel.add(botonImprimirEliminados);
 
@@ -143,8 +146,10 @@ public class MenuEmpleados implements ActionListener {
 
     /**
      * Método que devuelve las ventanas, añadiendo los paneles de cada una
+     *
      * @return JTabbedPane
-     **/    
+     *
+     */
     private JTabbedPane getVentanas() {
         ventanas.add("Todos", getTodosPanel());
         ventanas.add("Jugadores", getJugadoresPanel());
@@ -155,9 +160,10 @@ public class MenuEmpleados implements ActionListener {
 
     /**
      * Método que devuelve el panel de todos y muestra los empleados
-     * 
+     *
      * @return JPanel
-     **/
+     *
+     */
     private JPanel getTodosPanel() {
         todosPanel.add(new JScrollPane(getListaEmpleados2()), BorderLayout.CENTER);
         return todosPanel;
@@ -165,9 +171,10 @@ public class MenuEmpleados implements ActionListener {
 
     /**
      * Método que devuelve la lista visual de los empleados
-     * 
+     *
      * @return JList
-     **/
+     *
+     */
     private JList<Empleado> getListaEmpleados2() {
         listaEmpleados2 = new JList<>(getEmpleadoListModel());
         listaEmpleados2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -176,26 +183,28 @@ public class MenuEmpleados implements ActionListener {
 
     /**
      * Método que devuelve el modelo de la lista de los empleados
-     * 
+     *
      * @return DefaultListModel
-     **/
+     *
+     */
     private DefaultListModel<Empleado> getEmpleadoListModel() {
         empleadoListModel = new DefaultListModel<>();
-        
-        if(!listaEmpleados.isEmpty()) {
+
+        if (!listaEmpleados.isEmpty()) {
             for (Empleado e : listaEmpleados) {
                 if (!e.isEliminado()) {
                     empleadoListModel.addElement(e);
                 }
             }
         }
-        
+
         return empleadoListModel;
     }
 
     /**
      * Método que devuelve el panel de todos y muestra los jugadores
-     **/
+     *
+     */
     private JPanel getJugadoresPanel() {
         jugadoresPanel.add(new JScrollPane(getListaJugadores2()), BorderLayout.CENTER);
         return jugadoresPanel;
@@ -203,7 +212,8 @@ public class MenuEmpleados implements ActionListener {
 
     /**
      * Método que devuelve la lista visual de los jugadores
-     **/
+     *
+     */
     private JList<Jugador> getListaJugadores2() {
         listaJugadores2 = new JList<>(getJugadorListModel());
         listaJugadores2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -212,13 +222,14 @@ public class MenuEmpleados implements ActionListener {
 
     /**
      * Método que devuelve el modelo de la lista de los jugadores
-     **/
+     *
+     */
     private DefaultListModel<Jugador> getJugadorListModel() {
         jugadorListModel = new DefaultListModel<>();
 
-        if(!listaEmpleados.isEmpty()) {
-            for(Empleado e : listaEmpleados) {
-                if(e instanceof Jugador j && !e.isEliminado()) {
+        if (!listaEmpleados.isEmpty()) {
+            for (Empleado e : listaEmpleados) {
+                if (e instanceof Jugador j && !e.isEliminado()) {
                     jugadorListModel.addElement(j);
                 }
             }
@@ -228,7 +239,8 @@ public class MenuEmpleados implements ActionListener {
 
     /**
      * Método que devuelve el panel de todos y muestra los tecnicos
-     **/
+     *
+     */
     private JPanel getTecnicosPanel() {
         tecnicosPanel.add(new JScrollPane(getListaTecnicos2()), BorderLayout.CENTER);
         return tecnicosPanel;
@@ -236,23 +248,25 @@ public class MenuEmpleados implements ActionListener {
 
     /**
      * Método que devuelve la lista visual de los tecnicos
-     **/
+     *
+     */
     private JList<Tecnico> getListaTecnicos2() {
         listaTecnicos2 = new JList<>(getTecnicoListModel());
-        listaTecnicos2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);        
+        listaTecnicos2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         return listaTecnicos2;
     }
 
     /**
      * Método que devuelve el modelo de la lista de los tecnicos
-     **/
+     *
+     */
     private DefaultListModel<Tecnico> getTecnicoListModel() {
         tecnicoListModel = new DefaultListModel<>();
-        if(!listaEmpleados.isEmpty()) {
-            for(Empleado e : listaEmpleados) {
-                if(e instanceof Tecnico t && !t.isEliminado()) {
+        if (!listaEmpleados.isEmpty()) {
+            for (Empleado e : listaEmpleados) {
+                if (e instanceof Tecnico t && !t.isEliminado()) {
                     tecnicoListModel.addElement(t);
-                } 
+                }
             }
         }
         return tecnicoListModel;
@@ -260,7 +274,8 @@ public class MenuEmpleados implements ActionListener {
 
     /**
      * Método que devuelve el panel de todos y muestra los directivos
-     **/
+     *
+     */
     private JPanel getDirectivosPanel() {
         directivosPanel.add(new JScrollPane(getListaDirectivos2()), BorderLayout.CENTER);
         return directivosPanel;
@@ -268,21 +283,23 @@ public class MenuEmpleados implements ActionListener {
 
     /**
      * Método que devuelve la lista visual de los directivos
-     **/
+     *
+     */
     private JList<Directivo> getListaDirectivos2() {
         listaDirectivos2 = new JList<>(getDirectivoListModel());
-        listaDirectivos2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);        
+        listaDirectivos2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         return listaDirectivos2;
     }
 
     /**
      * Método que devuelve el modelo de la lista de los directivos
-     **/
+     *
+     */
     private DefaultListModel<Directivo> getDirectivoListModel() {
         directivoListModel = new DefaultListModel<>();
-        if(!listaEmpleados.isEmpty()) {
-            for(Empleado e : listaEmpleados) {
-                if(e instanceof Directivo d && !e.isEliminado()) {
+        if (!listaEmpleados.isEmpty()) {
+            for (Empleado e : listaEmpleados) {
+                if (e instanceof Directivo d && !e.isEliminado()) {
                     directivoListModel.addElement(d);
                 }
             }
@@ -291,10 +308,12 @@ public class MenuEmpleados implements ActionListener {
     }
 
     /**
-     * Metodo sobrecargado que recoge las acciones dentro de la interfaz y se le asignara una utilidad a los
-     * botones correspondientes
+     * Metodo sobrecargado que recoge las acciones dentro de la interfaz y se le
+     * asignara una utilidad a los botones correspondientes
+     *
      * @param ae ActionEvent 
-     **/
+     *
+     */
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == botonAnadir) {
@@ -311,9 +330,10 @@ public class MenuEmpleados implements ActionListener {
     }
 
     /**
-     * Método que añade el empleado nuevo al cerrar la ventana creada en la interfaz NuevoEmpleado y
-     * actualiza las listas y los modelos de listas
-     **/
+     * Método que añade el empleado nuevo al cerrar la ventana creada en la
+     * interfaz NuevoEmpleado y actualiza las listas y los modelos de listas
+     *
+     */
     private void anadirEmpleado() {
         try {
             NuevoEmpleado nuevoEmpleado = new NuevoEmpleado();
@@ -356,7 +376,7 @@ public class MenuEmpleados implements ActionListener {
                                 directivoListModel.addElement(directivo);
                             }
                         }
-                        
+
                         listaEmpleados2.setModel(empleadoListModel);
                         listaJugadores2.setModel(jugadorListModel);
                         listaTecnicos2.setModel(tecnicoListModel);
@@ -369,10 +389,10 @@ public class MenuEmpleados implements ActionListener {
         }
     }
 
-    
     /**
-     * Método que modifica el empleado seleccionado al cerrar la ventana creada en la interfaz NuevoEmpleado y
-     * actualiza las listas y los modelos de listas
+     * Método que modifica el empleado seleccionado al cerrar la ventana creada
+     * en la interfaz NuevoEmpleado y actualiza las listas y los modelos de
+     * listas
      */
     private void modificarEmpleado() {
         switch (ventanas.getSelectedIndex()) {
@@ -406,7 +426,7 @@ public class MenuEmpleados implements ActionListener {
                                 jugador.setEdad(modificarEmpleado.getEdad());
                                 jugador.setValor(modificarEmpleado.getValor());
                                 jugador.setEstado(modificarEmpleado.isEstado());
-                                
+
                                 menuPartidos.updateListaJugadores(jugador, 1);
                             } else if (elegido instanceof Tecnico tecnico) {
                                 tecnico.setPuesto(modificarEmpleado.getPuesto());
@@ -431,10 +451,12 @@ public class MenuEmpleados implements ActionListener {
     }
 
     /**
-     * Método que elimina el empleado seleccionado y actualiza las listas y los modelos de listas
-     **/    
+     * Método que elimina el empleado seleccionado y actualiza las listas y los
+     * modelos de listas
+     *
+     */
     private void eliminarEmpleado() {
-        
+
         switch (ventanas.getSelectedIndex()) {
             case 0 ->
                 elegido = listaEmpleados2.getSelectedValue();
@@ -453,9 +475,9 @@ public class MenuEmpleados implements ActionListener {
             if (confirmar == JOptionPane.YES_OPTION) {
                 elegido.setEliminado(true);
                 elegido.setFechaEliminacion(new Date());
-                
-                    empleadoListModel.removeElement(elegido);
-                
+
+                empleadoListModel.removeElement(elegido);
+
                 if (elegido instanceof Jugador j) {
                     jugadorListModel.removeElement(elegido);
                     menuPartidos.updateListaJugadores(j, 2);
@@ -469,7 +491,7 @@ public class MenuEmpleados implements ActionListener {
                 listaJugadores2.setModel(jugadorListModel);
                 listaTecnicos2.setModel(tecnicoListModel);
                 listaDirectivos2.setModel(directivoListModel);
-                
+
                 menuFacturas.updateNominas(elegido);
             }
         } else {
@@ -477,12 +499,13 @@ public class MenuEmpleados implements ActionListener {
         }
     }
 
-    
     // GETTERS DE LISTAS ESTATICAS
     /**
      * Método que devuelve la ArrayList estática de empleados
+     *
      * @return ArrayList Empleado
-     **/
+     *
+     */
     public static ArrayList<Empleado> getListaEmpleados() {
         return listaEmpleados;
     }

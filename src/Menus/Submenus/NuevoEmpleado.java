@@ -19,9 +19,10 @@ import javax.swing.JTextField;
 /**
  * Menu del programa que hereda de JFrame e implementa la interfaz
  * ActionListener
- * 
+ *
  * @author Isabel Shuang Piñana Alonso
- **/
+ *
+ */
 public class NuevoEmpleado extends JFrame implements ActionListener, ItemListener {
 
     // PANELES
@@ -51,8 +52,10 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
     private boolean estado = true;
 
     /**
-     * CONSTRUCTOR: inicializa los atributos finales
-     **/
+     * CONSTRUCTOR: inicializa los atributos finalesla ArrayList estática de
+     * partidos
+     *
+     */
     public NuevoEmpleado() {
         mainPanel = new JPanel(new BorderLayout());
         radioButtonsPanel = new JPanel(new FlowLayout());
@@ -95,20 +98,21 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
     }
 
     /**
-     * Método que inicia el tamaño de la interfaz, poner el panel contenido y 
+     * Método que inicia el tamaño de la interfaz, poner el panel contenido y
      * diversas propiedades
-     **/
+     *
+     */
     private void initialize() {
         int altura = 600;
-        
-        if(jugador.isSelected()) {
+
+        if (jugador.isSelected()) {
             altura = 500;
-        } else if(tecnico.isSelected()) {
+        } else if (tecnico.isSelected()) {
             altura = 300;
         } else if (directivo.isSelected()) {
             altura = 250;
         }
-        
+
         setSize(500, altura);
         setTitle("Nuevo empleado");
         setContentPane(getMainPanel());
@@ -118,11 +122,11 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
         setVisible(true);
     }
 
-
     /**
      * Método que devuelve el panel principal
+     *
      * @return JPanel
-     */    
+     */
     private JPanel getMainPanel() {
         mainPanel.add(margenLabel1, BorderLayout.LINE_START);
         mainPanel.add(margenLabel2, BorderLayout.LINE_END);
@@ -133,9 +137,9 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
         return mainPanel;
     }
 
-    
     /**
      * Método que devuelve el panel que contiene los radiobuttons
+     *
      * @return JPanel
      */
     private JPanel getRadioButtonsPanel() {
@@ -158,11 +162,11 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
         return radioButtonsPanel;
     }
 
-    
     /**
-     * Método que devuelve el panel que contiene un formulario, compuesto por los
-     * labeles y los textfields y añaden ajustando el tamaño dependiendo del tipo
-     * de empleado elegido
+     * Método que devuelve el panel que contiene un formulario, compuesto por
+     * los labeles y los textfields y añaden ajustando el tamaño dependiendo del
+     * tipo de empleado elegido
+     *
      * @return JPanel
      */
     private JPanel getFormularioPanel() {
@@ -172,7 +176,7 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
         formularioPanel.add(nombreTextField);
         formularioPanel.add(telfLabel);
         formularioPanel.add(telfTextField);
-        
+
         if (jugador.isSelected()) {
             formularioPanel.setLayout(new GridLayout(0, 2, 15, 30));
             formularioPanel.add(apellidoLabel);
@@ -184,7 +188,7 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
             formularioPanel.add(valorLabel);
             formularioPanel.add(valorTextField);
         } else if (tecnico.isSelected()) {
-            formularioPanel.setLayout(new GridLayout(0, 2, 15, 15));            
+            formularioPanel.setLayout(new GridLayout(0, 2, 15, 15));
             formularioPanel.add(puestoLabel);
             formularioPanel.add(puestoTextField);
             formularioPanel.add(especialidadLabel);
@@ -194,13 +198,14 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
             formularioPanel.add(cargoLabel);
             formularioPanel.add(cargoTextField);
         }
-        
+
         return formularioPanel;
     }
 
-    
     /**
-     * Método que devuelve el panel que contiene los botones de aceptar o cancelar
+     * Método que devuelve el panel que contiene los botones de aceptar o
+     * cancelar
+     *
      * @return JPanel
      */
     private JPanel getButtonsPanel() {
@@ -213,14 +218,14 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
         return buttonsPanel;
     }
 
-    
     /**
      * Método que devuelve el panel actualizado del formulario, ajustando tamaño
      * y elementos necesarios dependiendo del tipo
+     *
      * @return JPanel
      */
     private void updateFormularioPanel() {
-        
+
         formularioPanel.removeAll();
 
         formularioPanel.add(dniLabel);
@@ -244,7 +249,7 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
             formularioPanel.add(valorTextField);
             altura = 500;
         } else if (tecnico.isSelected()) {
-            formularioPanel.setLayout(new GridLayout(0, 2, 15, 15));            
+            formularioPanel.setLayout(new GridLayout(0, 2, 15, 15));
             formularioPanel.add(puestoLabel);
             formularioPanel.add(puestoTextField);
             formularioPanel.add(especialidadLabel);
@@ -258,7 +263,7 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
         }
 
         setSize(500, altura);
-        
+
         formularioPanel.revalidate();
         formularioPanel.repaint();
     }
@@ -277,36 +282,39 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
     }
 
     /**
-     * Metodo sobrecargado que recoge las acciones dentro de la interfaz y se le asignara una utilidad a los
-     * botones correspondientes y el tipo de radiobutton seleccionado
+     * Metodo sobrecargado que recoge las acciones dentro de la interfaz y se le
+     * asignara una utilidad a los botones correspondientes y el tipo de
+     * radiobutton seleccionado
+     *
      * @param ae ActionEvent 
-     **/    
+     *
+     */
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == botonAnadir) {
-            if(dniTextField.getText().isEmpty() || nombreTextField.getText().isEmpty() 
+            if (dniTextField.getText().isEmpty() || nombreTextField.getText().isEmpty()
                     || telfTextField.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Complete todos los campos, por favor.", 
+                JOptionPane.showMessageDialog(this, "Complete todos los campos, por favor.",
                         "Faltan campos", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            
+
             try {
                 dni = dniTextField.getText();
                 nombre = nombreTextField.getText();
                 telf = Integer.parseInt(telfTextField.getText());
-                
+
                 if (jugador.isSelected()) {
-                    
-                    if(apellidoTextField.getText().isEmpty() || demarcacionTextField.getText().isEmpty()
+
+                    if (apellidoTextField.getText().isEmpty() || demarcacionTextField.getText().isEmpty()
                             || edadTextField.getText().isEmpty() || valorTextField.getText().isEmpty()) {
-                        JOptionPane.showMessageDialog(this, "Complete todos los campos, por favor.", 
+                        JOptionPane.showMessageDialog(this, "Complete todos los campos, por favor.",
                                 "Faltan campos", JOptionPane.WARNING_MESSAGE);
                         return;
                     }
-                    
+
                     demarcacion = Integer.parseInt(demarcacionTextField.getText());
-                    
+
                     if (demarcacion < 0 || demarcacion > 11) {
                         JOptionPane.showMessageDialog(this, "La demarcación debe ser entre 0 y 11", "WARNING", JOptionPane.WARNING_MESSAGE);
                         demarcacion = 0;
@@ -317,11 +325,11 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
                         edad = Integer.parseInt(edadTextField.getText());
                         valor = Double.parseDouble(valorTextField.getText());
                     }
-                    
+
                 } else if (tecnico.isSelected()) {
-                    
-                    if(puestoTextField.getText().isEmpty() || especialidadTextField.getText().isEmpty()) {
-                        JOptionPane.showMessageDialog(this, "Complete todos los campos, por favor.", 
+
+                    if (puestoTextField.getText().isEmpty() || especialidadTextField.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(this, "Complete todos los campos, por favor.",
                                 "Faltan campos", JOptionPane.WARNING_MESSAGE);
                         return;
                     }
@@ -329,13 +337,13 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
                     puesto = puestoTextField.getText();
                     especialidad = especialidadTextField.getText();
                 } else if (directivo.isSelected()) {
-                    
-                    if(cargoTextField.getText().isEmpty()) {
-                        JOptionPane.showMessageDialog(this, "Complete todos los campos, por favor.", 
+
+                    if (cargoTextField.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(this, "Complete todos los campos, por favor.",
                                 "Faltan campos", JOptionPane.WARNING_MESSAGE);
                         return;
                     }
-                    
+
                     cargo = cargoTextField.getText();
                 }
                 dispose();
@@ -348,9 +356,10 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
     }
 
     /**
-     * Método sobrecargado que recoge el estado y el cambio a cada elemento similar, en este
-     * caso los radiobutton
-     **/
+     * Método sobrecargado que recoge el estado y el cambio a cada elemento
+     * similar, en este caso los radiobutton
+     *
+     */
     @Override
     public void itemStateChanged(ItemEvent e) {
         if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -358,92 +367,112 @@ public class NuevoEmpleado extends JFrame implements ActionListener, ItemListene
         }
     }
 
-
     /**
      * Método que devuelve el String dni
+     *
      * @return String
-     **/    
+     *
+     */
     public String getDni() {
         return dni;
     }
 
     /**
      * Método que devuelve el String nombre
+     *
      * @return String
-     **/    
+     *
+     */
     public String getNombre() {
         return nombre;
     }
 
     /**
      * Método que devuelve el String apellido
+     *
      * @return String
-     **/
+     *
+     */
     public String getApellido() {
         return apellido;
     }
 
     /**
      * Método que devuelve el String puesto
+     *
      * @return String
-     **/
+     *
+     */
     public String getPuesto() {
         return puesto;
     }
 
-    
     /**
      * Método que devuelve el String especialidad
+     *
      * @return String
-     **/
+     *
+     */
     public String getEspecialidad() {
         return especialidad;
     }
 
     /**
      * Método que devuelve el String cargo
+     *
      * @return String
-     **/
+     *
+     */
     public String getCargo() {
         return cargo;
     }
 
     /**
      * Método que devuelve el int telf
+     *
      * @return int
-     **/
+     *
+     */
     public int getTelf() {
         return telf;
     }
-    
+
     /**
      * Método que devuelve el int demarcacion
+     *
      * @return int
-     **/
+     *
+     */
     public int getDemarcacion() {
         return demarcacion;
     }
 
     /**
      * Método que devuelve el int edad
+     *
      * @return int
-     **/    
+     *
+     */
     public int getEdad() {
         return edad;
     }
 
     /**
      * Método que devuelve el double valor
+     *
      * @return double
-     **/    
+     *
+     */
     public double getValor() {
         return valor;
     }
 
     /**
      * Método que devuelve el boolean estado
+     *
      * @return boolean
-     **/    
+     *
+     */
     public boolean isEstado() {
         return estado;
     }
